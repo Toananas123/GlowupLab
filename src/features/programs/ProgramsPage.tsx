@@ -5,6 +5,7 @@ import { FINISHERS } from '../../data/circuits'
 import { OBJECTIVES, PROGRAM_EQUIPMENT } from '../../data/programs'
 import { WEEK_DAYS_SHORT } from '../../lib/constants'
 import { useWorkout } from '../../store/WorkoutStore'
+import { LEVELS, levelLabel } from './programEngine'
 import {
   Award,
   Calendar,
@@ -44,6 +45,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
       startWorkout,
     } = useWorkout(),
     [m, h] = useState(`all`),
+    [lvl, setLvl] = useState(`all`),
     [g, v] = useState(`all`),
     [y, b] = useState(null),
     [x, S] = useState({}),
@@ -108,7 +110,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
   let Ae = (e) => {
       ;(Ee(e), setTimeout(() => Ee(null), 3500))
     },
-    je = programs.filter((e) => !((m !== `all` && e.objective !== m) || (g !== `all` && !e.equipment.includes(g)))),
+    je = programs.filter((e) => !((m !== `all` && e.objective !== m) || (g !== `all` && !e.equipment.includes(g)) || (lvl !== `all` && levelLabel(e.level) !== lvl && levelLabel(e.level) !== `Pour toutes`))),
     Me = (e) => {
       ;(w(e), e.sessionsPerWeek === 4 ? E([1, 2, 4, 5]) : e.sessionsPerWeek >= 5 ? E([1, 2, 3, 5, 6]) : E([1, 3, 5]))
     },
@@ -322,6 +324,15 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
           </div>
         </div>
       )}
+      {/* Classement par niveau (README) */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" role="group" aria-label="Filtrer par niveau">
+        {[`all`, ...LEVELS].map((l) => (
+          <button key={l} type="button" onClick={() => setLvl(l)} aria-pressed={lvl === l}
+            className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition ${lvl === l ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F] hover:text-[#1F0C17]`}`}>
+            {l === `all` ? `Tous les niveaux` : l}
+          </button>
+        ))}
+      </div>
       <div className="space-y-3">
         <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
           <button
@@ -429,7 +440,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                     </div>
                     <div className="p-2.5 rounded-2xl bg-[#FDF2F8] border border-[#FBCFE8]">
                       <span className="text-[10px] font-bold text-[#7A616F] uppercase block">Niveau</span>
-                      <span className="text-xs font-extrabold text-[#781539]">{e.level}</span>
+                      <span className="text-xs font-extrabold text-[#781539]">{levelLabel(e.level)}</span>
                     </div>
                   </div>
                   <p className="text-xs text-[#593E4C] leading-relaxed">{e.description}</p>

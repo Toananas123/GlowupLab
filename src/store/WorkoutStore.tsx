@@ -5,6 +5,7 @@ import { PROGRAMS } from '../data/programs'
 import { DEFAULT_ROUTINES } from '../data/routines'
 import { useAuth } from '../features/auth/AuthProvider'
 import { adjustWeight, todayAdjust } from '../features/cycle/cycle'
+import { applyProgramRules } from '../features/programs/programEngine'
 import { getJournal, getState, onRemoteChange, openCloud, patchState, setJournal, type CloudData } from '../lib/cloud'
 import { clean, DAY_NAMES, decodeBase64, encodeBase64, localISO, readJSON, stripLeadingEmoji, todayISO, WEEK_ORDER, writeJSON } from '../lib/utils'
 import type {
@@ -266,6 +267,22 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     const { weeklyPlans: plans, activeProgram: ap } = state.current
     const today = plans.find((d) => d.dayOfWeek === new Date().getDay())
     const cycleAdj = todayAdjust().total
+    // Programme en cours : progression automatique (phase de la semaine, version au-dessus, rotation par blocs).
+    const programId = input.programId || today?.programId || (ap && !ap.isCompleted ? ap.programId : undefined)
+    let programLabel: string | undefined
+    if (ap && !ap.isCompleted && programId === ap.programId && input.exercises.length) {
+      const lastWeight = (id: string) => {
+        for (const w of state.current.workouts) {
+          const e = w.status === 'completed' ? w.exercises.find((x) => x.exerciseId === id) : undefined
+          const done = e?.sets.filter((x) => x.completed && (x.actualWeight ?? 0) > 0)
+          if (done?.length) return done[done.length - 1].actualWeight
+        }
+        return undefined
+      }
+      const res = applyProgramRules(input.exercises, ap, [...EXERCISES, ...state.current.customExercises], lastWeight)
+      input = { ...input, exercises: res.exercises }
+      programLabel = res.label
+    }
     const w: Workout = clean({
       id: `workout_${Date.now()}`,
       userId: uid ?? 'guest',
@@ -280,7 +297,8 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       loadAdjustPct: cycleAdj || undefined,
       finisher: input.finisher,
       finisherPresetId: input.finisherPresetId || today?.finisherPresetId,
-      programId: input.programId || today?.programId || (ap && !ap.isCompleted ? ap.programId : undefined),
+      programId,
+      programPhase: programLabel,
       programWeekNumber: input.programWeekNumber || today?.programWeekNumber || ap?.currentWeek,
       programDayId: input.programDayId || today?.programDayId,
       notes: input.notes,

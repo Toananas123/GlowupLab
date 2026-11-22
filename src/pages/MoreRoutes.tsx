@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { PlanningPage } from '../features/planning/PlanningPage'
+import { ProgramsExtras } from '../features/programs/ProgramsExtras'
 import { ProgramsPage } from '../features/programs/ProgramsPage'
 import { MeasurementsPage } from '../features/progress/MeasurementsPage'
 import { ProgressExtras } from '../features/progress/ProgressExtras'
@@ -12,7 +13,7 @@ export function PlanningRoute() {
 
 export function ProgramsRoute() {
   const navigate = useNavigate()
-  return <ProgramsPage onStartWorkoutSession={() => navigate('/seance')} onNavigateToPlanning={() => navigate('/planning')} />
+  return <><ProgramsExtras /><ProgramsPage onStartWorkoutSession={() => navigate('/seance')} onNavigateToPlanning={() => navigate('/planning')} /></>
 }
 
 export function ProgressRoute() {
