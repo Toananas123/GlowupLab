@@ -100,7 +100,7 @@ interface WorkoutStore {
   stopActiveProgram: () => Promise<void>
   exportProgramCode: (p: Program) => string
   importProgramFromCode: (code: string) => Promise<Program | null>
-  updateExerciseSettings: (exerciseId: string, settings: Record<string, unknown>) => Promise<void>
+  updateExerciseSettings: (exerciseId: string, settings: string) => Promise<void>
   loadSharedWorkout: (code: string) => boolean
   createShareCode: (w: Workout | Routine) => string
   addMeasurement: (m: Omit<Measurement, 'id'>) => Promise<void>
@@ -521,7 +521,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   }, [uid])
 
   // ---------- Réglages machine ----------
-  const updateExerciseSettings = useCallback(async (exerciseId: string, settings: Record<string, unknown>) => {
+  const updateExerciseSettings = useCallback(async (exerciseId: string, settings: string) => {
     const next = { ...state.current.exerciseSettings, [exerciseId]: settings }
     setExerciseSettings(next)
     if (uid) { writeJSON(key('settings'), next); await persist('réglages', () => setDoc(userDoc('profile', 'exercise_settings'), clean(next), { merge: true })) }

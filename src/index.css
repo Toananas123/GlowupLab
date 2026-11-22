@@ -71,3 +71,13 @@ button:disabled { cursor: not-allowed; }
 @keyframes fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .animate-fade-up { animation: fade-up .25s ease-out both; }
 @media (prefers-reduced-motion: reduce) { .animate-fade-up { animation: none; } }
+
+/* Classes reprises de l'app d'origine */
+.font-display { font-family: var(--font-display); letter-spacing: -.022em; font-weight: 700; }
+.liquid-tab-enter { animation: .2s cubic-bezier(.16,1,.3,1) liquidTabEnter; }
+.liquid-sheet-backdrop { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); background-color: #2b091c85; animation: .26s cubic-bezier(.16,1,.3,1) forwards sheetBackdropFade; }
+.liquid-sheet-container { will-change: transform, opacity; animation: .32s cubic-bezier(.16,1,.3,1) forwards sheetSlideUp; box-shadow: inset 0 1.5px 2px #fffffff2, 0 -12px 36px -4px #83184329, 0 24px 60px #2b091c66; }
+@keyframes liquidTabEnter { 0% { opacity: 0 } to { opacity: 1 } }
+@keyframes sheetBackdropFade { 0% { opacity: 0 } to { opacity: 1 } }
+@keyframes sheetSlideUp { 0% { opacity: .9; transform: translateY(100%) } to { opacity: 1; transform: translateY(0) } }
+@media (prefers-reduced-motion: reduce) { .liquid-sheet-container, .liquid-sheet-backdrop, .liquid-tab-enter { animation: none; } }

@@ -230,7 +230,8 @@ export interface WeekTemplate {
 
 export interface GearItem { id: string; name: string; shortLabel: string; icon: string; reason: string; tip: string }
 
-export type ExerciseSettings = Record<string, Record<string, unknown>>
+/** Réglages machine notés par exercice (texte libre, ex. « siège 4 »). */
+export type ExerciseSettings = Record<string, string>
 
 export interface PreviousPerformance { weight: number; reps: number; date: string }
 export interface OverloadSuggestion {

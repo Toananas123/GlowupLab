@@ -57,3 +57,20 @@ export const CATEGORY_TILES = [
   { category: 'abs', title: 'Abdos & Gainage' },
   { category: 'cardio', title: 'Cardio & Circuits' },
 ] as const
+
+/** Transforme un exercice de la bibliothèque en exercice de séance (séries par défaut, charge précédente). */
+export function toWorkoutExercise(ex: import('../types').Exercise, previousWeight = 0): WorkoutExercise {
+  const t = Date.now()
+  const reps = parseInt(String(ex.defaultReps ?? '10'), 10) || 10
+  return {
+    id: `ex_${t}`,
+    exerciseId: ex.id,
+    exerciseName: ex.name,
+    category: ex.category,
+    equipment: ex.equipment,
+    restSeconds: ex.defaultRestSeconds ?? 75,
+    sets: Array.from({ length: ex.defaultSets ?? 3 }, (_, i) => ({
+      id: `s_${t}_${i}`, setNumber: i + 1, targetReps: reps, targetWeight: previousWeight, actualReps: reps, actualWeight: previousWeight, completed: false,
+    })),
+  }
+}

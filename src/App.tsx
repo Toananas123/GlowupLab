@@ -13,6 +13,7 @@ const page = <T extends Record<string, React.ComponentType>>(loader: () => Promi
   lazy(() => loader().then((m) => ({ default: m[name] as React.ComponentType })))
 
 const HomePage = page(() => import('./pages/HomePage'), 'HomePage')
+const ExercisesRoute = page(() => import('./pages/ExercisesRoute'), 'ExercisesRoute')
 
 function Splash() {
   return <div className="grid min-h-dvh place-items-center bg-bg"><Logo size={56} className="animate-pulse" /></div>
@@ -29,7 +30,7 @@ function Routed() {
           <Route element={<AppShell />}>
             <Route index element={<HomePage />} />
             <Route path="programmes" element={<Placeholder title="Programmes" />} />
-            <Route path="exercices" element={<Placeholder title="Exercices" />} />
+            <Route path="exercices" element={<ExercisesRoute />} />
             <Route path="seances" element={<Placeholder title="Séances" />} />
             <Route path="seance" element={<Placeholder title="Séance en cours" />} />
             <Route path="planning" element={<Placeholder title="Planning" />} />
