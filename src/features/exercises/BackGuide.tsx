@@ -64,5 +64,31 @@ export const BackGuide = ({ onLaunchBackRoutine }) => (
         </div>
       ))}
     </div>
+    <GripGuide />
+  </div>
+)
+
+/** Prises de tirage (README, guide Dos). */
+const GRIPS = [
+  { name: 'Prise large', target: 'Haut du dos et grand dorsal', how: 'Mains plus larges que les épaules, coudes vers l’extérieur : idéale pour le milieu du dos sans trop élargir.', tip: 'Tire vers le haut de la poitrine, poitrine sortie.' },
+  { name: 'Prise serrée', target: 'Grand dorsal et bas des dorsaux', how: 'Poignée en V ou mains à largeur d’épaules, coudes le long du corps.', tip: 'Amène les coudes vers les hanches, sans balancer le buste.' },
+  { name: 'Supination', target: 'Dorsaux et biceps', how: 'Paumes vers toi, mains à largeur d’épaules : plus facile pour charger, les biceps aident.', tip: 'Garde les épaules basses, loin des oreilles.' },
+  { name: 'Corde', target: 'Arrière d’épaule et milieu du dos', how: 'Corde tenue pouces en arrière, on écarte les mains en fin de tirage (face pull, tirage horizontal).', tip: 'Ouvre les coudes haut et serre les omoplates 1 seconde.' },
+  { name: 'Un bras', target: 'Correction des déséquilibres', how: 'Poignée simple, une main à la fois (rowing ou tirage) : plus d’amplitude et de contrôle.', tip: 'Le buste reste face à la machine, ne tourne pas le tronc.' },
+]
+
+export const GripGuide = () => (
+  <div className="space-y-2.5">
+    <h3 className="font-display text-base font-bold text-[#1F0C17]">Les prises de tirage</h3>
+    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+      {GRIPS.map((g) => (
+        <div key={g.name} className="rounded-2xl border border-[#F3E5ED] bg-white p-3.5">
+          <p className="text-sm font-bold text-[#781539]">{g.name}</p>
+          <p className="text-xs font-semibold text-[#7A616F]">{g.target}</p>
+          <p className="mt-1.5 text-xs leading-relaxed text-[#4A1D35]">{g.how}</p>
+          <p className="mt-1 text-xs text-[#7A616F]">{g.tip}</p>
+        </div>
+      ))}
+    </div>
   </div>
 )

@@ -65,6 +65,7 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
     A = useRef(false),
     [ce, le] = useState(activeWorkout?.notes || ``),
     [ue, de] = useState(activeWorkout?.rating || 5),
+    [prToast, setPrToast] = useState(null),
     [fe, pe] = useState(false),
     [me, he] = useState(false),
     [ge, _e] = useState(profile?.spotifyUrl || ``),
@@ -320,6 +321,12 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
           ...activeWorkout,
           exercises: i,
         }),
+        // README : message quand un record est battu.
+        c && (o[t].actualWeight ?? 0) > (ze[a.exerciseId]?.maxWeight ?? Infinity) && (
+          setPrToast(`Nouveau record sur ${a.exerciseName} : ${o[t].actualWeight} kg 🏆`),
+          setTimeout(() => setPrToast(null), 4000),
+          confetti({ particleCount: 60, spread: 55, origin: { y: 0.3 }, colors: [`#F8A5F8`, `#781539`, `#EA3E8E`, `#FBCFE8`] })
+        ),
         c &&
           (i.every((e) => e.sets.every((e) => e.completed)) && !A.current && !ne
             ? ((A.current = true), se(true), ae(true))
@@ -425,6 +432,9 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
     }
   return (
     <div className="space-y-4 pb-48 lg:pb-28 animate-in fade-in duration-200">
+      {prToast && (
+        <div role="status" className="fixed inset-x-4 top-4 z-[95] mx-auto max-w-md rounded-2xl bg-amber-400 px-4 py-3 text-center text-sm font-black text-[#1F0C17] shadow-xl">{prToast}</div>
+      )}
       {/* Amélioration : les boutons passent à la ligne sur petit écran au lieu d'écraser le titre. */}
       <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2.5 bg-[#13030E]/90 backdrop-blur-xl p-3 sm:p-3.5 rounded-2xl sm:rounded-full border border-white/8 shadow-sm">
         <div className="flex min-w-[11rem] flex-1 items-center gap-2.5">
@@ -1003,7 +1013,7 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
         </div>
         <div className="pt-2 border-t border-white/6 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div>
-            <span className="font-display font-bold text-xs text-white block">Ressenti : {ue}/5</span>
+            <span className="font-display font-bold text-xs text-white block">Ressenti : {ue}/5 {'🔥'.repeat(ue)}</span>
             <span className="text-[11px] text-[#A88096]">{ue <= 2 ? `Modéré` : ue === 3 ? `Bon engagement` : `Intense`}</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -1012,9 +1022,11 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
                 key={e}
                 type="button"
                 onClick={() => de(e)}
+                aria-label={`Ressenti ${e} sur 5`}
+                aria-pressed={ue === e}
                 className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${ue >= e ? `bg-[#EA3E8E] text-white scale-105 shadow-2xs` : `bg-white/5 text-white/30`}`}
               >
-                <Icon name="heart-pulse" className="w-3.5 h-3.5" />
+                <Flame className="w-4 h-4" fill={ue >= e ? `currentColor` : `none`} />
               </button>
             ))}
           </div>

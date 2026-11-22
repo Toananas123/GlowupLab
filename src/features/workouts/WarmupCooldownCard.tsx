@@ -1,9 +1,11 @@
 // @ts-nocheck — composant porté automatiquement depuis l'app d'origine.
 import { useState } from 'react'
+import { GuidedTimer } from '../cardio/GuidedTimer'
 import { Icon } from '../../components/Icon'
 import { WARMUPS } from '../../data/guides'
 export const WarmupCooldownCard = ({ category = `lower-body` }) => {
-  let [t, n] = useState(`warmup`),
+  let [guided, setGuided] = useState(false),
+    [t, n] = useState(`warmup`),
     [r, i] = useState(
       category === `arms`
         ? `arms`
@@ -106,6 +108,8 @@ export const WarmupCooldownCard = ({ category = `lower-body` }) => {
                 </li>
               ))}
             </ol>
+            {/* README : mode guidé minuté (45 s par mouvement). */}
+            <button type="button" onClick={() => setGuided(true)} className="w-full rounded-full bg-[#781539] py-2 text-xs font-bold text-white">Échauffement guidé · {Math.round(a.warmup.length * 45 / 60)} min</button>
           </div>
         ) : (
           <div className="space-y-2.5">
@@ -123,9 +127,14 @@ export const WarmupCooldownCard = ({ category = `lower-body` }) => {
                 </li>
               ))}
             </ol>
+            <button type="button" onClick={() => setGuided(true)} className="w-full rounded-full bg-emerald-700 py-2 text-xs font-bold text-white">Étirements guidés · {Math.round(a.cooldown.length * 45 / 60)} min</button>
           </div>
         )}
       </div>
+      {guided && (
+        <GuidedTimer title={t === `warmup` ? `Échauffement` : `Étirements`} onClose={() => setGuided(false)}
+          steps={(t === `warmup` ? a.warmup : a.cooldown).map((e, i) => ({ label: `Mouvement ${i + 1}`, seconds: 45, cue: e, effort: t === `warmup` }))} />
+      )}
     </div>
   )
 }
