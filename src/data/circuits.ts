@@ -935,3 +935,11 @@ export const ABS_FINISHER_OPTIONS: string[] = [
   "Circuit Transverse Profond & Ventre Ultra-Plat (10 min · Transverse profond & décompression)",
   "Stomach Vacuum (5 x 20s) + Planche active 60s"
 ]
+
+/** Options de finisher cardio proposées dans le planning. */
+export const CARDIO_FINISHER_OPTIONS: string[] = [
+  ...CARDIO_SESSIONS.map((e) => `${e.name.replace(/^\d+\.\s*/, '')} (${e.machine} · ${e.durationMinutes} min)`),
+  'Marche inclinée Débutant : Inclinaison 6 · Vitesse 4,5 · 20 min',
+  'Marche inclinée Intermédiaire : Inclinaison 10 · Vitesse 4,5 · 30 min',
+  'Marche inclinée Confirmée 12-5-30 : Inclinaison 12 · Vitesse 5 · 30 min',
+]

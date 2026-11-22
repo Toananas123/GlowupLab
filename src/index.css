@@ -69,7 +69,8 @@ button:disabled { cursor: not-allowed; }
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 
 @keyframes fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.animate-fade-up { animation: fade-up .25s ease-out both; }
+/* "backwards" : rien ne persiste après l'animation (sinon le transform piège les fenêtres en position fixe). */
+.animate-fade-up { animation: fade-up .25s ease-out backwards; }
 @media (prefers-reduced-motion: reduce) { .animate-fade-up { animation: none; } }
 
 /* Classes reprises de l'app d'origine */

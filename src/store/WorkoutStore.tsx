@@ -137,8 +137,9 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
 
   const key = (name: string) => `${LS}${name}_${uid}`
   const userDoc = (...path: string[]) => doc(db, 'users', uid!, ...path)
+  /** Synchronisation Firestore en arrière-plan : l'interface n'attend jamais le réseau (mode hors ligne, latence). */
   const persist = async (what: string, op: () => Promise<unknown>) => {
-    try { await op() } catch (e) { console.warn(`Synchronisation impossible (${what})`, e) }
+    op().catch((e) => console.warn(`Synchronisation impossible (${what})`, e))
   }
 
   // Séance en cours + lien de partage (?share=...)

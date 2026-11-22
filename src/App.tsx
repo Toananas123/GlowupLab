@@ -15,6 +15,10 @@ const page = <T extends Record<string, React.ComponentType>>(loader: () => Promi
 const HomePage = page(() => import('./pages/HomePage'), 'HomePage')
 const WorkoutsRoute = page(() => import('./pages/WorkoutRoutes'), 'WorkoutsRoute')
 const ActiveWorkoutRoute = page(() => import('./pages/WorkoutRoutes'), 'ActiveWorkoutRoute')
+const PlanningRoute = page(() => import('./pages/MoreRoutes'), 'PlanningRoute')
+const ProgramsRoute = page(() => import('./pages/MoreRoutes'), 'ProgramsRoute')
+const ProgressRoute = page(() => import('./pages/MoreRoutes'), 'ProgressRoute')
+const MeasurementsRoute = page(() => import('./pages/MoreRoutes'), 'MeasurementsRoute')
 const ExercisesRoute = page(() => import('./pages/ExercisesRoute'), 'ExercisesRoute')
 
 function Splash() {
@@ -31,13 +35,13 @@ function Routed() {
         <Routes>
           <Route element={<AppShell />}>
             <Route index element={<HomePage />} />
-            <Route path="programmes" element={<Placeholder title="Programmes" />} />
+            <Route path="programmes" element={<ProgramsRoute />} />
             <Route path="exercices" element={<ExercisesRoute />} />
             <Route path="seances" element={<WorkoutsRoute />} />
             <Route path="seance" element={<ActiveWorkoutRoute />} />
-            <Route path="planning" element={<Placeholder title="Planning" />} />
-            <Route path="suivi" element={<Placeholder title="Suivi" />} />
-            <Route path="suivi/mensurations" element={<Placeholder title="Mensurations" />} />
+            <Route path="planning" element={<PlanningRoute />} />
+            <Route path="suivi" element={<ProgressRoute />} />
+            <Route path="suivi/mensurations" element={<MeasurementsRoute />} />
             <Route path="social" element={<Placeholder title="Social & Amies" />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
