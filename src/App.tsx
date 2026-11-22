@@ -6,7 +6,7 @@ import { AuthProvider, useAuth } from './features/auth/AuthProvider'
 import { NewPasswordModal } from './features/auth/NewPasswordModal'
 import { demoMode, supabaseConfigured } from './lib/supabase'
 import { LandingPage } from './pages/LandingPage'
-import { SocialProvider } from './store/SocialStore'
+import { ClubProvider } from './store/ClubStore'
 import { WorkoutProvider } from './store/WorkoutStore'
 
 // Chaque écran est chargé à la demande : le premier affichage reste léger.
@@ -21,7 +21,7 @@ const PlanningRoute = page(() => import('./pages/MoreRoutes'), 'PlanningRoute')
 const ProgramsRoute = page(() => import('./pages/MoreRoutes'), 'ProgramsRoute')
 const ProgressRoute = page(() => import('./pages/MoreRoutes'), 'ProgressRoute')
 const MeasurementsRoute = page(() => import('./pages/MoreRoutes'), 'MeasurementsRoute')
-const SocialPage = page(() => import('./features/social/SocialPage'), 'SocialPage')
+const ClubPage = page(() => import('./features/club/ClubPage'), 'ClubPage')
 const CyclePage = page(() => import('./features/cycle/CyclePage'), 'CyclePage')
 const ExercisesRoute = page(() => import('./pages/ExercisesRoute'), 'ExercisesRoute')
 
@@ -35,7 +35,7 @@ function Routed() {
   if (!user) return <Routes><Route path="*" element={<LandingPage />} /></Routes>
   return (
     <WorkoutProvider>
-      <SocialProvider>
+      <ClubProvider>
       <Suspense fallback={<Splash />}>
         <Routes>
           <Route element={<AppShell />}>
@@ -47,13 +47,14 @@ function Routed() {
             <Route path="planning" element={<PlanningRoute />} />
             <Route path="suivi" element={<ProgressRoute />} />
             <Route path="suivi/mensurations" element={<MeasurementsRoute />} />
-            <Route path="social" element={<SocialPage />} />
+            <Route path="social" element={<ClubPage />} />
+            <Route path="club" element={<Navigate to="/social" replace />} />
             <Route path="cycle" element={<CyclePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
       </Suspense>
-      </SocialProvider>
+      </ClubProvider>
     </WorkoutProvider>
   )
 }

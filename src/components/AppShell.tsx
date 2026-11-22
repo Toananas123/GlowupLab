@@ -18,7 +18,7 @@ const NAV: { to: string; label: string; short?: string; icon: IconName; mobile?:
   { to: '/seances', label: 'Séances', icon: 'weightlifter' },
   { to: '/planning', label: 'Planning', icon: 'calendar', mobile: true },
   { to: '/suivi', label: 'Suivi', icon: 'heart-pulse', mobile: true },
-  { to: '/social', label: 'Social & Amies', short: 'Social', icon: 'user', mobile: true },
+  { to: '/social', label: 'Le Club', short: 'Club', icon: 'user', mobile: true },
 ]
 
 export function AppShell() {
