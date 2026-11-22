@@ -155,7 +155,7 @@ function CycleCard({ cycle }: { cycle: ReturnType<typeof useCycle>[0] }) {
 
 function MonthReportCard({ report }: { report: ReturnType<typeof monthReport> }) {
   return (
-    <Link to="/suivi?onglet=mois" className="block rounded-3xl p-5 text-white" style={{ background: 'var(--grad)' }}>
+    <Link to="/suivi#bilan-du-mois" className="block rounded-3xl p-5 text-white" style={{ background: 'var(--grad)' }}>
       <p className="text-sm text-white/80">Bilan du mois</p>
       <h2 className="font-display text-2xl font-bold first-letter:uppercase">{report.label}</h2>
       <div className="mt-3 grid grid-cols-3 gap-2">

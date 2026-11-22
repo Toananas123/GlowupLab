@@ -4,6 +4,7 @@ import { Alert, Field, Modal, PrimaryButton } from '../../components/ui'
 import { useAuth } from '../auth/AuthProvider'
 import { changePassword, deleteAccount, signOut } from '../auth/authService'
 import { authErrorMessage } from '../auth/errors'
+import { BackupCard } from './BackupCard'
 import { REST_OPTIONS, type UnitSystem } from './types'
 
 const restLabel = (s: number) => (s >= 120 ? `${s / 60} minutes` : `${s} secondes`)
@@ -55,6 +56,7 @@ export function ProfileModal({ open, onClose }: { open: boolean; onClose: () => 
         <PrimaryButton type="submit" disabled={busy}>Sauvegarder mes préférences</PrimaryButton>
       </form>
 
+      <BackupCard />
       <PasswordCard />
 
       <div className="space-y-3">
