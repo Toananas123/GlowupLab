@@ -1,4 +1,4 @@
-import { onAuthStateChanged, type User } from 'firebase/auth'
+import { onAuthStateChanged, signOut, type User } from 'firebase/auth'
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import { auth } from '../../lib/firebase'
 import { ensureProfile, updateProfileDoc } from '../profile/profileService'
@@ -10,6 +10,9 @@ interface AuthState {
   loading: boolean
   saveProfile: (patch: Partial<UserProfile>) => Promise<void>
   refreshProfile: () => Promise<void>
+  /** Alias utilisé par les écrans portés de l'app d'origine. */
+  updateUserProfile: (patch: Partial<UserProfile>) => Promise<void>
+  logout: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthState | null>(null)
@@ -54,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, loadProfile])
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, saveProfile, refreshProfile }}>
+    <AuthContext.Provider value={{ user, profile, loading, saveProfile, refreshProfile, updateUserProfile: saveProfile, logout: () => signOut(auth) }}>
       {children}
     </AuthContext.Provider>
   )

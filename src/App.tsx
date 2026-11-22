@@ -13,6 +13,8 @@ const page = <T extends Record<string, React.ComponentType>>(loader: () => Promi
   lazy(() => loader().then((m) => ({ default: m[name] as React.ComponentType })))
 
 const HomePage = page(() => import('./pages/HomePage'), 'HomePage')
+const WorkoutsRoute = page(() => import('./pages/WorkoutRoutes'), 'WorkoutsRoute')
+const ActiveWorkoutRoute = page(() => import('./pages/WorkoutRoutes'), 'ActiveWorkoutRoute')
 const ExercisesRoute = page(() => import('./pages/ExercisesRoute'), 'ExercisesRoute')
 
 function Splash() {
@@ -31,8 +33,8 @@ function Routed() {
             <Route index element={<HomePage />} />
             <Route path="programmes" element={<Placeholder title="Programmes" />} />
             <Route path="exercices" element={<ExercisesRoute />} />
-            <Route path="seances" element={<Placeholder title="Séances" />} />
-            <Route path="seance" element={<Placeholder title="Séance en cours" />} />
+            <Route path="seances" element={<WorkoutsRoute />} />
+            <Route path="seance" element={<ActiveWorkoutRoute />} />
             <Route path="planning" element={<Placeholder title="Planning" />} />
             <Route path="suivi" element={<Placeholder title="Suivi" />} />
             <Route path="suivi/mensurations" element={<Placeholder title="Mensurations" />} />
