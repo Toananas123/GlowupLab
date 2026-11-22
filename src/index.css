@@ -1,23 +1,73 @@
 @import "tailwindcss";
 
-@theme {
-  --color-plum-950: #2b091c;
-  --color-plum-900: #3b0726;
-  --color-plum-700: #831843;
-  --color-glow-500: #ec4899;
-  --color-glow-400: #f472b6;
-  --color-blush-200: #fbcfe8;
-  --color-blush-100: #fce7f3;
-  --color-blush-50: #fdf2f8;
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+/* Jetons de couleur : valeurs de l'app d'origine. Le thème sombre s'active pendant une séance en cours. */
+:root {
+  --bg: #fdfbfd;
+  --surface: #ffffff;
+  --soft: #f8eef3;
+  --soft-2: #fff0f5;
+  --ink: #2b091c;
+  --ink-2: #3b0726;
+  --muted: #7a616f;
+  --line: #f3e5ed;
+  --plum: #831843;
+  --pink: #ec4899;
+  --pink-2: #f472b6;
+  --blush: #fce7f3;
+  --blush-line: #fbcfe8;
+  color-scheme: light;
+}
+.theme-session {
+  --bg: #12030d;
+  --surface: #180413;
+  --soft: #28071e;
+  --soft-2: #26081d;
+  --ink: #fdf2f8;
+  --ink-2: #fbcfe8;
+  --muted: #c29db2;
+  --line: #380a28;
+  --plum: #ec4899;
+  --blush: #3b0726;
+  --blush-line: #5b1348;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-soft: var(--soft);
+  --color-soft-2: var(--soft-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-plum: var(--plum);
+  --color-pink: var(--pink);
+  --color-pink-2: var(--pink-2);
+  --color-blush: var(--blush);
+  --color-blush-line: var(--blush-line);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", system-ui, sans-serif;
+  --font-serif: "New York", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
 }
 
 html, body, #root { min-height: 100%; }
 body {
   margin: 0;
-  background: var(--color-blush-50);
-  color: var(--color-plum-900);
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
+::selection { background: var(--blush-line); color: var(--plum); }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.animate-fade-up { animation: fade-up .25s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .animate-fade-up { animation: none; } }

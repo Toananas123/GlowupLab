@@ -1,6 +1,6 @@
 import { LogOut, Trash2 } from 'lucide-react'
 import { useEffect, useState, type FormEvent } from 'react'
-import { Alert, Field, PrimaryButton } from '../../components/ui'
+import { Alert, Field, Modal, PrimaryButton } from '../../components/ui'
 import { useAuth } from '../auth/AuthProvider'
 import { changeDisplayName, changePassword, deleteAccount, signOut, usesPassword } from '../auth/authService'
 import { authErrorMessage } from '../auth/errors'
@@ -8,7 +8,7 @@ import { REST_OPTIONS, type UnitSystem } from './types'
 
 const restLabel = (s: number) => (s >= 120 ? `${s / 60} minutes` : `${s} secondes`)
 
-export function ProfilePage() {
+export function ProfileModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { user, profile, saveProfile } = useAuth()
   const [name, setName] = useState('')
   const [spotify, setSpotify] = useState('')
@@ -33,18 +33,15 @@ export function ProfilePage() {
     try {
       if (name.trim() !== user!.displayName) await changeDisplayName(user!, name.trim())
       await saveProfile({ displayName: name.trim(), spotifyUrl: spotify.trim(), unitSystem: units, defaultRestTime: rest })
-      setMsg({ tone: 'success', text: 'Préférences enregistrées.' })
+      setMsg({ tone: 'success', text: 'Enregistré !' })
     } catch (err) { setMsg({ tone: 'error', text: authErrorMessage(err) }) } finally { setBusy(false) }
   }
 
   return (
-    <div className="mx-auto max-w-xl space-y-6 px-4 py-8">
-      <header>
-        <h1 className="font-display text-3xl font-bold">Mon Profil & Paramètres</h1>
-        <p className="text-sm text-plum-700/70">{user.email}</p>
-      </header>
+    <Modal open={open} onClose={onClose} title="Mon Profil & Paramètres" subtitle={user.email ?? undefined}>
+    <div className="space-y-5">
 
-      <form onSubmit={save} className="space-y-4 rounded-3xl bg-white p-6 shadow-sm">
+      <form onSubmit={save} className="space-y-4 rounded-3xl border border-line bg-surface p-5">
         <Labeled label="Prénom ou pseudonyme"><Field value={name} onChange={(e) => setName(e.target.value)} placeholder="Votre prénom" required /></Labeled>
         <Labeled label="Lien de votre playlist Spotify"><Field type="url" value={spotify} onChange={(e) => setSpotify(e.target.value)} placeholder="https://open.spotify.com/playlist/..." /></Labeled>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -62,12 +59,13 @@ export function ProfilePage() {
       {usesPassword(user) && <PasswordCard />}
 
       <div className="space-y-3">
-        <button onClick={() => signOut()} className="flex w-full items-center justify-center gap-2 rounded-full border border-blush-200 bg-white py-3 text-sm font-semibold text-plum-900 hover:bg-blush-100">
+        <button onClick={() => signOut()} className="flex w-full items-center justify-center gap-2 rounded-full border border-blush-line bg-surface py-3 text-sm font-semibold text-ink hover:bg-soft">
           <LogOut size={16} /> Se déconnecter
         </button>
         <DeleteAccount />
       </div>
     </div>
+    </Modal>
   )
 }
 
@@ -83,7 +81,7 @@ function PasswordCard() {
     catch (err) { setMsg({ tone: 'error', text: authErrorMessage(err) }) } finally { setBusy(false) }
   }
   return (
-    <form onSubmit={submit} className="space-y-3 rounded-3xl bg-white p-6 shadow-sm">
+    <form onSubmit={submit} className="space-y-3 rounded-3xl border border-line bg-surface p-5">
       <h2 className="font-semibold">Changer de mot de passe</h2>
       <Field type="password" placeholder="Mot de passe actuel" value={current} onChange={(e) => setCurrent(e.target.value)} required autoComplete="current-password" />
       <Field type="password" placeholder="Nouveau mot de passe (6 caractères min.)" value={next} onChange={(e) => setNext(e.target.value)} required minLength={6} autoComplete="new-password" />
@@ -122,7 +120,7 @@ function DeleteAccount() {
       <Field placeholder='Tape "SUPPRIMER" pour confirmer' value={confirm} onChange={(e) => setConfirm(e.target.value)} />
       {error && <Alert>{error}</Alert>}
       <div className="flex gap-2">
-        <button type="button" onClick={() => setOpen(false)} className="flex-1 rounded-full bg-white py-3 text-sm font-semibold">Annuler</button>
+        <button type="button" onClick={() => setOpen(false)} className="flex-1 rounded-full bg-surface py-3 text-sm font-semibold">Annuler</button>
         <button type="submit" disabled={busy || confirm !== 'SUPPRIMER'} className="flex-1 rounded-full bg-rose-600 py-3 text-sm font-semibold text-white disabled:opacity-50">Supprimer</button>
       </div>
     </form>
@@ -130,12 +128,12 @@ function DeleteAccount() {
 }
 
 function Labeled({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div className="space-y-1.5"><span className="px-1 text-xs font-semibold uppercase tracking-wide text-plum-700">{label}</span>{children}</div>
+  return <div className="space-y-1.5"><span className="px-1 text-xs font-semibold uppercase tracking-wide text-plum">{label}</span>{children}</div>
 }
 
 function Select({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: [string, string][] }) {
   return (
-    <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full rounded-full border border-blush-200 bg-white px-4 py-3 text-sm outline-none focus:border-glow-500">
+    <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full rounded-full border border-blush-line bg-surface px-4 py-3 text-sm outline-none focus:border-pink">
       {options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
     </select>
   )
