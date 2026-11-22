@@ -1,71 +1,67 @@
-import {
-  createUserWithEmailAndPassword,
-  deleteUser,
-  EmailAuthProvider,
-  GoogleAuthProvider,
-  reauthenticateWithCredential,
-  reauthenticateWithPopup,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut as fbSignOut,
-  updatePassword,
-  updateProfile,
-  type User,
-} from 'firebase/auth'
-import { auth } from '../../lib/firebase'
-import { deleteUserData, ensureProfile, updateProfileDoc } from '../profile/profileService'
+import { closeCloud, flush } from '../../lib/cloud'
+import { supabase } from '../../lib/supabase'
 
-const google = new GoogleAuthProvider()
-google.setCustomParameters({ prompt: 'select_account' })
+const redirectTo = () => `${window.location.origin}/`
 
-export async function signUp(displayName: string, email: string, password: string) {
-  const { user } = await createUserWithEmailAndPassword(auth, email.trim(), password)
-  await updateProfile(user, { displayName: displayName.trim() })
-  await ensureProfile(user.uid, displayName.trim(), user.email ?? email.trim())
-  return user
+/** Inscription : Supabase envoie un e-mail de confirmation avant la première connexion. */
+export async function signUp(pseudo: string, email: string, password: string) {
+  const { data, error } = await supabase.auth.signUp({
+    email: email.trim(),
+    password,
+    options: { data: { pseudo: pseudo.trim() }, emailRedirectTo: redirectTo() },
+  })
+  if (error) throw error
+  // Sans session, la confirmation par e-mail est requise.
+  return { needsConfirmation: !data.session }
 }
 
 export async function signIn(email: string, password: string) {
-  const { user } = await signInWithEmailAndPassword(auth, email.trim(), password)
-  return user
+  const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password })
+  if (error) throw error
 }
 
-export async function signInWithGoogle() {
-  const { user } = await signInWithPopup(auth, google)
-  await ensureProfile(user.uid, user.displayName ?? '', user.email ?? '')
-  return user
+/** Renvoie l'e-mail de confirmation d'inscription. */
+export async function resendConfirmation(email: string) {
+  const { error } = await supabase.auth.resend({ type: 'signup', email: email.trim(), options: { emailRedirectTo: redirectTo() } })
+  if (error) throw error
 }
 
-export const resetPassword = (email: string) => sendPasswordResetEmail(auth, email.trim())
-
-export const signOut = () => fbSignOut(auth)
-
-export const usesPassword = (user: User) => user.providerData.some((p) => p.providerId === 'password')
-
-/** Ré-authentification exigée par Firebase avant les opérations sensibles. */
-export async function reauthenticate(user: User, password?: string) {
-  if (usesPassword(user)) {
-    if (!password || !user.email) throw new Error('password-required')
-    await reauthenticateWithCredential(user, EmailAuthProvider.credential(user.email, password))
-  } else {
-    await reauthenticateWithPopup(user, google)
-  }
+/** Envoie le lien « mot de passe oublié » ; le lien rouvre l'appli sur l'écran de nouveau mot de passe. */
+export async function resetPassword(email: string) {
+  const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: redirectTo() })
+  if (error) throw error
 }
 
-export async function changePassword(user: User, currentPassword: string, newPassword: string) {
-  await reauthenticate(user, currentPassword)
-  await updatePassword(user, newPassword)
+export async function setNewPassword(password: string) {
+  const { error } = await supabase.auth.updateUser({ password })
+  if (error) throw error
 }
 
-export async function changeDisplayName(user: User, displayName: string) {
-  await updateProfile(user, { displayName })
-  await updateProfileDoc(user.uid, { displayName })
+export async function signOut() {
+  await flush()
+  closeCloud()
+  await supabase.auth.signOut()
 }
 
-/** Supprime les données puis le compte Auth. Ré-authentifie d'abord (Firebase l'exige). */
-export async function deleteAccount(user: User, password?: string) {
-  await reauthenticate(user, password)
-  await deleteUserData(user.uid)
-  await deleteUser(user)
+/** Vérifie le mot de passe actuel (avant une opération sensible). */
+async function verifyPassword(email: string, password: string) {
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
+  if (error) throw new Error('Invalid login credentials')
+}
+
+export async function changePassword(email: string, currentPassword: string, newPassword: string) {
+  await verifyPassword(email, currentPassword)
+  await setNewPassword(newPassword)
+}
+
+/** Supprime le compte et toutes les données (fonction SQL delete_my_account, suppression en cascade). */
+export async function deleteAccount(email: string, password: string) {
+  await verifyPassword(email, password)
+  const { error } = await supabase.rpc('delete_my_account')
+  if (error) throw error
+  closeCloud()
+  try {
+    Object.keys(localStorage).filter((k) => k.startsWith('glowuplab_') || k.startsWith('glow_up_lab_')).forEach((k) => localStorage.removeItem(k))
+  } catch { /* stockage indisponible */ }
+  await supabase.auth.signOut()
 }

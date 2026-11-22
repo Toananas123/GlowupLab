@@ -1,19 +1,16 @@
-import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc } from 'firebase/firestore'
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { FINISHERS } from '../data/circuits'
 import { EXERCISES } from '../data/exercises'
 import { PROGRAMS } from '../data/programs'
 import { DEFAULT_ROUTINES } from '../data/routines'
 import { useAuth } from '../features/auth/AuthProvider'
-import { db } from '../lib/firebase'
+import { getJournal, getState, onRemoteChange, openCloud, patchState, setJournal, type CloudData } from '../lib/cloud'
 import { clean, DAY_NAMES, decodeBase64, encodeBase64, localISO, readJSON, stripLeadingEmoji, todayISO, WEEK_ORDER, writeJSON } from '../lib/utils'
 import type {
   ActiveProgram, Exercise, ExerciseSettings, FinisherLog, FinisherPreset, Measurement, OverloadSuggestion, PersonalRecords,
   PreviousPerformance, Program, Routine, WeeklyPlanDay, Workout, WorkoutExercise,
 } from '../types'
 
-// Clés localStorage identiques à l'app d'origine : le cache existant est relu tel quel.
-const LS = 'glow_up_lab_local_'
 const ACTIVE_WORKOUT_KEY = 'glow_up_lab_active_workout'
 
 /** Semaine par défaut : Lundi fessiers, Mercredi dos, Vendredi chaîne postérieure. */
@@ -46,6 +43,18 @@ function mergeWeek(saved: Partial<WeeklyPlanDay>[] | null | undefined): WeeklyPl
 
 const setVolume = (w: Workout) =>
   w.exercises.reduce((sum, ex) => sum + ex.sets.reduce((s, st) => (st.completed ? s + (st.actualWeight ?? st.targetWeight ?? 0) * (st.actualReps ?? st.targetReps ?? 0) : s), 0), 0)
+
+/** Clés de l'appli enregistrées dans user_data.state. */
+interface SyncedState {
+  customExercises: Exercise[]
+  favorites: string[]
+  routines: Routine[]
+  measurements: Measurement[]
+  weeklyPlans: WeeklyPlanDay[]
+  customPrograms: Program[]
+  activeProgram: ActiveProgram | null
+  exerciseSettings: ExerciseSettings
+}
 
 export interface StartWorkoutInput {
   name: string
@@ -135,14 +144,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   const state = useRef({ workouts, weeklyPlans, activeProgram, activeWorkout, routines, measurements, customPrograms, favorites, customExercises, exerciseSettings })
   state.current = { workouts, weeklyPlans, activeProgram, activeWorkout, routines, measurements, customPrograms, favorites, customExercises, exerciseSettings }
 
-  const key = (name: string) => `${LS}${name}_${uid}`
-  const userDoc = (...path: string[]) => doc(db, 'users', uid!, ...path)
-  /** Synchronisation Firestore en arrière-plan : l'interface n'attend jamais le réseau (mode hors ligne, latence). */
-  const persist = async (what: string, op: () => Promise<unknown>) => {
-    op().catch((e) => console.warn(`Synchronisation impossible (${what})`, e))
-  }
-
-  // Séance en cours + lien de partage (?share=...)
+  // Séance en cours (propre à l'appareil) + lien de partage (?share=...)
   useEffect(() => {
     const saved = readJSON<Workout | null>(ACTIVE_WORKOUT_KEY, null)
     if (saved && saved.status === 'in_progress' && saved.exercises?.length && saved.date === todayISO()) setActiveWorkout(saved)
@@ -156,68 +158,61 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     } catch { /* lien invalide */ }
   }, [])
 
-  // Chargement : cache local immédiat, puis Firestore en parallèle.
-  useEffect(() => {
-    if (!uid) { setLoading(false); return }
-    let cancelled = false
-    const k = (n: string) => `${LS}${n}_${uid}`
-    const withDefaults = (list: Routine[]) => {
+  // ---------- Synchronisation Supabase (user_data.state + user_data.journal) ----------
+  const hydrated = useRef(false)
+  const hydrate = useCallback((d: Pick<CloudData, 'state' | 'journal'>) => {
+    const st = d.state as Partial<SyncedState>
+    const withDefaults = (list: Routine[] = []) => {
       const merged = [...DEFAULT_ROUTINES]
       list.forEach((r) => { const n = { ...r, name: stripLeadingEmoji(r.name) || r.name }; if (!merged.some((m) => m.id === n.id)) merged.push(n) })
       return merged
     }
-    setCustomExercises(readJSON(k('custom'), []))
-    setFavorites(readJSON(k('favs'), []))
-    setRoutines(withDefaults(readJSON(k('routines'), [])))
-    setWorkouts(readJSON<Workout[]>(k('workouts'), []).map((w) => ({ ...w, name: stripLeadingEmoji(w.name) || w.name })))
-    setMeasurements(readJSON(k('measurements'), []))
-    setWeeklyPlans(mergeWeek(readJSON(k('plans'), null)))
-    setCustomPrograms(readJSON(k('programs'), []))
-    setActiveProgram(readJSON(k('active_program'), null))
-    setExerciseSettings(readJSON(k('settings'), {}))
+    setCustomExercises(st.customExercises ?? [])
+    setFavorites(st.favorites ?? [])
+    setRoutines(withDefaults(st.routines))
+    setMeasurements(st.measurements ?? [])
+    setWeeklyPlans(mergeWeek(st.weeklyPlans))
+    setCustomPrograms(st.customPrograms ?? [])
+    setActiveProgram(st.activeProgram ?? null)
+    setExerciseSettings(st.exerciseSettings ?? {})
+    setWorkouts(((d.journal as Workout[]) ?? []).map((w) => ({ ...w, name: stripLeadingEmoji(w.name) || w.name })))
+  }, [])
 
-    ;(async () => {
-      try {
-        const col = (n: string) => collection(db, 'users', uid, n)
-        const [ex, fav, rout, wk, meas, prog, active, plans, settings] = await Promise.all([
-          getDocs(col('exercises')), getDocs(col('favorites')), getDocs(col('routines')),
-          getDocs(query(col('workouts'), orderBy('date', 'desc'))), getDocs(query(col('measurements'), orderBy('date', 'desc'))),
-          getDocs(col('programs')), getDoc(doc(db, 'users', uid, 'profile', 'active_program')), getDocs(col('weekly_plans')),
-          getDoc(doc(db, 'users', uid, 'profile', 'exercise_settings')),
-        ])
-        if (cancelled) return
-        const list = <T,>(s: typeof ex) => s.docs.map((d) => d.data() as T)
-        const exs = list<Exercise>(ex); setCustomExercises(exs); writeJSON(k('custom'), exs)
-        const favs = fav.docs.map((d) => d.data().exerciseId as string); setFavorites(favs); writeJSON(k('favs'), favs)
-        const rts = withDefaults(list<Routine>(rout)); setRoutines(rts); writeJSON(k('routines'), rts)
-        const wks = list<Workout>(wk).map((w) => ({ ...w, name: stripLeadingEmoji(w.name) || w.name })); setWorkouts(wks); writeJSON(k('workouts'), wks)
-        const ms = list<Measurement>(meas); setMeasurements(ms); writeJSON(k('measurements'), ms)
-        const pgs = list<Program>(prog); setCustomPrograms(pgs); writeJSON(k('programs'), pgs)
-        const ap = active.exists() ? (active.data() as ActiveProgram) : null
-        if (ap?.programId) { setActiveProgram(ap); writeJSON(k('active_program'), ap) }
-        if (settings.exists()) { const s = settings.data() as ExerciseSettings; setExerciseSettings(s); writeJSON(k('settings'), s) }
-        if (plans.empty) {
-          const week = defaultWeek(); setWeeklyPlans(week); writeJSON(k('plans'), week)
-          await Promise.all(week.map((d) => setDoc(doc(db, 'users', uid, 'weekly_plans', `day_${d.dayOfWeek}`), clean(d))))
-        } else {
-          const week = mergeWeek(list<WeeklyPlanDay>(plans)); setWeeklyPlans(week); writeJSON(k('plans'), week)
-        }
-      } catch (e) {
-        console.warn('Hors ligne ou erreur de chargement : données en cache conservées', e)
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    })()
-    return () => { cancelled = true }
-  }, [uid])
+  useEffect(() => {
+    if (!uid) { setLoading(false); return }
+    let cancelled = false
+    hydrated.current = false
+    // Le cache local s'affiche tout de suite, la version serveur arrive ensuite.
+    hydrate({ state: getState(), journal: getJournal() })
+    openCloud(uid).then((d) => { if (!cancelled) { hydrate(d); hydrated.current = true; setLoading(false) } })
+    const off = onRemoteChange((d) => hydrate(d))
+    return () => { cancelled = true; off() }
+  }, [uid, hydrate])
+
+  // Toute modification est envoyée (regroupée) ; rien n'est réécrit si la valeur n'a pas changé.
+  useEffect(() => {
+    if (!uid || !hydrated.current) return
+    const next: SyncedState = {
+      customExercises, favorites, routines: routines.filter((r) => !r.isDefault && !DEFAULT_ROUTINES.some((d) => d.id === r.id)),
+      measurements, weeklyPlans, customPrograms, activeProgram, exerciseSettings,
+    }
+    const current = getState()
+    const changed = Object.fromEntries(Object.entries(next).filter(([k, v]) => JSON.stringify(v) !== JSON.stringify(current[k] ?? null)))
+    if (Object.keys(changed).length) patchState(clean(changed))
+  }, [uid, customExercises, favorites, routines, measurements, weeklyPlans, customPrograms, activeProgram, exerciseSettings])
+
+  useEffect(() => {
+    if (!uid || !hydrated.current) return
+    if (JSON.stringify(workouts) !== JSON.stringify(getJournal())) setJournal(clean(workouts))
+  }, [uid, workouts])
 
   // ---------- Exercices ----------
   const addCustomExercise = useCallback(async (e: Omit<Exercise, 'id'>) => {
     if (!uid) return
     const ex = { ...e, id: `custom_${Date.now()}`, isCustom: true, userId: uid } as Exercise
     const next = [ex, ...state.current.customExercises]
-    setCustomExercises(next); writeJSON(key('custom'), next)
-    await persist('exercice', () => setDoc(userDoc('exercises', ex.id), clean(ex)))
+    setCustomExercises(next); 
+    
     return ex
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
@@ -225,8 +220,8 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   const deleteCustomExercise = useCallback(async (id: string) => {
     if (!uid) return
     const next = state.current.customExercises.filter((e) => e.id !== id)
-    setCustomExercises(next); writeJSON(key('custom'), next)
-    await persist('exercice', () => deleteDoc(userDoc('exercises', id)))
+    setCustomExercises(next); 
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -234,31 +229,28 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     if (!uid) return
     const isFav = state.current.favorites.includes(id)
     const next = isFav ? state.current.favorites.filter((f) => f !== id) : [...state.current.favorites, id]
-    setFavorites(next); writeJSON(key('favs'), next)
-    await persist('favori', () => (isFav ? deleteDoc(userDoc('favorites', id)) : setDoc(userDoc('favorites', id), { exerciseId: id, createdAt: new Date().toISOString() })))
+    setFavorites(next); 
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
   // ---------- Routines ----------
-  const saveRoutines = (next: Routine[]) => { setRoutines(next); if (uid) writeJSON(key('routines'), next) }
+  const saveRoutines = (next: Routine[]) => { setRoutines(next) }
 
   const createRoutine = useCallback(async (r: Omit<Routine, 'id'>) => {
     const routine = { ...r, id: `routine_${Date.now()}`, userId: uid ?? 'guest', createdAt: new Date().toISOString() } as Routine
     saveRoutines([routine, ...state.current.routines])
-    if (uid) await persist('routine', () => setDoc(userDoc('routines', routine.id), clean(routine)))
     return routine
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
   const updateRoutine = useCallback(async (id: string, patch: Partial<Routine>) => {
     saveRoutines(state.current.routines.map((r) => (r.id === id ? { ...r, ...patch } : r)))
-    if (uid) await persist('routine', () => setDoc(userDoc('routines', id), clean(patch), { merge: true }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
   const deleteRoutine = useCallback(async (id: string) => {
     saveRoutines(state.current.routines.filter((r) => r.id !== id))
-    if (uid) await persist('routine', () => deleteDoc(userDoc('routines', id)))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -328,17 +320,6 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       }
       setActiveProgram(nextProgram)
     }
-
-    if (uid) {
-      writeJSON(key('workouts'), nextWorkouts); writeJSON(key('plans'), nextPlans)
-      if (nextProgram) writeJSON(key('active_program'), nextProgram)
-      const todayPlan = nextPlans.find((d) => d.dayOfWeek === dow)
-      await persist('séance', () => Promise.all([
-        setDoc(userDoc('workouts', done.id), clean(done)),
-        todayPlan && setDoc(userDoc('weekly_plans', `day_${dow}`), clean(todayPlan)),
-        nextProgram && setDoc(userDoc('profile', 'active_program'), clean(nextProgram)),
-      ]))
-    }
     return done
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
@@ -346,14 +327,14 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   const deleteWorkout = useCallback(async (id: string) => {
     const next = state.current.workouts.filter((w) => w.id !== id)
     setWorkouts(next)
-    if (uid) { writeJSON(key('workouts'), next); await persist('séance', () => deleteDoc(userDoc('workouts', id))) }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
   const updateWorkout = useCallback(async (id: string, patch: Partial<Workout>) => {
     const next = state.current.workouts.map((w) => (w.id === id ? { ...w, ...patch, updatedAt: new Date().toISOString() } : w))
     setWorkouts(next)
-    if (uid) { writeJSON(key('workouts'), next); await persist('séance', () => setDoc(userDoc('workouts', id), clean(patch), { merge: true })) }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -362,7 +343,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     const done = clean({ ...w, id: `workout_${Date.now()}`, userId: uid ?? 'guest', status: 'completed' }) as Workout
     const next = [done, ...state.current.workouts].sort((a, b) => b.date.localeCompare(a.date))
     setWorkouts(next)
-    if (uid) { writeJSON(key('workouts'), next); await persist('séance', () => setDoc(userDoc('workouts', done.id), clean(done))) }
+    
     return done
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
@@ -436,7 +417,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     const prog = { ...p, id: `prog_custom_${Date.now()}`, isCustom: true, createdBy: profile?.displayName || 'Athlète GlowUp', createdAt: new Date().toISOString() } as Program
     const next = [prog, ...state.current.customPrograms]
     setCustomPrograms(next)
-    if (uid) { writeJSON(key('programs'), next); await persist('programme', () => setDoc(userDoc('programs', prog.id), clean(prog))) }
+    
     return prog
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid, profile?.displayName])
@@ -444,7 +425,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   const deleteCustomProgram = useCallback(async (id: string) => {
     const next = state.current.customPrograms.filter((p) => p.id !== id)
     setCustomPrograms(next)
-    if (uid) { writeJSON(key('programs'), next); await persist('programme', () => deleteDoc(userDoc('programs', id))) }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -505,19 +486,12 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       }) as WeeklyPlanDay
     })
     setWeeklyPlans(week)
-    if (uid) {
-      writeJSON(key('active_program'), ap); writeJSON(key('plans'), week)
-      await persist('programme', () => Promise.all([
-        setDoc(userDoc('profile', 'active_program'), ap),
-        ...week.map((d) => setDoc(userDoc('weekly_plans', `day_${d.dayOfWeek}`), clean(d))),
-      ]))
-    }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid, programs])
 
   const stopActiveProgram = useCallback(async () => {
     setActiveProgram(null)
-    if (uid) { localStorage.removeItem(key('active_program')); await persist('programme', () => deleteDoc(userDoc('profile', 'active_program'))) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -525,7 +499,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   const updateExerciseSettings = useCallback(async (exerciseId: string, settings: string) => {
     const next = { ...state.current.exerciseSettings, [exerciseId]: settings }
     setExerciseSettings(next)
-    if (uid) { writeJSON(key('settings'), next); await persist('réglages', () => setDoc(userDoc('profile', 'exercise_settings'), clean(next), { merge: true })) }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -556,16 +530,16 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     if (!uid) return
     const meas = clean({ ...m, id: `meas_${Date.now()}`, userId: uid, createdAt: new Date().toISOString() }) as Measurement
     const next = [meas, ...state.current.measurements].sort((a, b) => b.date.localeCompare(a.date))
-    setMeasurements(next); writeJSON(key('measurements'), next)
-    await persist('mensuration', () => setDoc(userDoc('measurements', meas.id), meas))
+    setMeasurements(next); 
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
   const deleteMeasurement = useCallback(async (id: string) => {
     if (!uid) return
     const next = state.current.measurements.filter((m) => m.id !== id)
-    setMeasurements(next); writeJSON(key('measurements'), next)
-    await persist('mensuration', () => deleteDoc(userDoc('measurements', id)))
+    setMeasurements(next); 
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -574,7 +548,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     const next = mergeWeek(state.current.weeklyPlans).map((d) => (d.dayOfWeek === dayOfWeek ? clean({ ...d, ...patch }) : d))
     setWeeklyPlans(next)
     const day = next.find((d) => d.dayOfWeek === dayOfWeek)
-    if (uid && day) { writeJSON(key('plans'), next); await persist('planning', () => setDoc(userDoc('weekly_plans', `day_${dayOfWeek}`), clean(day))) }
+    if (uid && day) { }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -582,10 +556,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   const replaceWeek = useCallback(async (days: WeeklyPlanDay[]) => {
     const next = mergeWeek(days)
     setWeeklyPlans(next)
-    if (uid) {
-      writeJSON(key('plans'), next)
-      await persist('planning', () => Promise.all(next.map((d) => setDoc(userDoc('weekly_plans', `day_${d.dayOfWeek}`), clean(d)))))
-    }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
@@ -613,15 +584,15 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     try {
       const t = JSON.parse(json)
       if (!t || typeof t !== 'object') return { success: false, message: 'Format de fichier invalide.' }
-      const apply = <T,>(arr: unknown, set: (v: T) => void, name: string) => { if (Array.isArray(arr)) { set(arr as T); if (uid) writeJSON(key(name), arr) } }
-      apply(t.customExercises, setCustomExercises, 'custom')
-      apply(t.favorites, setFavorites, 'favs')
-      apply(t.routines, setRoutines, 'routines')
-      apply(t.workouts, setWorkouts, 'workouts')
-      apply(t.measurements, setMeasurements, 'measurements')
-      apply(t.weeklyPlans, setWeeklyPlans, 'plans')
-      apply(t.customPrograms, setCustomPrograms, 'programs')
-      if (t.activeProgram) { setActiveProgram(t.activeProgram); if (uid) writeJSON(key('active_program'), t.activeProgram) }
+      const apply = <T,>(arr: unknown, set: (v: T) => void) => { if (Array.isArray(arr)) set(arr as T) }
+      apply(t.customExercises, setCustomExercises)
+      apply(t.favorites, setFavorites)
+      apply(t.routines, setRoutines)
+      apply(t.workouts, setWorkouts)
+      apply(t.measurements, setMeasurements)
+      apply(t.weeklyPlans, setWeeklyPlans)
+      apply(t.customPrograms, setCustomPrograms)
+      if (t.activeProgram) { setActiveProgram(t.activeProgram) }
       return { success: true, message: 'Données restaurées avec succès !' }
     } catch {
       return { success: false, message: 'Erreur lors de la lecture du fichier JSON.' }

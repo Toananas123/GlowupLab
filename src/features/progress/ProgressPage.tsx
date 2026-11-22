@@ -428,20 +428,20 @@ export const ProgressPage = () => {
     <div className="space-y-5 animate-in fade-in duration-150">
       <div className="flex items-end justify-between gap-3 pt-1">
         <div>
-          <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#831843] block">Analyses & Évolution</span>
-          <h1 className="text-2xl sm:text-4xl font-display font-bold tracking-tight text-[#2B091C] mt-0.5">
-            Mon <span className="font-serif-ny italic font-normal text-[#831843]">suivi</span>
+          <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#781539] block">Analyses & Évolution</span>
+          <h1 className="text-2xl sm:text-4xl font-display font-bold tracking-tight text-[#1F0C17] mt-0.5">
+            Mon <span className="font-serif-ny italic font-normal text-[#781539]">suivi</span>
           </h1>
         </div>
         <button
           onClick={Ue}
-          className="px-4 py-2.5 rounded-full bg-[#831843] hover:bg-[#3B0726] text-white text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition-all active:scale-95 shrink-0"
+          className="px-4 py-2.5 rounded-full bg-[#781539] hover:bg-[#3B0726] text-white text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition-all active:scale-95 shrink-0"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Nouvelle mesure</span>
         </button>
       </div>
-      <div className="p-1 rounded-2xl bg-[#F6EDF2] grid grid-cols-4 gap-1">
+      <div className="p-1 rounded-2xl bg-[#F4E9F0] grid grid-cols-4 gap-1">
         {[
           {
             id: `overview`,
@@ -465,7 +465,7 @@ export const ProgressPage = () => {
             <button
               key={e.id}
               onClick={() => u(e.id)}
-              className={`py-2.5 px-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-all truncate ${t ? `bg-white text-[#831843] shadow-2xs font-bold` : `text-[#7A616F] hover:text-[#2B091C]`}`}
+              className={`py-2.5 px-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-all truncate ${t ? `bg-white text-[#781539] shadow-2xs font-bold` : `text-[#7A616F] hover:text-[#1F0C17]`}`}
             >
               {e.label}
             </button>
@@ -476,7 +476,7 @@ export const ProgressPage = () => {
         <div className="space-y-4">
           <div className="flex items-center justify-between gap-2">
             <span className="text-xs font-semibold text-[#7A616F]">Période analysée</span>
-            <div className="inline-flex p-1 rounded-full bg-[#F6EDF2] gap-1">
+            <div className="inline-flex p-1 rounded-full bg-[#F4E9F0] gap-1">
               {[
                 {
                   id: `7d`,
@@ -498,7 +498,7 @@ export const ProgressPage = () => {
                 <button
                   key={e.id}
                   onClick={() => f(e.id)}
-                  className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${d === e.id ? `bg-[#831843] text-white` : `text-[#7A616F] hover:text-[#2B091C]`}`}
+                  className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all ${d === e.id ? `bg-[#781539] text-white` : `text-[#7A616F] hover:text-[#1F0C17]`}`}
                 >
                   {e.label}
                 </button>
@@ -506,38 +506,38 @@ export const ProgressPage = () => {
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-            <div className="p-4 rounded-[24px] bg-[#F6EDF2] space-y-1">
+            <div className="p-4 rounded-[24px] bg-[#F4E9F0] space-y-1">
               <div className="flex items-center justify-between">
                 <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#7A616F]">Séances</span>
-                <Icon name="weightlifter" className="w-4 h-4 text-[#831843]" />
+                <Icon name="weightlifter" className="w-4 h-4 text-[#781539]" />
               </div>
-              <p className="font-mono text-2xl font-bold text-[#2B091C] tabular-nums">{Me.sessionsCount}</p>
+              <p className="font-mono text-2xl font-bold text-[#1F0C17] tabular-nums">{Me.sessionsCount}</p>
               <span className="text-[11px] text-[#7A616F] block">Note moy. : {Me.avgRating}/5</span>
             </div>
-            <div className="p-4 rounded-[24px] bg-[#F6EDF2] space-y-1">
+            <div className="p-4 rounded-[24px] bg-[#F4E9F0] space-y-1">
               <div className="flex items-center justify-between">
                 <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#7A616F]">Volume total</span>
-                <Icon name="kettlebell" className="w-4 h-4 text-[#831843]" />
+                <Icon name="kettlebell" className="w-4 h-4 text-[#781539]" />
               </div>
-              <p className="font-mono text-2xl font-bold text-[#831843] tabular-nums">
+              <p className="font-mono text-2xl font-bold text-[#781539] tabular-nums">
                 {Me.totalVolume >= 1e3 ? `${(Me.totalVolume / 1e3).toFixed(1)}t` : `${Me.totalVolume}kg`}
               </p>
               <span className="text-[11px] text-[#7A616F] block">{Me.totalVolume.toLocaleString(`fr-FR`)} kg soulevés</span>
             </div>
-            <div className="p-4 rounded-[24px] bg-[#F6EDF2] space-y-1">
+            <div className="p-4 rounded-[24px] bg-[#F4E9F0] space-y-1">
               <div className="flex items-center justify-between">
                 <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#7A616F]">Séries</span>
-                <Icon name="dumbbell" className="w-4 h-4 text-[#831843]" />
+                <Icon name="dumbbell" className="w-4 h-4 text-[#781539]" />
               </div>
-              <p className="font-mono text-2xl font-bold text-[#2B091C] tabular-nums">{Me.totalSets}</p>
+              <p className="font-mono text-2xl font-bold text-[#1F0C17] tabular-nums">{Me.totalSets}</p>
               <span className="text-[11px] text-[#7A616F] block">{Me.totalReps} répétitions</span>
             </div>
-            <div className="p-4 rounded-[24px] bg-[#F6EDF2] space-y-1">
+            <div className="p-4 rounded-[24px] bg-[#F4E9F0] space-y-1">
               <div className="flex items-center justify-between">
                 <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#7A616F]">Durée cumulée</span>
-                <Icon name="stopwatch" className="w-4 h-4 text-[#831843]" />
+                <Icon name="stopwatch" className="w-4 h-4 text-[#781539]" />
               </div>
-              <p className="font-mono text-2xl font-bold text-[#2B091C] tabular-nums">
+              <p className="font-mono text-2xl font-bold text-[#1F0C17] tabular-nums">
                 {Me.totalMinutes >= 60
                   ? `${Math.floor(Me.totalMinutes / 60)}h${Me.totalMinutes % 60 > 0 ? String(Me.totalMinutes % 60).padStart(2, `0`) : ``}`
                   : `${Me.totalMinutes}m`}
@@ -545,15 +545,15 @@ export const ProgressPage = () => {
               <span className="text-[11px] text-[#7A616F] block">{je.length} records établis</span>
             </div>
           </div>
-          <div className="p-5 rounded-[28px] bg-[#F6EDF2] space-y-3.5">
+          <div className="p-5 rounded-[28px] bg-[#F4E9F0] space-y-3.5">
             <div className="flex items-center justify-between">
               <div>
-                <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">
+                <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">
                   Assiduité sur 4 semaines
                 </span>
-                <h2 className="font-display font-bold text-base text-[#2B091C]">Calendrier de régularité (28 jours)</h2>
+                <h2 className="font-display font-bold text-base text-[#1F0C17]">Calendrier de régularité (28 jours)</h2>
               </div>
-              <span className="px-3 py-1 rounded-full bg-white text-[#831843] font-mono text-xs font-bold">
+              <span className="px-3 py-1 rounded-full bg-white text-[#781539] font-mono text-xs font-bold">
                 {Ne.filter((e) => e.hasWorkout).length} j actifs
               </span>
             </div>
@@ -562,7 +562,7 @@ export const ProgressPage = () => {
                 <div
                   key={e.dateStr}
                   title={e.dateStr}
-                  className={`h-9 sm:h-10 rounded-xl flex flex-col items-center justify-center text-xs font-mono font-bold transition-all ${e.hasWorkout ? `bg-[#831843] text-white shadow-2xs` : e.isToday ? `bg-[#FCE7F3] text-[#831843] border border-[#F472B6]` : `bg-white/80 text-[#7A616F]`}`}
+                  className={`h-9 sm:h-10 rounded-xl flex flex-col items-center justify-center text-xs font-mono font-bold transition-all ${e.hasWorkout ? `bg-[#781539] text-white shadow-2xs` : e.isToday ? `bg-[#FCE7F3] text-[#781539] border border-[#F472B6]` : `bg-white/80 text-[#7A616F]`}`}
                 >
                   <span>{e.dayNum}</span>
                   {e.hasWorkout && <span className="w-1 h-1 rounded-full bg-[#FBCFE8] mt-0.5" />}
@@ -570,30 +570,30 @@ export const ProgressPage = () => {
               ))}
             </div>
           </div>
-          <div className="p-5 rounded-[28px] bg-[#F6EDF2] space-y-3.5">
+          <div className="p-5 rounded-[28px] bg-[#F4E9F0] space-y-3.5">
             <div>
-              <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">
+              <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">
                 Équilibre d’entraînement
               </span>
-              <h2 className="font-display font-bold text-base text-[#2B091C]">Répartition par zone musculaire</h2>
+              <h2 className="font-display font-bold text-base text-[#1F0C17]">Répartition par zone musculaire</h2>
             </div>
             <div className="space-y-3">
               {Me.categoryBreakdown.map((e) => (
                 <div key={e.category} className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-[#2B091C] flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-lg bg-white text-[#831843] flex items-center justify-center">
+                    <span className="font-semibold text-[#1F0C17] flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-lg bg-white text-[#781539] flex items-center justify-center">
                         <Icon name={categoryIcon(e.category)} className="w-3.5 h-3.5" />
                       </span>
                       <span>{e.label}</span>
                     </span>
-                    <span className="font-mono font-bold text-[#831843]">
+                    <span className="font-mono font-bold text-[#781539]">
                       {e.sets} séries ({e.pct}%)
                     </span>
                   </div>
                   <div className="w-full h-2.5 rounded-full bg-white overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-[#831843] to-[#EC4899] transition-all duration-300"
+                      className="h-full rounded-full bg-gradient-to-r from-[#781539] to-[#EA3E8E] transition-all duration-300"
                       style={{
                         width: `${Math.max(e.pct, e.sets > 0 ? 6 : 0)}%`,
                       }}
@@ -606,17 +606,17 @@ export const ProgressPage = () => {
           <div className="p-5 rounded-[28px] bg-grainy-pink space-y-3.5">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-9 h-9 rounded-2xl bg-white text-[#831843] flex items-center justify-center shrink-0 shadow-2xs">
-                  <Target className="w-4 h-4 text-[#EC4899]" />
+                <div className="w-9 h-9 rounded-2xl bg-white text-[#781539] flex items-center justify-center shrink-0 shadow-2xs">
+                  <Target className="w-4 h-4 text-[#EA3E8E]" />
                 </div>
                 <div className="min-w-0">
-                  <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">
+                  <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">
                     Focus personnel
                   </span>
-                  <h2 className="font-display font-bold text-base text-[#2B091C] truncate">Mes objectifs</h2>
+                  <h2 className="font-display font-bold text-base text-[#1F0C17] truncate">Mes objectifs</h2>
                 </div>
               </div>
-              <span className="px-3 py-1 rounded-full bg-white text-[#831843] font-mono text-xs font-bold shrink-0 shadow-2xs">
+              <span className="px-3 py-1 rounded-full bg-white text-[#781539] font-mono text-xs font-bold shrink-0 shadow-2xs">
                 {p.filter((e) => e.completed).length}/3
               </span>
             </div>
@@ -626,7 +626,7 @@ export const ProgressPage = () => {
                 return (
                   <div
                     key={e.id}
-                    className={`p-3 rounded-2xl transition-all flex items-center justify-between gap-2.5 ${e.completed ? `bg-white/60 text-[#831843]` : `bg-white/85 text-[#2B091C] hover:bg-white`}`}
+                    className={`p-3 rounded-2xl transition-all flex items-center justify-between gap-2.5 ${e.completed ? `bg-white/60 text-[#781539]` : `bg-white/85 text-[#1F0C17] hover:bg-white`}`}
                   >
                     {t ? (
                       <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -638,12 +638,12 @@ export const ProgressPage = () => {
                             t.key === `Enter` && S(e.id)
                           }}
                           autoFocus
-                          className="flex-1 min-w-0 px-2.5 py-1 rounded-xl bg-white border border-[#FBCFE8] text-xs font-semibold text-[#2B091C] focus:outline-none"
+                          className="flex-1 min-w-0 px-2.5 py-1 rounded-xl bg-white border border-[#FBCFE8] text-xs font-semibold text-[#1F0C17] focus:outline-none"
                         />
                         <button
                           type="button"
                           onClick={() => S(e.id)}
-                          className="px-2.5 py-1 rounded-xl bg-[#831843] text-white text-[11px] font-bold shrink-0 cursor-pointer"
+                          className="px-2.5 py-1 rounded-xl bg-[#781539] text-white text-[11px] font-bold shrink-0 cursor-pointer"
                         >
                           OK
                         </button>
@@ -656,7 +656,7 @@ export const ProgressPage = () => {
                           className="flex items-center gap-3 flex-1 min-w-0 text-left cursor-pointer"
                         >
                           <span
-                            className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 transition-all ${e.completed ? `bg-[#831843] text-white shadow-2xs` : `bg-[#F6EDF2] border-2 border-[#F472B6] text-transparent`}`}
+                            className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 transition-all ${e.completed ? `bg-[#781539] text-white shadow-2xs` : `bg-[#F4E9F0] border-2 border-[#F472B6] text-transparent`}`}
                           >
                             <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </span>
@@ -669,7 +669,7 @@ export const ProgressPage = () => {
                         <button
                           type="button"
                           onClick={() => x(e)}
-                          className="w-7 h-7 rounded-full hover:bg-[#F6EDF2] text-[#7A616F] hover:text-[#831843] flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+                          className="w-7 h-7 rounded-full hover:bg-[#F4E9F0] text-[#7A616F] hover:text-[#781539] flex items-center justify-center shrink-0 transition-colors cursor-pointer"
                           title="Modifier cet objectif"
                         >
                           <PenLine className="w-3.5 h-3.5" />
@@ -688,15 +688,15 @@ export const ProgressPage = () => {
           <div className="p-5 rounded-[28px] bg-grainy-pink space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
               <div>
-                <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">
+                <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">
                   Courbe de surcharge progressive
                 </span>
-                <h2 className="font-display font-bold text-lg text-[#2B091C]">Évolution par exercice</h2>
+                <h2 className="font-display font-bold text-lg text-[#1F0C17]">Évolution par exercice</h2>
               </div>
               <select
                 value={Fe}
                 onChange={(e) => w(e.target.value)}
-                className="px-3.5 py-2 text-xs rounded-full bg-white text-[#2B091C] font-semibold focus:outline-hidden shadow-2xs max-w-full sm:max-w-[230px] truncate"
+                className="px-3.5 py-2 text-xs rounded-full bg-white text-[#1F0C17] font-semibold focus:outline-hidden shadow-2xs max-w-full sm:max-w-[230px] truncate"
               >
                 {Pe.map((e) => (
                   <option key={e.id} value={e.id}>
@@ -723,7 +723,7 @@ export const ProgressPage = () => {
                 <button
                   key={e.id}
                   onClick={() => E(e.id)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${T === e.id ? `bg-[#831843] text-white shadow-2xs` : `bg-white/80 text-[#7A616F] hover:bg-white`}`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${T === e.id ? `bg-[#781539] text-white shadow-2xs` : `bg-white/80 text-[#7A616F] hover:bg-white`}`}
                 >
                   {e.label}
                 </button>
@@ -742,31 +742,31 @@ export const ProgressPage = () => {
                     <div className="grid grid-cols-3 gap-2">
                       <div className="p-3 rounded-2xl bg-white/85">
                         <span className="text-[10px] font-semibold text-[#7A616F] block">Dernière séance</span>
-                        <span className="font-mono text-lg font-bold text-[#2B091C]">{n} kg</span>
+                        <span className="font-mono text-lg font-bold text-[#1F0C17]">{n} kg</span>
                       </div>
                       <div className="p-3 rounded-2xl bg-white/85">
                         <span className="text-[10px] font-semibold text-[#7A616F] block">Record absolu</span>
-                        <span className="font-mono text-lg font-bold text-[#831843]">{r} kg</span>
+                        <span className="font-mono text-lg font-bold text-[#781539]">{r} kg</span>
                       </div>
                       <div className="p-3 rounded-2xl bg-white/85">
                         <span className="text-[10px] font-semibold text-[#7A616F] block">Progression</span>
-                        <span className="font-mono text-lg font-bold text-[#EC4899]">{i >= 0 ? `+${i}` : i} kg</span>
+                        <span className="font-mono text-lg font-bold text-[#EA3E8E]">{i >= 0 ? `+${i}` : i} kg</span>
                       </div>
                     </div>
                     <div className="w-full overflow-hidden rounded-2xl bg-white/75 p-3">
                       <svg viewBox="0 0 360 130" className="w-full h-32 overflow-visible">
                         <defs>
                           <linearGradient id="loadFillGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#EC4899" stopOpacity="0.32" />
-                            <stop offset="100%" stopColor="#EC4899" stopOpacity="0.0" />
+                            <stop offset="0%" stopColor="#EA3E8E" stopOpacity="0.32" />
+                            <stop offset="100%" stopColor="#EA3E8E" stopOpacity="0.0" />
                           </linearGradient>
                         </defs>
                         <path d={areaPath} fill="url(#loadFillGrad)" />
-                        <path d={linePath} fill="none" stroke="#831843" strokeWidth="3" strokeLinecap="round" />
+                        <path d={linePath} fill="none" stroke="#781539" strokeWidth="3" strokeLinecap="round" />
                         {coords.map((e, t) => (
                           <g key={t}>
-                            <circle cx={e.x} cy={e.y} r="4.5" fill="#FFFFFF" stroke="#831843" strokeWidth="2.5" />
-                            <text x={e.x} y={e.y - 9} textAnchor="middle" className="text-[10px] font-mono font-bold fill-[#2B091C]">
+                            <circle cx={e.x} cy={e.y} r="4.5" fill="#FFFFFF" stroke="#781539" strokeWidth="2.5" />
+                            <text x={e.x} y={e.y - 9} textAnchor="middle" className="text-[10px] font-mono font-bold fill-[#1F0C17]">
                               {e.val}
                             </text>
                           </g>
@@ -799,8 +799,8 @@ export const ProgressPage = () => {
           </div>
           <div className="space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
-              <h2 className="font-display font-bold text-base text-[#2B091C] flex items-center gap-2">
-                <Icon name="trophy" className="w-4 h-4 text-[#831843]" />
+              <h2 className="font-display font-bold text-base text-[#1F0C17] flex items-center gap-2">
+                <Icon name="trophy" className="w-4 h-4 text-[#781539]" />
                 <span>Tous mes Records Personnels ({qe.length})</span>
               </h2>
               <div className="flex flex-wrap gap-1">
@@ -825,7 +825,7 @@ export const ProgressPage = () => {
                   <button
                     key={e.id}
                     onClick={() => ee(e.id)}
-                    className={`px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all ${D === e.id ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#7A616F] hover:text-[#2B091C]`}`}
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all ${D === e.id ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F] hover:text-[#1F0C17]`}`}
                   >
                     {e.label}
                   </button>
@@ -833,7 +833,7 @@ export const ProgressPage = () => {
               </div>
             </div>
             {qe.length === 0 ? (
-              <div className="p-6 rounded-[24px] bg-[#F6EDF2] text-center text-xs text-[#7A616F]">
+              <div className="p-6 rounded-[24px] bg-[#F4E9F0] text-center text-xs text-[#7A616F]">
                 Aucun record enregistré dans cette catégorie pour le moment.
               </div>
             ) : (
@@ -844,12 +844,12 @@ export const ProgressPage = () => {
                     <button
                       key={e.exerciseId}
                       onClick={() => w(e.exerciseId)}
-                      className={`p-4 rounded-[24px] text-left transition-all flex items-center justify-between gap-3 ${Fe === e.exerciseId ? `bg-[#FCE7F3] border border-[#F472B6]` : `bg-[#F6EDF2] hover:bg-[#F1E2EA]`}`}
+                      className={`p-4 rounded-[24px] text-left transition-all flex items-center justify-between gap-3 ${Fe === e.exerciseId ? `bg-[#FCE7F3] border border-[#F472B6]` : `bg-[#F4E9F0] hover:bg-[#F1E2EA]`}`}
                     >
                       <div className="min-w-0">
-                        <span className="font-display font-bold text-sm text-[#2B091C] block truncate">{e.exerciseName}</span>
+                        <span className="font-display font-bold text-sm text-[#1F0C17] block truncate">{e.exerciseName}</span>
                         <span className="text-[11px] text-[#7A616F] block mt-0.5">
-                          1RM théorique : <strong className="font-mono text-[#831843]">{t} kg</strong> ·{' '}
+                          1RM théorique : <strong className="font-mono text-[#781539]">{t} kg</strong> ·{' '}
                           {new Date(e.date).toLocaleDateString(`fr-FR`, {
                             day: `2-digit`,
                             month: `short`,
@@ -857,7 +857,7 @@ export const ProgressPage = () => {
                         </span>
                       </div>
                       <div className="text-right shrink-0">
-                        <span className="px-3 py-1 rounded-full bg-white text-[#831843] font-mono font-bold text-xs block shadow-2xs">
+                        <span className="px-3 py-1 rounded-full bg-white text-[#781539] font-mono font-bold text-xs block shadow-2xs">
                           {e.maxWeight} kg × {e.repsAtMax}
                         </span>
                       </div>
@@ -872,27 +872,27 @@ export const ProgressPage = () => {
       {l === `body` && (
         <div className="space-y-5">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-            <div className="p-4 rounded-[24px] bg-[#F6EDF2] space-y-1">
-              <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">
+            <div className="p-4 rounded-[24px] bg-[#F4E9F0] space-y-1">
+              <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">
                 Indice Sablier (Taille/Hanches)
               </span>
-              <p className="font-mono text-2xl font-bold text-[#2B091C]">{Be || `—`}</p>
+              <p className="font-mono text-2xl font-bold text-[#1F0C17]">{Be || `—`}</p>
               <span className="text-[11px] text-[#7A616F] block">{Be ? `Harmonie taille / fessiers` : `Renseigne taille + hanches`}</span>
             </div>
-            <div className="p-4 rounded-[24px] bg-[#F6EDF2] space-y-1">
-              <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">
+            <div className="p-4 rounded-[24px] bg-[#F4E9F0] space-y-1">
+              <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">
                 Hanches / Fessiers
               </span>
-              <p className="font-mono text-2xl font-bold text-[#831843]">{Re?.hips ? `${Re.hips} cm` : `—`}</p>
+              <p className="font-mono text-2xl font-bold text-[#781539]">{Re?.hips ? `${Re.hips} cm` : `—`}</p>
               <span className="text-[11px] text-[#7A616F] block">
                 {ze?.hips && Re?.hips
                   ? `${Re.hips - ze.hips >= 0 ? `+` : ``}${(Re.hips - ze.hips).toFixed(1)} cm depuis le début`
                   : `Dernière mesure`}
               </span>
             </div>
-            <div className="col-span-2 sm:col-span-1 p-4 rounded-[24px] bg-[#F6EDF2] space-y-1">
-              <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">Tour de taille</span>
-              <p className="font-mono text-2xl font-bold text-[#2B091C]">{Re?.waist ? `${Re.waist} cm` : `—`}</p>
+            <div className="col-span-2 sm:col-span-1 p-4 rounded-[24px] bg-[#F4E9F0] space-y-1">
+              <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">Tour de taille</span>
+              <p className="font-mono text-2xl font-bold text-[#1F0C17]">{Re?.waist ? `${Re.waist} cm` : `—`}</p>
               <span className="text-[11px] text-[#7A616F] block">
                 {ze?.waist && Re?.waist
                   ? `${Re.waist - ze.waist >= 0 ? `+` : ``}${(Re.waist - ze.waist).toFixed(1)} cm depuis le début`
@@ -903,14 +903,14 @@ export const ProgressPage = () => {
           <div className="p-5 rounded-[28px] bg-grainy-pink space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">
+                <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">
                   Suivi morphologique
                 </span>
-                <h2 className="font-display font-bold text-lg text-[#2B091C]">Courbe de mes mensurations</h2>
+                <h2 className="font-display font-bold text-lg text-[#1F0C17]">Courbe de mes mensurations</h2>
               </div>
               <button
                 onClick={Ue}
-                className="self-start sm:self-auto px-3.5 py-1.5 rounded-full bg-[#831843] text-white text-xs font-semibold flex items-center gap-1"
+                className="self-start sm:self-auto px-3.5 py-1.5 rounded-full bg-[#781539] text-white text-xs font-semibold flex items-center gap-1"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Ajouter une mesure</span>
@@ -921,7 +921,7 @@ export const ProgressPage = () => {
                 <button
                   key={e.key}
                   onClick={() => te(e.key)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${O === e.key ? `bg-[#831843] text-white shadow-2xs` : `bg-white/85 text-[#7A616F] hover:bg-white`}`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${O === e.key ? `bg-[#781539] text-white shadow-2xs` : `bg-white/85 text-[#7A616F] hover:bg-white`}`}
                 >
                   {e.label}
                 </button>
@@ -937,16 +937,16 @@ export const ProgressPage = () => {
                     <svg viewBox="0 0 360 130" className="w-full h-32 overflow-visible">
                       <defs>
                         <linearGradient id="bodyFillGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#831843" stopOpacity="0.25" />
-                          <stop offset="100%" stopColor="#831843" stopOpacity="0.0" />
+                          <stop offset="0%" stopColor="#781539" stopOpacity="0.25" />
+                          <stop offset="100%" stopColor="#781539" stopOpacity="0.0" />
                         </linearGradient>
                       </defs>
                       <path d={areaPath} fill="url(#bodyFillGrad)" />
-                      <path d={linePath} fill="none" stroke="#831843" strokeWidth="3" strokeLinecap="round" />
+                      <path d={linePath} fill="none" stroke="#781539" strokeWidth="3" strokeLinecap="round" />
                       {coords.map((e, n) => (
                         <g key={n}>
-                          <circle cx={e.x} cy={e.y} r="4.5" fill="#FFFFFF" stroke="#EC4899" strokeWidth="2.5" />
-                          <text x={e.x} y={e.y - 9} textAnchor="middle" className="text-[10px] font-mono font-bold fill-[#2B091C]">
+                          <circle cx={e.x} cy={e.y} r="4.5" fill="#FFFFFF" stroke="#EA3E8E" strokeWidth="2.5" />
+                          <text x={e.x} y={e.y - 9} textAnchor="middle" className="text-[10px] font-mono font-bold fill-[#1F0C17]">
                             {e.val}
                             {t}
                           </text>
@@ -963,10 +963,10 @@ export const ProgressPage = () => {
             )}
           </div>
           {Le.length >= 2 && Ye && Xe && (
-            <div className="p-5 rounded-[28px] bg-[#F6EDF2] space-y-3.5">
+            <div className="p-5 rounded-[28px] bg-[#F4E9F0] space-y-3.5">
               <div>
-                <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#831843] block">Avant / Après</span>
-                <h3 className="font-display font-bold text-base text-[#2B091C]">Comparateur entre deux dates</h3>
+                <span className="font-compact text-[10px] font-semibold uppercase tracking-wider text-[#781539] block">Avant / Après</span>
+                <h3 className="font-display font-bold text-base text-[#1F0C17]">Comparateur entre deux dates</h3>
               </div>
               <div className="grid grid-cols-2 gap-2.5">
                 <div>
@@ -974,7 +974,7 @@ export const ProgressPage = () => {
                   <select
                     value={Ye.id}
                     onChange={(e) => ie(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-white text-xs font-semibold text-[#2B091C]"
+                    className="w-full px-3 py-2 rounded-xl bg-white text-xs font-semibold text-[#1F0C17]"
                   >
                     {Le.map((e) => (
                       <option key={e.id} value={e.id}>
@@ -988,7 +988,7 @@ export const ProgressPage = () => {
                   <select
                     value={Xe.id}
                     onChange={(e) => oe(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-white text-xs font-semibold text-[#2B091C]"
+                    className="w-full px-3 py-2 rounded-xl bg-white text-xs font-semibold text-[#1F0C17]"
                   >
                     {Le.map((e) => (
                       <option key={e.id} value={e.id}>
@@ -1008,12 +1008,12 @@ export const ProgressPage = () => {
                     <div key={e.key} className="p-3 rounded-2xl bg-white space-y-0.5">
                       <span className="text-[11px] font-semibold text-[#7A616F] block">{e.label}</span>
                       <div className="flex items-baseline justify-between gap-1">
-                        <span className="font-mono font-bold text-sm text-[#2B091C]">
+                        <span className="font-mono font-bold text-sm text-[#1F0C17]">
                           {n ?? `—`} {e.unit}
                         </span>
                         {r !== null && (
                           <span
-                            className={`font-mono text-xs font-bold ${r > 0 ? `text-[#831843]` : r < 0 ? `text-[#EC4899]` : `text-[#7A616F]`}`}
+                            className={`font-mono text-xs font-bold ${r > 0 ? `text-[#781539]` : r < 0 ? `text-[#EA3E8E]` : `text-[#7A616F]`}`}
                           >
                             {r > 0 ? `+${r}` : r} {e.unit}
                           </span>
@@ -1026,17 +1026,17 @@ export const ProgressPage = () => {
             </div>
           )}
           <div className="space-y-2.5">
-            <h3 className="font-display font-bold text-base text-[#2B091C] px-1">Historique des relevés ({(measurements || []).length})</h3>
+            <h3 className="font-display font-bold text-base text-[#1F0C17] px-1">Historique des relevés ({(measurements || []).length})</h3>
             {(measurements || []).length === 0 ? (
-              <div className="p-6 rounded-[24px] bg-[#F6EDF2] text-center text-xs text-[#7A616F]">
+              <div className="p-6 rounded-[24px] bg-[#F4E9F0] text-center text-xs text-[#7A616F]">
                 Aucun relevé enregistré. Ajoute tes mensurations pour suivre l’évolution de ta silhouette.
               </div>
             ) : (
               <div className="space-y-2">
                 {[...Le].reverse().map((e) => (
-                  <div key={e.id} className="p-4 rounded-[24px] bg-[#F6EDF2] flex items-center justify-between gap-3">
+                  <div key={e.id} className="p-4 rounded-[24px] bg-[#F4E9F0] flex items-center justify-between gap-3">
                     <div className="space-y-1 min-w-0">
-                      <span className="font-display font-bold text-xs text-[#831843] block">
+                      <span className="font-display font-bold text-xs text-[#781539] block">
                         {new Date(e.date).toLocaleDateString(`fr-FR`, {
                           weekday: `short`,
                           day: `2-digit`,
@@ -1044,7 +1044,7 @@ export const ProgressPage = () => {
                           year: `numeric`,
                         })}
                       </span>
-                      <div className="flex flex-wrap gap-2 text-xs font-mono text-[#2B091C]">
+                      <div className="flex flex-wrap gap-2 text-xs font-mono text-[#1F0C17]">
                         {e.hips && (
                           <span>
                             Hanches: <strong>{e.hips}cm</strong>
@@ -1101,11 +1101,11 @@ export const ProgressPage = () => {
               value={xe}
               onChange={(e) => Se(e.target.value)}
               placeholder="Rechercher une séance ou un exercice..."
-              className="w-full pl-10 pr-4 py-3 rounded-full bg-[#F6EDF2] text-xs font-semibold text-[#2B091C] placeholder:text-[#7A616F] focus:outline-hidden"
+              className="w-full pl-10 pr-4 py-3 rounded-full bg-[#F4E9F0] text-xs font-semibold text-[#1F0C17] placeholder:text-[#7A616F] focus:outline-hidden"
             />
           </div>
           {Je.length === 0 ? (
-            <div className="p-8 rounded-[28px] bg-[#F6EDF2] text-center text-xs text-[#7A616F]">
+            <div className="p-8 rounded-[28px] bg-[#F4E9F0] text-center text-xs text-[#7A616F]">
               Aucune séance terminée ne correspond à ta recherche.
             </div>
           ) : (
@@ -1123,10 +1123,10 @@ export const ProgressPage = () => {
                     })
                   }),
                   (
-                    <div key={e.id} className="p-4 sm:p-5 rounded-[26px] bg-[#F6EDF2] space-y-3 transition-all">
+                    <div key={e.id} className="p-4 sm:p-5 rounded-[26px] bg-[#F4E9F0] space-y-3 transition-all">
                       <div className="flex items-start justify-between gap-3">
                         <button type="button" onClick={() => we(t ? null : e.id)} className="text-left min-w-0 flex-1">
-                          <div className="flex items-center gap-2 text-[11px] font-semibold text-[#831843]">
+                          <div className="flex items-center gap-2 text-[11px] font-semibold text-[#781539]">
                             <span>
                               {new Date(e.date).toLocaleDateString(`fr-FR`, {
                                 weekday: `short`,
@@ -1139,7 +1139,7 @@ export const ProgressPage = () => {
                             <span>·</span>
                             <span className="font-mono">{n} kg</span>
                           </div>
-                          <h3 className="font-display font-bold text-base text-[#2B091C] truncate mt-0.5">{e.name}</h3>
+                          <h3 className="font-display font-bold text-base text-[#1F0C17] truncate mt-0.5">{e.name}</h3>
                           <p className="text-xs text-[#7A616F] truncate mt-0.5">
                             {(e.exercises || []).length} exercices · {i} séries
                             {e.finisher && typeof e.finisher == `string` ? ` · + ${e.finisher}` : ``}
@@ -1148,7 +1148,7 @@ export const ProgressPage = () => {
                         <div className="flex items-center gap-1.5 shrink-0">
                           <button
                             onClick={() => duplicateWorkoutAsNew(e)}
-                            className="px-3 py-1.5 rounded-full bg-[#831843] text-white text-[11px] font-semibold flex items-center gap-1 active:scale-95 transition-transform"
+                            className="px-3 py-1.5 rounded-full bg-[#781539] text-white text-[11px] font-semibold flex items-center gap-1 active:scale-95 transition-transform"
                             title="Refaire cette séance"
                           >
                             <RotateCcw className="w-3 h-3" />
@@ -1156,7 +1156,7 @@ export const ProgressPage = () => {
                           </button>
                           <button
                             onClick={() => we(t ? null : e.id)}
-                            className="w-8 h-8 rounded-full bg-white text-[#831843] flex items-center justify-center"
+                            className="w-8 h-8 rounded-full bg-white text-[#781539] flex items-center justify-center"
                             aria-label="Voir les détails"
                           >
                             {t ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
@@ -1169,9 +1169,9 @@ export const ProgressPage = () => {
                             {(e.exercises || []).map((e) => (
                               <div key={e.id} className="p-3 rounded-2xl bg-white space-y-1.5">
                                 <div className="flex flex-wrap items-center justify-between gap-2">
-                                  <span className="font-display font-bold text-xs text-[#2B091C] block">{e.exerciseName}</span>
+                                  <span className="font-display font-bold text-xs text-[#1F0C17] block">{e.exerciseName}</span>
                                   {e.replacedFrom && (
-                                    <span className="px-2 py-0.5 rounded-full bg-[#FCE7F3] text-[#831843] text-[10px] font-semibold">
+                                    <span className="px-2 py-0.5 rounded-full bg-[#FCE7F3] text-[#781539] text-[10px] font-semibold">
                                       {e.replacedFrom} remplacé par {e.exerciseName}
                                     </span>
                                   )}
@@ -1180,7 +1180,7 @@ export const ProgressPage = () => {
                                   {(e.sets || []).map((e, t) => (
                                     <span
                                       key={e.id || t}
-                                      className="px-2.5 py-1 rounded-lg bg-[#F6EDF2] font-mono text-[11px] font-semibold text-[#831843]"
+                                      className="px-2.5 py-1 rounded-lg bg-[#F4E9F0] font-mono text-[11px] font-semibold text-[#781539]"
                                     >
                                       S{t + 1}: {e.actualWeight ?? e.targetWeight}kg × {e.actualReps ?? e.targetReps}
                                     </span>
@@ -1193,14 +1193,14 @@ export const ProgressPage = () => {
                           <div className="flex items-center justify-end gap-2 pt-1">
                             <button
                               onClick={() => Ge(e)}
-                              className="px-3 py-1.5 rounded-full bg-white text-[#831843] text-xs font-semibold flex items-center gap-1"
+                              className="px-3 py-1.5 rounded-full bg-white text-[#781539] text-xs font-semibold flex items-center gap-1"
                             >
                               <Icon name="share" className="w-3.5 h-3.5" />
                               <span>{Te === e.id ? `Copié !` : `Partager`}</span>
                             </button>
                             <button
                               onClick={() => Oe(JSON.parse(JSON.stringify(e)))}
-                              className="px-3 py-1.5 rounded-full bg-white text-[#2B091C] text-xs font-semibold flex items-center gap-1"
+                              className="px-3 py-1.5 rounded-full bg-white text-[#1F0C17] text-xs font-semibold flex items-center gap-1"
                             >
                               <PenLine className="w-3.5 h-3.5" />
                               <span>Modifier</span>
@@ -1232,7 +1232,7 @@ export const ProgressPage = () => {
               required
               value={se}
               onChange={(e) => A(e.target.value)}
-              className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-semibold text-[#2B091C]"
+              className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-semibold text-[#1F0C17]"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -1244,7 +1244,7 @@ export const ProgressPage = () => {
                 value={fe}
                 onChange={(e) => pe(e.target.value)}
                 placeholder="Ex: 98"
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-mono font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-mono font-bold text-[#1F0C17]"
               />
             </div>
             <div>
@@ -1255,7 +1255,7 @@ export const ProgressPage = () => {
                 value={ue}
                 onChange={(e) => de(e.target.value)}
                 placeholder="Ex: 66"
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-mono font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-mono font-bold text-[#1F0C17]"
               />
             </div>
             <div>
@@ -1266,7 +1266,7 @@ export const ProgressPage = () => {
                 value={ce}
                 onChange={(e) => le(e.target.value)}
                 placeholder="Ex: 58.5"
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-mono font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-mono font-bold text-[#1F0C17]"
               />
             </div>
             <div>
@@ -1277,7 +1277,7 @@ export const ProgressPage = () => {
                 value={me}
                 onChange={(e) => he(e.target.value)}
                 placeholder="Ex: 56"
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-mono font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-mono font-bold text-[#1F0C17]"
               />
             </div>
             <div>
@@ -1288,7 +1288,7 @@ export const ProgressPage = () => {
                 value={ge}
                 onChange={(e) => _e(e.target.value)}
                 placeholder="Ex: 28"
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-mono font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-mono font-bold text-[#1F0C17]"
               />
             </div>
             <div>
@@ -1299,7 +1299,7 @@ export const ProgressPage = () => {
                 value={ve}
                 onChange={(e) => ye(e.target.value)}
                 placeholder="Ex: 88"
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-mono font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-mono font-bold text-[#1F0C17]"
               />
             </div>
           </div>
@@ -1310,10 +1310,10 @@ export const ProgressPage = () => {
               value={j}
               onChange={(e) => be(e.target.value)}
               placeholder="Ex: Prise de mesure à jeun..."
-              className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-medium text-[#2B091C]"
+              className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-medium text-[#1F0C17]"
             />
           </div>
-          <button type="submit" className="w-full py-3.5 rounded-full bg-[#831843] text-white font-bold text-xs min-h-[46px]">
+          <button type="submit" className="w-full py-3.5 rounded-full bg-[#781539] text-white font-bold text-xs min-h-[46px]">
             Enregistrer mes mensurations
           </button>
         </form>
@@ -1333,20 +1333,20 @@ export const ProgressPage = () => {
                     name: e.target.value,
                   })
                 }
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F6EDF2] font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl bg-[#F4E9F0] font-bold text-[#1F0C17]"
               />
             </div>
             <div className="space-y-3">
               {(De.exercises || []).map((e, t) => (
-                <div key={e.id} className="p-3.5 rounded-2xl bg-[#F6EDF2] space-y-2">
-                  <span className="font-bold text-xs text-[#2B091C] block">{e.exerciseName}</span>
+                <div key={e.id} className="p-3.5 rounded-2xl bg-[#F4E9F0] space-y-2">
+                  <span className="font-bold text-xs text-[#1F0C17] block">{e.exerciseName}</span>
                   <div className="space-y-2">
                     {(e.sets || []).map((e, n) => {
                       let r = Number(e.actualWeight ?? e.targetWeight ?? 0),
                         i = Number(e.actualReps ?? e.targetReps ?? 0)
                       return (
                         <div key={e.id || n} className="flex items-center justify-between gap-2 bg-white p-2 rounded-xl text-xs">
-                          <span className="font-bold text-[#831843] w-8">#{n + 1}</span>
+                          <span className="font-bold text-[#781539] w-8">#{n + 1}</span>
                           <div className="flex items-center gap-1">
                             <button
                               type="button"
@@ -1358,7 +1358,7 @@ export const ProgressPage = () => {
                                     exercises: e,
                                   }))
                               }}
-                              className="w-7 h-7 rounded-full bg-[#F6EDF2] flex items-center justify-center"
+                              className="w-7 h-7 rounded-full bg-[#F4E9F0] flex items-center justify-center"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
@@ -1373,7 +1373,7 @@ export const ProgressPage = () => {
                                     exercises: e,
                                   }))
                               }}
-                              className="w-7 h-7 rounded-full bg-[#F6EDF2] flex items-center justify-center"
+                              className="w-7 h-7 rounded-full bg-[#F4E9F0] flex items-center justify-center"
                             >
                               <Plus className="w-3 h-3" />
                             </button>
@@ -1389,7 +1389,7 @@ export const ProgressPage = () => {
                                     exercises: e,
                                   }))
                               }}
-                              className="w-7 h-7 rounded-full bg-[#F6EDF2] flex items-center justify-center"
+                              className="w-7 h-7 rounded-full bg-[#F4E9F0] flex items-center justify-center"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
@@ -1404,7 +1404,7 @@ export const ProgressPage = () => {
                                     exercises: e,
                                   }))
                               }}
-                              className="w-7 h-7 rounded-full bg-[#F6EDF2] flex items-center justify-center"
+                              className="w-7 h-7 rounded-full bg-[#F4E9F0] flex items-center justify-center"
                             >
                               <Plus className="w-3 h-3" />
                             </button>
@@ -1416,7 +1416,7 @@ export const ProgressPage = () => {
                 </div>
               ))}
             </div>
-            <button type="submit" className="w-full py-3.5 rounded-full bg-[#831843] text-white font-bold text-xs min-h-[46px]">
+            <button type="submit" className="w-full py-3.5 rounded-full bg-[#781539] text-white font-bold text-xs min-h-[46px]">
               Enregistrer les modifications
             </button>
           </form>

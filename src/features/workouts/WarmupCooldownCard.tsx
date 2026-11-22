@@ -20,7 +20,7 @@ export const WarmupCooldownCard = ({ category = `lower-body` }) => {
     <div className="rounded-[28px] bg-white border border-[#E6E2D8] p-4 sm:p-5 shadow-xs space-y-3.5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-[#F5B8EE]">
         <div className="flex items-center gap-2">
-          <Icon name="stretch" className="w-5 h-5 text-[#EC4899] shrink-0" />
+          <Icon name="stretch" className="w-5 h-5 text-[#EA3E8E] shrink-0" />
           <div>
             <h3 className="font-display font-semibold text-sm text-[#141414]">Échauffement & Étirements Spécifiques</h3>
             <p className="text-[11px] text-[#6E6A63]">Protégez vos articulations et accélérez votre récupération</p>
@@ -84,7 +84,7 @@ export const WarmupCooldownCard = ({ category = `lower-body` }) => {
             onClick={() => i(e.id)}
             className={`px-3 py-1 rounded-full font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${r === e.id ? `bg-[#F8A5F8] text-[#3B0726] border border-[#F8A5F8]` : `bg-[#F2EFE9] text-neutral-600 hover:bg-[#EAE6DE]`}`}
           >
-            <Icon name={e.icon} className="w-3.5 h-3.5 text-[#EC4899] shrink-0" />
+            <Icon name={e.icon} className="w-3.5 h-3.5 text-[#EA3E8E] shrink-0" />
             <span>{e.label}</span>
           </button>
         ))}

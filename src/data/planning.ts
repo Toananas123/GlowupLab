@@ -4,7 +4,7 @@ export const ACTIVITY_TYPES: Record<string, ActivityTypeMeta> = {
   "Séance Bas du corps": {
     "label": "Séance Bas du corps",
     "icon": "weightlifter",
-    "colorClass": "bg-[#FCE7F3] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FCE7F3] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Séance Bas du corps : Quads, Ischios & Presse",
     "defaultRoutineId": "routine-lower-complete"
   },
@@ -18,35 +18,35 @@ export const ACTIVITY_TYPES: Record<string, ActivityTypeMeta> = {
   "Séance Dos": {
     "label": "Séance Dos",
     "icon": "dumbbell",
-    "colorClass": "bg-[#FCE7F3] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FCE7F3] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Dos Dessiné sans l’Élargir (Ordre 1-2-3-4)",
     "defaultRoutineId": "routine-back-sculpt-no-widen"
   },
   "Séance Dos / Pecs": {
     "label": "Séance Dos / Pecs",
     "icon": "dumbbell",
-    "colorClass": "bg-[#FCE7F3] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FCE7F3] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Combo Dos / Pecs (Upper Body Dessiné & Galbe)",
     "defaultRoutineId": "routine-dos-pecs-antagonist"
   },
   "Séance Pecs / Bras": {
     "label": "Séance Pecs / Bras",
     "icon": "biceps",
-    "colorClass": "bg-[#FDF2F8] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FDF2F8] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Combo Pecs / Bras (Buste Tonique & Bras Fermes)",
     "defaultRoutineId": "routine-pecs-arms-push"
   },
   "Séance Pecs": {
     "label": "Séance Pecs",
     "icon": "dumbbell",
-    "colorClass": "bg-[#FCE7F3] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FCE7F3] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Focus Pecs & Maintien du Buste (4 exos)",
     "defaultRoutineId": "routine-pecs-sculpt"
   },
   "Séance Bras": {
     "label": "Séance Bras",
     "icon": "biceps",
-    "colorClass": "bg-[#FDF2F8] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FDF2F8] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Séance Bras & Épaules Galbées",
     "defaultRoutineId": "routine-upper-sculpt"
   },
@@ -59,7 +59,7 @@ export const ACTIVITY_TYPES: Record<string, ActivityTypeMeta> = {
   "TSE": {
     "label": "TSE",
     "icon": "stretch",
-    "colorClass": "bg-[#FDF2F8] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FDF2F8] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Séance TSE (Training Spécifique)"
   },
   "Pilates": {
@@ -71,33 +71,33 @@ export const ACTIVITY_TYPES: Record<string, ActivityTypeMeta> = {
   "Course": {
     "label": "Course",
     "icon": "runner",
-    "colorClass": "bg-[#FCE7F3] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FCE7F3] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Course à pied / Footing endurance"
   },
   "Cardio": {
     "label": "Cardio",
     "icon": "runner",
-    "colorClass": "bg-[#FCE7F3] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FCE7F3] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Marche inclinée 12-5-30 ou StairMaster",
     "defaultRoutineId": "routine-cardio-incline-walk"
   },
   "Abdos": {
     "label": "Abdos",
     "icon": "stretch",
-    "colorClass": "bg-[#FDF2F8] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FDF2F8] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Circuit Abdos & Gainage",
     "defaultRoutineId": "routine-abs-standing-weighted"
   },
   "Autre": {
     "label": "Autre",
     "icon": "bike",
-    "colorClass": "bg-[#FFF0F5] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FFF0F5] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Activité personnalisée au choix"
   },
   "Musculation": {
     "label": "Séance Bas du corps",
     "icon": "weightlifter",
-    "colorClass": "bg-[#FCE7F3] text-[#831843] border-[#FBCFE8]",
+    "colorClass": "bg-[#FCE7F3] text-[#781539] border-[#FBCFE8]",
     "defaultSession": "Séance Bas du corps / Fessiers ou Dos"
   }
 }

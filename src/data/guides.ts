@@ -274,7 +274,7 @@ export const BACK_ORDER_GUIDE = [
       "rowing prise large (libre ou smith)",
       "face pull (visant le menton)"
     ],
-    "badgeColor": "bg-[#831843] text-white"
+    "badgeColor": "bg-[#781539] text-white"
   },
   {
     "number": "2",
@@ -311,7 +311,7 @@ export const BACK_ORDER_GUIDE = [
     "exercises": [
       "BACK EXTENSION (Banc à lombaires 45°)"
     ],
-    "badgeColor": "bg-[#EC4899] text-white"
+    "badgeColor": "bg-[#EA3E8E] text-white"
   }
 ] as const
 

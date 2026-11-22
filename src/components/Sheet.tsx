@@ -21,7 +21,7 @@ export const Sheet = ({ isOpen, onClose, title, subtitle, headerRight, footer, c
             onClick={(e) => e.stopPropagation()}
           >
             <div onClick={onClose} className="pt-3 pb-1.5 flex justify-center cursor-pointer shrink-0" aria-label="Fermer le panneau">
-              <div className="w-12 h-1.5 rounded-full bg-[#EC4899]/25 hover:bg-[#EC4899]/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] transition-all" />
+              <div className="w-12 h-1.5 rounded-full bg-[#EA3E8E]/25 hover:bg-[#EA3E8E]/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] transition-all" />
             </div>
             {(title || headerRight) && (
               <div className="px-5 sm:px-6 pb-3.5 pt-1 border-b border-[#FBCFE8]/60 flex items-center justify-between gap-3 shrink-0 bg-[#FCFBF9]/95 backdrop-blur-md">
@@ -34,7 +34,7 @@ export const Sheet = ({ isOpen, onClose, title, subtitle, headerRight, footer, c
                   <button
                     type="button"
                     onClick={onClose}
-                    className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full bg-[#FDF2F8] hover:bg-[#FCE7F3] text-[#831843] flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-2xs border border-white/60"
+                    className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full bg-[#FDF2F8] hover:bg-[#FCE7F3] text-[#781539] flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-2xs border border-white/60"
                     aria-label="Fermer"
                   >
                     <X className="w-4 h-4" />

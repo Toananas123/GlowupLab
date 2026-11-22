@@ -14,7 +14,7 @@ export function Field({ icon, className = '', ...props }: InputHTMLAttributes<HT
 export function PrimaryButton({ children, className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button {...props}
-      className={`flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink to-[#831843] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pink/25 transition hover:brightness-110 active:scale-[.98] disabled:opacity-60 ${className}`}>
+      className={`flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink to-[#781539] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-pink/25 transition hover:brightness-110 active:scale-[.98] disabled:opacity-60 ${className}`}>
       {children}
     </button>
   )
@@ -23,7 +23,7 @@ export function PrimaryButton({ children, className = '', ...props }: ButtonHTML
 export function Button({ children, variant = 'soft', className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'soft' | 'plum' | 'ghost' | 'danger' | 'outline' }) {
   const v = {
     soft: 'bg-soft text-plum hover:bg-blush',
-    plum: 'bg-[#831843] text-white hover:bg-[#6d1438]',
+    plum: 'bg-[#781539] text-white hover:bg-[#6d1438]',
     ghost: 'text-plum hover:bg-soft',
     danger: 'bg-rose-600 text-white hover:bg-rose-700',
     outline: 'border border-blush-line bg-surface text-ink hover:bg-soft',
@@ -59,7 +59,7 @@ export function SectionTitle({ eyebrow, title, action }: { eyebrow?: string; tit
 export function Chip({ active, children, onClick }: { active?: boolean; children: ReactNode; onClick?: () => void }) {
   return (
     <button type="button" onClick={onClick} aria-pressed={active}
-      className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ${active ? 'border-[#831843] bg-[#831843] text-white' : 'border-line bg-surface text-muted hover:text-ink'}`}>
+      className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ${active ? 'border-[#781539] bg-[#781539] text-white' : 'border-line bg-surface text-muted hover:text-ink'}`}>
       {children}
     </button>
   )
@@ -79,7 +79,7 @@ export function Modal({ open, onClose, title, subtitle, headerRight, footer, chi
   }, [open, onClose])
   if (!open) return null
   return createPortal(
-    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-[#2b091c]/40 backdrop-blur-sm sm:items-center sm:p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-[#1f0c17]/40 backdrop-blur-sm sm:items-center sm:p-4" onClick={onClose}>
       <div role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}
         className={`animate-fade-up flex max-h-[92dvh] w-full ${maxWidth} flex-col overflow-hidden rounded-t-[2rem] bg-bg text-ink shadow-2xl sm:rounded-[2rem]`}>
         <div className="flex justify-center pt-2.5 sm:hidden"><div className="h-1.5 w-10 rounded-full bg-blush-line" /></div>

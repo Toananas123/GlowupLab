@@ -125,7 +125,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               origin: {
                 y: 0.6,
               },
-              colors: [`#EC4899`, `#831843`, `#FBCFE8`],
+              colors: [`#EA3E8E`, `#781539`, `#FBCFE8`],
             }),
             Ae(`Programme "${C.title}" activé ! Vos séances ont été planifiées dans le Calendrier.`)))
     },
@@ -224,12 +224,12 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
   return (
     <div className="space-y-6 pb-28 animate-in fade-in duration-200">
       {Te && (
-        <div className="fixed top-4 right-4 left-4 sm:left-auto z-[90] max-w-md bg-[#2B091C] text-white px-4 py-3 rounded-2xl shadow-2xl border border-pink-500/40 flex items-center gap-2.5 text-xs font-bold animate-in slide-in-from-top-3">
+        <div className="fixed top-4 right-4 left-4 sm:left-auto z-[90] max-w-md bg-[#1F0C17] text-white px-4 py-3 rounded-2xl shadow-2xl border border-pink-500/40 flex items-center gap-2.5 text-xs font-bold animate-in slide-in-from-top-3">
           <CircleCheck className="w-4 h-4 text-emerald-400 shrink-0" />
           <span>{Te}</span>
         </div>
       )}
-      <div className="rounded-[32px] bg-gradient-to-br from-[#3B0726] via-[#590D3B] to-[#831843] p-6 sm:p-7 text-white shadow-xl relative overflow-hidden">
+      <div className="rounded-[32px] bg-gradient-to-br from-[#3B0726] via-[#590D3B] to-[#781539] p-6 sm:p-7 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1.5 max-w-xl">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-pink-200 text-[11px] font-extrabold uppercase tracking-wider">
@@ -245,7 +245,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
             <button
               type="button"
               onClick={() => te(true)}
-              className="px-4 py-3 rounded-2xl bg-[#EC4899] hover:bg-pink-500 text-white font-extrabold text-xs flex items-center gap-2 shadow-lg shadow-pink-600/30 transition-all cursor-pointer"
+              className="px-4 py-3 rounded-2xl bg-[#EA3E8E] hover:bg-pink-500 text-white font-extrabold text-xs flex items-center gap-2 shadow-lg shadow-pink-600/30 transition-all cursor-pointer"
             >
               <Plus className="w-4 h-4 stroke-[2.5]" />
               <span>Créer mon programme</span>
@@ -262,22 +262,22 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
         </div>
       </div>
       {activeProgram && (
-        <div className="rounded-[28px] bg-white border-2 border-[#EC4899]/40 p-5 shadow-md space-y-4">
+        <div className="rounded-[28px] bg-white border-2 border-[#EA3E8E]/40 p-5 shadow-md space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="space-y-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="px-2.5 py-0.5 rounded-full bg-[#FCE7F3] text-[#831843] text-[10px] font-extrabold uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#FCE7F3] text-[#781539] text-[10px] font-extrabold uppercase tracking-wider">
                   Programme Actif
                 </span>
                 <span className="text-xs font-bold text-[#7A616F]">{activeProgram.objectiveLabel}</span>
               </div>
-              <h2 className="text-lg font-extrabold text-[#2B091C] font-display">{activeProgram.programTitle}</h2>
+              <h2 className="text-lg font-extrabold text-[#1F0C17] font-display">{activeProgram.programTitle}</h2>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               <button
                 type="button"
                 onClick={() => Oe(true)}
-                className="px-3.5 py-2 rounded-xl bg-[#FCE7F3] hover:bg-pink-200 text-[#831843] text-xs font-extrabold flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-2 rounded-xl bg-[#FCE7F3] hover:bg-pink-200 text-[#781539] text-xs font-extrabold flex items-center gap-1.5 transition-colors"
               >
                 <Trophy className="w-3.5 h-3.5" />
                 <span>Écran de Bilan</span>
@@ -286,7 +286,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                 <button
                   type="button"
                   onClick={onNavigateToPlanning}
-                  className="px-3.5 py-2 rounded-xl bg-[#2B091C] text-white text-xs font-bold flex items-center gap-1.5"
+                  className="px-3.5 py-2 rounded-xl bg-[#1F0C17] text-white text-xs font-bold flex items-center gap-1.5"
                 >
                   <Calendar className="w-3.5 h-3.5 text-pink-400" />
                   <span>Voir Planning</span>
@@ -303,7 +303,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
           </div>
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-xs font-extrabold">
-              <span className="text-[#831843]">
+              <span className="text-[#781539]">
                 Semaine {activeProgram.currentWeek}/{activeProgram.durationWeeks} — {activeProgram.progressPercent}% complété
               </span>
               <span className="text-[#7A616F]">
@@ -311,9 +311,9 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                 {activeProgram.totalVolumeKg.toLocaleString(`fr-FR`)} kg soulevés
               </span>
             </div>
-            <div className="w-full h-3 bg-[#F6EDF2] rounded-full overflow-hidden border border-[#FBCFE8]">
+            <div className="w-full h-3 bg-[#F4E9F0] rounded-full overflow-hidden border border-[#FBCFE8]">
               <div
-                className="h-full bg-gradient-to-r from-[#831843] to-[#EC4899] transition-all duration-500"
+                className="h-full bg-gradient-to-r from-[#781539] to-[#EA3E8E] transition-all duration-500"
                 style={{
                   width: `${Math.max(4, activeProgram.progressPercent)}%`,
                 }}
@@ -327,7 +327,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
           <button
             type="button"
             onClick={() => h(`all`)}
-            className={`px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all border ${m === `all` ? `bg-[#831843] text-white border-[#831843] shadow-sm` : `bg-white text-[#593E4C] border-[#FBCFE8] hover:bg-[#FCE7F3]/50`}`}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all border ${m === `all` ? `bg-[#781539] text-white border-[#781539] shadow-sm` : `bg-white text-[#593E4C] border-[#FBCFE8] hover:bg-[#FCE7F3]/50`}`}
           >
             Tous les objectifs ({programs.length})
           </button>
@@ -338,7 +338,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                 key={e}
                 type="button"
                 onClick={() => h(e)}
-                className={`px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all border ${m === e ? `bg-[#831843] text-white border-[#831843] shadow-sm` : `bg-white text-[#593E4C] border-[#FBCFE8] hover:bg-[#FCE7F3]/50`}`}
+                className={`px-4 py-2.5 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all border ${m === e ? `bg-[#781539] text-white border-[#781539] shadow-sm` : `bg-white text-[#593E4C] border-[#FBCFE8] hover:bg-[#FCE7F3]/50`}`}
               >
                 {t.label}
               </button>
@@ -347,12 +347,12 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
         </div>
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
           <span className="text-[11px] font-bold text-[#7A616F] flex items-center gap-1 pr-1 shrink-0">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-[#831843]" /> Matériel :
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#781539]" /> Matériel :
           </span>
           <button
             type="button"
             onClick={() => v(`all`)}
-            className={`px-3 py-1 rounded-xl text-[11px] font-bold whitespace-nowrap border transition-all ${g === `all` ? `bg-[#FCE7F3] text-[#831843] border-[#EC4899]` : `bg-white text-[#7A616F] border-[#E6D5DF]`}`}
+            className={`px-3 py-1 rounded-xl text-[11px] font-bold whitespace-nowrap border transition-all ${g === `all` ? `bg-[#FCE7F3] text-[#781539] border-[#EA3E8E]` : `bg-white text-[#7A616F] border-[#E6D5DF]`}`}
           >
             Tout voir
           </button>
@@ -361,7 +361,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               key={e}
               type="button"
               onClick={() => v(g === e ? `all` : e)}
-              className={`px-3 py-1 rounded-xl text-[11px] font-bold whitespace-nowrap border transition-all ${g === e ? `bg-[#FCE7F3] text-[#831843] border-[#EC4899]` : `bg-white text-[#7A616F] border-[#E6D5DF] hover:border-[#EC4899]/50`}`}
+              className={`px-3 py-1 rounded-xl text-[11px] font-bold whitespace-nowrap border transition-all ${g === e ? `bg-[#FCE7F3] text-[#781539] border-[#EA3E8E]` : `bg-white text-[#7A616F] border-[#E6D5DF] hover:border-[#EA3E8E]/50`}`}
             >
               {e}
             </button>
@@ -376,9 +376,9 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
           return (
             <div
               key={e.id}
-              className={`rounded-[30px] bg-white border transition-all overflow-hidden shadow-sm hover:shadow-md flex flex-col ${n ? `border-2 border-[#EC4899]` : `border-[#FBCFE8]`}`}
+              className={`rounded-[30px] bg-white border transition-all overflow-hidden shadow-sm hover:shadow-md flex flex-col ${n ? `border-2 border-[#EA3E8E]` : `border-[#FBCFE8]`}`}
             >
-              <div className="relative h-48 w-full overflow-hidden bg-[#2B091C]">
+              <div className="relative h-48 w-full overflow-hidden bg-[#1F0C17]">
                 <img
                   src={e.coverImage}
                   alt={e.title}
@@ -386,11 +386,11 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1E0513] via-[#1E0513]/40 to-transparent" />
                 <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2">
-                  <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#831843] text-[10px] font-extrabold uppercase tracking-wider shadow-sm">
+                  <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#781539] text-[10px] font-extrabold uppercase tracking-wider shadow-sm">
                     {t.label}
                   </span>
                   <div className="flex items-center gap-1.5">
-                    {n && <span className="px-2.5 py-1 rounded-full bg-[#EC4899] text-white text-[10px] font-extrabold">EN COURS</span>}
+                    {n && <span className="px-2.5 py-1 rounded-full bg-[#EA3E8E] text-white text-[10px] font-extrabold">EN COURS</span>}
                     <button
                       type="button"
                       onClick={() => be(e)}
@@ -421,15 +421,15 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div className="p-2.5 rounded-2xl bg-[#FDF2F8] border border-[#FBCFE8]">
                       <span className="text-[10px] font-bold text-[#7A616F] uppercase block">Durée</span>
-                      <span className="text-xs font-extrabold text-[#831843]">{e.durationWeeks} semaines</span>
+                      <span className="text-xs font-extrabold text-[#781539]">{e.durationWeeks} semaines</span>
                     </div>
                     <div className="p-2.5 rounded-2xl bg-[#FDF2F8] border border-[#FBCFE8]">
                       <span className="text-[10px] font-bold text-[#7A616F] uppercase block">Fréquence</span>
-                      <span className="text-xs font-extrabold text-[#831843]">{e.sessionsPerWeek} séances/sem</span>
+                      <span className="text-xs font-extrabold text-[#781539]">{e.sessionsPerWeek} séances/sem</span>
                     </div>
                     <div className="p-2.5 rounded-2xl bg-[#FDF2F8] border border-[#FBCFE8]">
                       <span className="text-[10px] font-bold text-[#7A616F] uppercase block">Niveau</span>
-                      <span className="text-xs font-extrabold text-[#831843]">{e.level}</span>
+                      <span className="text-xs font-extrabold text-[#781539]">{e.level}</span>
                     </div>
                   </div>
                   <p className="text-xs text-[#593E4C] leading-relaxed">{e.description}</p>
@@ -441,7 +441,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                           key={e}
                           type="button"
                           onClick={() => v(g === e ? `all` : e)}
-                          className={`px-2.5 py-1 rounded-xl text-[10px] font-bold border transition-all ${g === e ? `bg-[#831843] text-white border-[#831843]` : `bg-[#F6EDF2] text-[#831843] border-[#FBCFE8] hover:bg-[#FCE7F3]`}`}
+                          className={`px-2.5 py-1 rounded-xl text-[10px] font-bold border transition-all ${g === e ? `bg-[#781539] text-white border-[#781539]` : `bg-[#F4E9F0] text-[#781539] border-[#FBCFE8] hover:bg-[#FCE7F3]`}`}
                         >
                           {e}
                         </button>
@@ -460,14 +460,14 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                       className="w-full px-3.5 py-2.5 flex items-center justify-between text-xs font-extrabold text-[#3B0726] hover:bg-[#FCE7F3]/40 transition-colors"
                     >
                       <span className="flex items-center gap-1.5">
-                        <Layers className="w-3.5 h-3.5 text-[#EC4899]" />
+                        <Layers className="w-3.5 h-3.5 text-[#EA3E8E]" />
                         <span>Aperçu semaine par semaine ({e.weeks.length} semaines)</span>
                       </span>
-                      {i === 1 ? <ChevronUp className="w-4 h-4 text-[#831843]" /> : <ChevronDown className="w-4 h-4 text-[#831843]" />}
+                      {i === 1 ? <ChevronUp className="w-4 h-4 text-[#781539]" /> : <ChevronDown className="w-4 h-4 text-[#781539]" />}
                     </button>
                     {i === 1 && e.weeks[0] && (
                       <div className="p-3 border-t border-[#FBCFE8] space-y-2 bg-white">
-                        <p className="text-[11px] font-bold text-[#831843]">{e.weeks[0].title}</p>
+                        <p className="text-[11px] font-bold text-[#781539]">{e.weeks[0].title}</p>
                         <div className="space-y-1.5">
                           {e.weeks[0].days.map((t) => (
                             <div
@@ -479,7 +479,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                                 <button
                                   type="button"
                                   onClick={() => Pe(e, t, 1)}
-                                  className="px-2 py-0.5 rounded-lg bg-[#831843] text-white text-[10px] font-bold shrink-0 hover:bg-[#EC4899]"
+                                  className="px-2 py-0.5 rounded-lg bg-[#781539] text-white text-[10px] font-bold shrink-0 hover:bg-[#EA3E8E]"
                                 >
                                   Lancer
                                 </button>
@@ -495,14 +495,14 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                   <button
                     type="button"
                     onClick={() => b(e)}
-                    className="py-3 px-4 rounded-2xl bg-[#FCE7F3] hover:bg-pink-200 text-[#831843] font-extrabold text-xs transition-colors"
+                    className="py-3 px-4 rounded-2xl bg-[#FCE7F3] hover:bg-pink-200 text-[#781539] font-extrabold text-xs transition-colors"
                   >
                     Détails & Semaines
                   </button>
                   <button
                     type="button"
                     onClick={() => Me(e)}
-                    className="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-[#831843] to-[#EC4899] hover:opacity-95 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-pink-500/20 transition-all cursor-pointer"
+                    className="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-[#781539] to-[#EA3E8E] hover:opacity-95 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-pink-500/20 transition-all cursor-pointer"
                   >
                     <Play className="w-3.5 h-3.5 fill-white" />
                     <span>{n ? `Reconfigurer les jours` : `Démarrer ce programme`}</span>
@@ -514,9 +514,9 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
         })}
       </div>
       {y && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-[#2B091C]/70 backdrop-blur-xs p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-[#1F0C17]/70 backdrop-blur-xs p-4 overflow-y-auto">
           <div className="w-full max-w-2xl bg-white rounded-[32px] border border-[#FBCFE8] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-150">
-            <div className="relative h-44 bg-[#2B091C] shrink-0">
+            <div className="relative h-44 bg-[#1F0C17] shrink-0">
               <img src={y.coverImage} alt={y.title} className="w-full h-full object-cover opacity-80" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1E0513] via-[#1E0513]/40 to-transparent" />
               <button
@@ -527,7 +527,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                 <X className="w-5 h-5" />
               </button>
               <div className="absolute bottom-4 left-6 right-6 text-white">
-                <span className="px-2.5 py-0.5 rounded-full bg-[#EC4899] text-[10px] font-extrabold uppercase">{y.objectiveLabel}</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-[#EA3E8E] text-[10px] font-extrabold uppercase">{y.objectiveLabel}</span>
                 <h2 className="text-xl sm:text-2xl font-extrabold font-display mt-1">{y.title}</h2>
                 <p className="text-xs text-pink-100">{y.subtitle}</p>
               </div>
@@ -535,8 +535,8 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
             <div className="p-6 overflow-y-auto space-y-4 flex-1">
               {y.coachTips && y.coachTips.length > 0 && (
                 <div className="p-4 rounded-2xl bg-[#FDF2F8] border border-[#FBCFE8] space-y-1.5">
-                  <span className="text-xs font-extrabold text-[#831843] flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-[#EC4899]" /> Conseils Coach & Surcharge Progressive
+                  <span className="text-xs font-extrabold text-[#781539] flex items-center gap-1.5">
+                    <Sparkles className="w-4 h-4 text-[#EA3E8E]" /> Conseils Coach & Surcharge Progressive
                   </span>
                   {y.coachTips.map((e, t) => (
                     <p key={t} className="text-xs text-[#593E4C]">
@@ -546,7 +546,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                 </div>
               )}
               <div className="space-y-2.5">
-                <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#831843]">
+                <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#781539]">
                   Structure complète ({y.weeks.length} semaines)
                 </h3>
                 {y.weeks.map((e) => {
@@ -564,10 +564,10 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                         className="w-full px-4 py-3 text-left flex items-center justify-between bg-white hover:bg-[#FDF2F8] transition-colors"
                       >
                         <div>
-                          <span className="text-xs font-extrabold text-[#2B091C] block">{e.title}</span>
+                          <span className="text-xs font-extrabold text-[#1F0C17] block">{e.title}</span>
                           {e.focusNote && <span className="text-[11px] text-[#7A616F]">{e.focusNote}</span>}
                         </div>
-                        {t ? <ChevronUp className="w-4 h-4 text-[#831843]" /> : <ChevronDown className="w-4 h-4 text-[#831843]" />}
+                        {t ? <ChevronUp className="w-4 h-4 text-[#781539]" /> : <ChevronDown className="w-4 h-4 text-[#781539]" />}
                       </button>
                       {t && (
                         <div className="p-3.5 border-t border-[#FBCFE8] space-y-2 bg-[#FCFBF9]">
@@ -576,7 +576,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                             return (
                               <div
                                 key={t.id}
-                                className={`p-3 rounded-xl border flex items-center justify-between gap-3 ${t.isRest ? `bg-neutral-50 border-neutral-200/70 text-neutral-400` : `bg-white border-[#FBCFE8] text-[#2B091C]`}`}
+                                className={`p-3 rounded-xl border flex items-center justify-between gap-3 ${t.isRest ? `bg-neutral-50 border-neutral-200/70 text-neutral-400` : `bg-white border-[#FBCFE8] text-[#1F0C17]`}`}
                               >
                                 <div className="min-w-0">
                                   <p className="text-xs font-bold truncate">{t.label}</p>
@@ -593,7 +593,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                                     onClick={() => {
                                       ;(b(null), Pe(y, t, e.weekNumber))
                                     }}
-                                    className="px-3 py-1.5 rounded-xl bg-[#831843] hover:bg-[#EC4899] text-white text-xs font-bold shrink-0 flex items-center gap-1"
+                                    className="px-3 py-1.5 rounded-xl bg-[#781539] hover:bg-[#EA3E8E] text-white text-xs font-bold shrink-0 flex items-center gap-1"
                                   >
                                     <Play className="w-3 h-3 fill-white" />
                                     <span>Démarrer</span>
@@ -623,7 +623,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                   let e = y
                   ;(b(null), Me(e))
                 }}
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#831843] to-[#EC4899] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-md"
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#781539] to-[#EA3E8E] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-md"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Planifier dans mon Calendrier</span>
@@ -633,22 +633,22 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
         </div>
       )}
       {C && (
-        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-[#2B091C]/70 backdrop-blur-xs p-4">
+        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-[#1F0C17]/70 backdrop-blur-xs p-4">
           <div className="w-full max-w-md bg-white rounded-[32px] border border-[#FBCFE8] p-6 shadow-2xl space-y-5 animate-in zoom-in-95 duration-150">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#EC4899] block">Planification Automatique</span>
-                <h3 className="text-lg font-extrabold text-[#2B091C] font-display">Démarrer « {C.title} »</h3>
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#EA3E8E] block">Planification Automatique</span>
+                <h3 className="text-lg font-extrabold text-[#1F0C17] font-display">Démarrer « {C.title} »</h3>
                 <p className="text-xs text-[#7A616F] mt-0.5">
                   Fréquence recommandée : <strong>{C.sessionsPerWeek} séances / semaine</strong> pendant {C.durationWeeks} semaines.
                 </p>
               </div>
-              <button type="button" onClick={() => w(null)} className="p-1.5 rounded-full bg-[#FDF2F8] text-[#831843]">
+              <button type="button" onClick={() => w(null)} className="p-1.5 rounded-full bg-[#FDF2F8] text-[#781539]">
                 <X className="w-4 h-4" />
               </button>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-extrabold text-[#2B091C] block">
+              <label className="text-xs font-extrabold text-[#1F0C17] block">
                 1. Sélectionnez vos jours d’entraînement préférés ({T.length} choisis)
               </label>
               <div className="grid grid-cols-7 gap-1.5">
@@ -659,7 +659,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                       key={e.dayOfWeek}
                       type="button"
                       onClick={() => E((t) => (t.includes(e.dayOfWeek) ? t.filter((t) => t !== e.dayOfWeek) : [...t, e.dayOfWeek]))}
-                      className={`py-3 rounded-2xl text-xs font-extrabold border transition-all ${t ? `bg-[#831843] text-white border-[#831843] shadow-sm` : `bg-[#FDF2F8] text-[#7A616F] border-[#FBCFE8]`}`}
+                      className={`py-3 rounded-2xl text-xs font-extrabold border transition-all ${t ? `bg-[#781539] text-white border-[#781539] shadow-sm` : `bg-[#FDF2F8] text-[#7A616F] border-[#FBCFE8]`}`}
                     >
                       {e.short}
                     </button>
@@ -671,12 +671,12 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               </p>
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-extrabold text-[#2B091C] block">2. Date de début du programme</label>
+              <label className="text-xs font-extrabold text-[#1F0C17] block">2. Date de début du programme</label>
               <input
                 type="date"
                 value={D}
                 onChange={(e) => ee(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl border border-[#FBCFE8] bg-[#FDF2F8] text-xs font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 rounded-2xl border border-[#FBCFE8] bg-[#FDF2F8] text-xs font-bold text-[#1F0C17]"
               />
             </div>
             <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-[11px] text-emerald-900 space-y-1">
@@ -700,7 +700,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               <button
                 type="button"
                 onClick={Ne}
-                className="flex-1 py-3 px-5 rounded-2xl bg-gradient-to-r from-[#831843] to-[#EC4899] text-white text-xs font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25"
+                className="flex-1 py-3 px-5 rounded-2xl bg-gradient-to-r from-[#781539] to-[#EA3E8E] text-white text-xs font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25"
               >
                 <Check className="w-4 h-4 stroke-[2.5]" />
                 <span>Activer & Planifier mes séances</span>
@@ -710,35 +710,35 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
         </div>
       )}
       {O && (
-        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-[#2B091C]/70 backdrop-blur-xs p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-[#1F0C17]/70 backdrop-blur-xs p-4 overflow-y-auto">
           <div className="w-full max-w-2xl bg-white rounded-[32px] border border-[#FBCFE8] p-6 shadow-2xl max-h-[92vh] flex flex-col animate-in zoom-in-95 duration-150">
             <div className="flex items-center justify-between pb-3 border-b border-[#FBCFE8]">
               <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#EC4899] block">Constructeur Sur-Mesure</span>
-                <h3 className="text-lg font-extrabold text-[#2B091C] font-display">Créer mon Programme d’Entraînement</h3>
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#EA3E8E] block">Constructeur Sur-Mesure</span>
+                <h3 className="text-lg font-extrabold text-[#1F0C17] font-display">Créer mon Programme d’Entraînement</h3>
               </div>
-              <button type="button" onClick={() => te(false)} className="p-2 rounded-full bg-[#FDF2F8] text-[#831843]">
+              <button type="button" onClick={() => te(false)} className="p-2 rounded-full bg-[#FDF2F8] text-[#781539]">
                 <X className="w-4 h-4" />
               </button>
             </div>
             <div className="flex-1 overflow-y-auto py-4 space-y-4 pr-1 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="font-bold text-[#2B091C]">Nom du programme *</label>
+                  <label className="font-bold text-[#1F0C17]">Nom du programme *</label>
                   <input
                     type="text"
                     value={k}
                     onChange={(e) => ne(e.target.value)}
                     placeholder="ex: Mon Cycle Booty & Core"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#2B091C]"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#1F0C17]"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="font-bold text-[#2B091C]">Objectif principal</label>
+                  <label className="font-bold text-[#1F0C17]">Objectif principal</label>
                   <select
                     value={ae}
                     onChange={(e) => oe(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#2B091C]"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#1F0C17]"
                   >
                     {Object.keys(OBJECTIVES).map((e) => (
                       <option key={e} value={e}>
@@ -750,11 +750,11 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div className="space-y-1">
-                  <label className="font-bold text-[#2B091C]">Durée (Semaines)</label>
+                  <label className="font-bold text-[#1F0C17]">Durée (Semaines)</label>
                   <select
                     value={se}
                     onChange={(e) => Fe(Number(e.target.value), ce)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#2B091C]"
+                    className="w-full px-3 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#1F0C17]"
                   >
                     {[4, 6, 8, 12].map((e) => (
                       <option key={e} value={e}>
@@ -764,11 +764,11 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="font-bold text-[#2B091C]">Séances / semaine</label>
+                  <label className="font-bold text-[#1F0C17]">Séances / semaine</label>
                   <select
                     value={ce}
                     onChange={(e) => Fe(se, Number(e.target.value))}
-                    className="w-full px-3 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#2B091C]"
+                    className="w-full px-3 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#1F0C17]"
                   >
                     {[2, 3, 4, 5, 6].map((e) => (
                       <option key={e} value={e}>
@@ -778,11 +778,11 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="font-bold text-[#2B091C]">Niveau</label>
+                  <label className="font-bold text-[#1F0C17]">Niveau</label>
                   <select
                     value={ue}
                     onChange={(e) => de(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#2B091C]"
+                    className="w-full px-3 py-2.5 rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] font-bold text-[#1F0C17]"
                   >
                     <option value="Débutant">Débutant</option>
                     <option value="Intermédiaire">Intermédiaire</option>
@@ -791,7 +791,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                 </div>
               </div>
               <div className="space-y-1.5">
-                <label className="font-bold text-[#2B091C] block">Matériel requis</label>
+                <label className="font-bold text-[#1F0C17] block">Matériel requis</label>
                 <div className="flex flex-wrap gap-1.5">
                   {PROGRAM_EQUIPMENT.map((e) => {
                     let t = fe.includes(e)
@@ -800,7 +800,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                         key={e}
                         type="button"
                         onClick={() => pe((t) => (t.includes(e) ? t.filter((t) => t !== e) : [...t, e]))}
-                        className={`px-3 py-1.5 rounded-xl text-[11px] font-bold border transition-all ${t ? `bg-[#831843] text-white border-[#831843]` : `bg-white text-[#7A616F] border-[#FBCFE8]`}`}
+                        className={`px-3 py-1.5 rounded-xl text-[11px] font-bold border transition-all ${t ? `bg-[#781539] text-white border-[#781539]` : `bg-white text-[#7A616F] border-[#FBCFE8]`}`}
                       >
                         {e}
                       </button>
@@ -810,13 +810,13 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               </div>
               <div className="p-4 rounded-2xl bg-[#FCFBF9] border border-[#FBCFE8] space-y-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-extrabold text-[#2B091C] uppercase tracking-wider">
+                  <span className="font-extrabold text-[#1F0C17] uppercase tracking-wider">
                     Constructeur de Semaines (Semaine {ge}/{se})
                   </span>
                   <button
                     type="button"
                     onClick={() => Le(ge)}
-                    className="px-3 py-1.5 rounded-xl bg-[#FCE7F3] hover:bg-pink-200 text-[#831843] font-extrabold text-[11px] flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1.5 rounded-xl bg-[#FCE7F3] hover:bg-pink-200 text-[#781539] font-extrabold text-[11px] flex items-center gap-1.5 transition-colors"
                   >
                     <Copy className="w-3.5 h-3.5" />
                     <span>Dupliquer la Semaine {ge} sur tout le programme</span>
@@ -828,7 +828,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                       key={e.weekNumber}
                       type="button"
                       onClick={() => _e(e.weekNumber)}
-                      className={`px-3 py-1.5 rounded-xl text-[11px] font-extrabold whitespace-nowrap ${ge === e.weekNumber ? `bg-[#831843] text-white` : `bg-white text-[#7A616F] border border-[#FBCFE8]`}`}
+                      className={`px-3 py-1.5 rounded-xl text-[11px] font-extrabold whitespace-nowrap ${ge === e.weekNumber ? `bg-[#781539] text-white` : `bg-white text-[#7A616F] border border-[#FBCFE8]`}`}
                     >
                       Sem. {e.weekNumber}
                     </button>
@@ -844,7 +844,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                           className="p-3 rounded-xl bg-white border border-[#FBCFE8] grid grid-cols-1 sm:grid-cols-12 gap-2 items-center"
                         >
                           <div className="sm:col-span-3 flex items-center justify-between sm:justify-start gap-2">
-                            <span className="font-extrabold text-[#831843]">Jour {e.dayNumber}</span>
+                            <span className="font-extrabold text-[#781539]">Jour {e.dayNumber}</span>
                             <button
                               type="button"
                               onClick={() =>
@@ -875,7 +875,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                                       label: `Jour ${e.dayNumber} — ${r ? r.name : `Séance`}`,
                                     })
                                   }}
-                                  className="w-full px-2.5 py-1.5 rounded-lg border border-[#FBCFE8] bg-[#FDF2F8] text-[11px] font-bold text-[#2B091C]"
+                                  className="w-full px-2.5 py-1.5 rounded-lg border border-[#FBCFE8] bg-[#FDF2F8] text-[11px] font-bold text-[#1F0C17]"
                                 >
                                   {routines.map((e) => (
                                     <option key={e.id} value={e.id}>
@@ -922,7 +922,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               <button
                 type="button"
                 onClick={Re}
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#831843] to-[#EC4899] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-md"
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#781539] to-[#EA3E8E] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-md"
               >
                 <FolderPlus className="w-4 h-4" />
                 <span>Enregistrer mon programme</span>
@@ -932,11 +932,11 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
         </div>
       )}
       {j && (
-        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-[#2B091C]/70 backdrop-blur-xs p-4">
+        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-[#1F0C17]/70 backdrop-blur-xs p-4">
           <div className="w-full max-w-md bg-white rounded-[32px] border border-[#FBCFE8] p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-extrabold text-[#2B091C] font-display">Partager « {j.title} »</h3>
-              <button type="button" onClick={() => be(null)} className="p-1.5 rounded-full bg-[#FDF2F8] text-[#831843]">
+              <h3 className="text-base font-extrabold text-[#1F0C17] font-display">Partager « {j.title} »</h3>
+              <button type="button" onClick={() => be(null)} className="p-1.5 rounded-full bg-[#FDF2F8] text-[#781539]">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -945,7 +945,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               {j.durationWeeks} semaines.
             </p>
             <div className="p-3 rounded-2xl bg-[#FDF2F8] border border-[#FBCFE8]">
-              <p className="text-[10px] font-mono text-[#831843] break-all line-clamp-3">{exportProgramCode(j)}</p>
+              <p className="text-[10px] font-mono text-[#781539] break-all line-clamp-3">{exportProgramCode(j)}</p>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
               <button
@@ -954,7 +954,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                   let e = exportProgramCode(j)
                   ;(navigator.clipboard && (await navigator.clipboard.writeText(e)), Ae(`Code de partage copié dans le presse-papiers !`))
                 }}
-                className="py-3 px-3 rounded-2xl bg-[#831843] text-white text-xs font-extrabold flex items-center justify-center gap-1.5"
+                className="py-3 px-3 rounded-2xl bg-[#781539] text-white text-xs font-extrabold flex items-center justify-center gap-1.5"
               >
                 <Copy className="w-3.5 h-3.5" />
                 <span>Copier le Code</span>
@@ -965,7 +965,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
                   let e = JSON.stringify(j, null, 2)
                   ;(navigator.clipboard && (await navigator.clipboard.writeText(e)), Ae(`Structure JSON copiée dans le presse-papiers !`))
                 }}
-                className="py-3 px-3 rounded-2xl bg-[#FCE7F3] text-[#831843] text-xs font-extrabold flex items-center justify-center gap-1.5"
+                className="py-3 px-3 rounded-2xl bg-[#FCE7F3] text-[#781539] text-xs font-extrabold flex items-center justify-center gap-1.5"
               >
                 <Share2 className="w-3.5 h-3.5" />
                 <span>Copier JSON</span>
@@ -975,11 +975,11 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
         </div>
       )}
       {xe && (
-        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-[#2B091C]/70 backdrop-blur-xs p-4">
+        <div className="fixed inset-0 z-[75] flex items-center justify-center bg-[#1F0C17]/70 backdrop-blur-xs p-4">
           <div className="w-full max-w-md bg-white rounded-[32px] border border-[#FBCFE8] p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-extrabold text-[#2B091C] font-display">Importer un Programme (Code ou JSON)</h3>
-              <button type="button" onClick={() => Se(false)} className="p-1.5 rounded-full bg-[#FDF2F8] text-[#831843]">
+              <h3 className="text-base font-extrabold text-[#1F0C17] font-display">Importer un Programme (Code ou JSON)</h3>
+              <button type="button" onClick={() => Se(false)} className="p-1.5 rounded-full bg-[#FDF2F8] text-[#781539]">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -988,7 +988,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               value={Ce}
               onChange={(e) => we(e.target.value)}
               placeholder="Collez ici le code de partage GlowUpLab ou le JSON du programme..."
-              className="w-full p-3.5 rounded-2xl border border-[#FBCFE8] bg-[#FDF2F8] text-xs font-mono text-[#2B091C]"
+              className="w-full p-3.5 rounded-2xl border border-[#FBCFE8] bg-[#FDF2F8] text-xs font-mono text-[#1F0C17]"
             />
             <div className="flex justify-end gap-2">
               <button
@@ -1001,7 +1001,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
               <button
                 type="button"
                 onClick={ze}
-                className="px-5 py-2.5 rounded-xl bg-[#831843] text-white text-xs font-extrabold flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-[#781539] text-white text-xs font-extrabold flex items-center gap-1.5"
               >
                 <Upload className="w-4 h-4" />
                 <span>Importer dans mon catalogue</span>
@@ -1012,7 +1012,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
       )}
       {De && activeProgram && (
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-[#12030D]/85 backdrop-blur-md p-4 overflow-y-auto">
-          <div className="w-full max-w-lg bg-gradient-to-b from-[#2B091C] to-[#160410] border border-pink-500/40 rounded-[32px] p-6 text-white shadow-2xl space-y-5 animate-in zoom-in-95 duration-200">
+          <div className="w-full max-w-lg bg-gradient-to-b from-[#1F0C17] to-[#160410] border border-pink-500/40 rounded-[32px] p-6 text-white shadow-2xl space-y-5 animate-in zoom-in-95 duration-200">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-amber-400 flex items-center justify-center text-slate-950 shadow-lg">
@@ -1117,7 +1117,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
             <button
               type="button"
               onClick={() => Oe(false)}
-              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#EC4899] to-[#831843] text-white font-extrabold text-xs"
+              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#EA3E8E] to-[#781539] text-white font-extrabold text-xs"
             >
               Continuer ma progression GlowUpLab
             </button>

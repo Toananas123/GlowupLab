@@ -163,22 +163,22 @@ export const PlanningPage = ({ onStartActiveMode }) => {
       }
     },
     fe = (e) =>
-      e >= 5 ? `bg-[#831843] text-white font-bold` : e >= 4 ? `bg-[#EC4899] text-white font-bold` : `bg-[#FCE7F3] text-[#831843] font-bold`,
+      e >= 5 ? `bg-[#781539] text-white font-bold` : e >= 4 ? `bg-[#EA3E8E] text-white font-bold` : `bg-[#FCE7F3] text-[#781539] font-bold`,
     pe = o.filter((e) => (e.activity || `Repos`) !== `Repos`).length
   return (
     <div className="space-y-4 pb-12 animate-in fade-in duration-150">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 pt-1">
         <div>
-          <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#831843] block">
+          <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#781539] block">
             À la carte ou structuré · 100 % modulable
           </span>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#2B091C]">Planning & Rythme</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#1F0C17]">Planning & Rythme</h1>
         </div>
         {pe > 0 && (
           <button
             type="button"
             onClick={() => se(WEEK_TEMPLATES[2])}
-            className="self-start sm:self-auto px-3.5 py-2 rounded-full bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#831843] text-xs font-bold flex items-center gap-1.5 transition-colors"
+            className="self-start sm:self-auto px-3.5 py-2 rounded-full bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#781539] text-xs font-bold flex items-center gap-1.5 transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Passer en Mode Libre (vider la semaine)</span>
@@ -186,30 +186,30 @@ export const PlanningPage = ({ onStartActiveMode }) => {
         )}
       </div>
       {w && (
-        <div className="p-3.5 rounded-2xl bg-[#FCE7F3] border border-[#FBCFE8] text-[#831843] text-xs font-bold flex items-center gap-2 animate-in fade-in">
-          <Check className="w-4 h-4 text-[#831843] shrink-0" />
+        <div className="p-3.5 rounded-2xl bg-[#FCE7F3] border border-[#FBCFE8] text-[#781539] text-xs font-bold flex items-center gap-2 animate-in fade-in">
+          <Check className="w-4 h-4 text-[#781539] shrink-0" />
           <span>{w}</span>
         </div>
       )}
       <div className="flex items-center gap-6 border-b border-[#F1E4EC]">
         <button
           onClick={() => c(`week`)}
-          className={`pb-2.5 flex items-center gap-1.5 text-sm transition-colors border-b-2 -mb-[1px] ${s === `week` ? `border-[#831843] font-bold text-[#2B091C]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#2B091C]`}`}
+          className={`pb-2.5 flex items-center gap-1.5 text-sm transition-colors border-b-2 -mb-[1px] ${s === `week` ? `border-[#781539] font-bold text-[#1F0C17]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#1F0C17]`}`}
         >
           <span>Ma semaine</span>
           <span
-            className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${s === `week` ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#F6EDF2] text-[#8C6D7E]`}`}
+            className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${s === `week` ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#F4E9F0] text-[#8C6D7E]`}`}
           >
             {pe === 0 ? `Libre` : `${pe}j`}
           </span>
         </button>
         <button
           onClick={() => c(`month`)}
-          className={`pb-2.5 flex items-center gap-1.5 text-sm transition-colors border-b-2 -mb-[1px] ${s === `month` ? `border-[#831843] font-bold text-[#2B091C]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#2B091C]`}`}
+          className={`pb-2.5 flex items-center gap-1.5 text-sm transition-colors border-b-2 -mb-[1px] ${s === `month` ? `border-[#781539] font-bold text-[#1F0C17]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#1F0C17]`}`}
         >
           <span>Calendrier d’assiduité</span>
           <span
-            className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${s === `month` ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#F6EDF2] text-[#8C6D7E]`}`}
+            className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${s === `month` ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#F4E9F0] text-[#8C6D7E]`}`}
           >
             {Object.keys(oe).length}
           </span>
@@ -219,8 +219,8 @@ export const PlanningPage = ({ onStartActiveMode }) => {
         <div className="space-y-4">
           <div className="p-4 rounded-[26px] bg-grainy-pink border border-[#F472B6]/35 space-y-2.5">
             <div className="flex items-center justify-between">
-              <span className="font-display font-bold text-xs sm:text-sm text-[#2B091C] flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-[#831843]" />
+              <span className="font-display font-bold text-xs sm:text-sm text-[#1F0C17] flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-[#781539]" />
                 <span>Modèles de semaine en 1 clic (ou personnalise jour par jour) :</span>
               </span>
             </div>
@@ -234,13 +234,13 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                   className="p-3 rounded-2xl bg-white/90 hover:bg-white border border-white text-left flex flex-col justify-between gap-2 transition-all active:scale-99 shadow-2xs"
                 >
                   <div className="space-y-1">
-                    <span className="inline-block px-2 py-0.5 rounded-full bg-[#FCE7F3] text-[#831843] text-[10px] font-bold">
+                    <span className="inline-block px-2 py-0.5 rounded-full bg-[#FCE7F3] text-[#781539] text-[10px] font-bold">
                       {e.badge}
                     </span>
-                    <h3 className="font-display font-bold text-xs text-[#2B091C] leading-snug">{e.title}</h3>
+                    <h3 className="font-display font-bold text-xs text-[#1F0C17] leading-snug">{e.title}</h3>
                     <p className="text-[10px] text-[#7A616F] leading-relaxed">{e.subtitle}</p>
                   </div>
-                  <span className="text-[11px] font-bold text-[#831843]">Appliquer →</span>
+                  <span className="text-[11px] font-bold text-[#781539]">Appliquer →</span>
                 </button>
               ))}
             </div>
@@ -255,22 +255,22 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                 <div
                   key={e.dayOfWeek}
                   onClick={() => A(e)}
-                  className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all cursor-pointer flex items-center justify-between gap-3.5 active:scale-99"
+                  className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#781539]/5 transition-all cursor-pointer flex items-center justify-between gap-3.5 active:scale-99"
                 >
                   <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                    <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#781539] shrink-0">
                       <Icon name={activityIcon(n)} className="w-6 h-6" />
                     </div>
                     <div className="min-w-0 flex-1 space-y-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">{e.dayName}</h3>
+                        <h3 className="font-display font-semibold text-[15px] text-[#1F0C17] leading-snug line-clamp-2">{e.dayName}</h3>
                         {e.workoutName && !r && (
                           <span className="text-[11px] text-[#7A616F] truncate hidden sm:inline">· {e.workoutName}</span>
                         )}
                       </div>
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#7A616F]">
-                        <span className="inline-flex items-center gap-1.5 font-medium text-[#831843]">
-                          <span className={`w-2 h-2 rounded-full ${i ? `bg-emerald-500` : r ? `bg-[#C8B2BF]` : `bg-[#EC4899]`}`} />
+                        <span className="inline-flex items-center gap-1.5 font-medium text-[#781539]">
+                          <span className={`w-2 h-2 rounded-full ${i ? `bg-emerald-500` : r ? `bg-[#C8B2BF]` : `bg-[#EA3E8E]`}`} />
                           <span>{r ? `Jour libre / Repos` : t.join(` + `)}</span>
                         </span>
                         {e.finisherType && e.finisherType !== `none` && (
@@ -290,7 +290,7 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                         <button
                           type="button"
                           onClick={(t) => ue(e, t)}
-                          className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${i ? `bg-emerald-500 text-white` : `bg-white text-[#8C6D7E] hover:text-[#831843]`}`}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${i ? `bg-emerald-500 text-white` : `bg-white text-[#8C6D7E] hover:text-[#781539]`}`}
                           title="Marquer comme fait"
                         >
                           <Check className="w-4 h-4" />
@@ -298,14 +298,14 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                         <button
                           type="button"
                           onClick={(t) => de(e, t)}
-                          className="w-8 h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs"
+                          className="w-8 h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs"
                           title="Démarrer la séance"
                         >
-                          <Play className="w-3.5 h-3.5 fill-[#831843]" />
+                          <Play className="w-3.5 h-3.5 fill-[#781539]" />
                         </button>
                       </>
                     )}
-                    <span className="w-8 h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs">
+                    <span className="w-8 h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs">
                       <ChevronRight className="w-4 h-4" />
                     </span>
                   </div>
@@ -316,14 +316,14 @@ export const PlanningPage = ({ onStartActiveMode }) => {
         </div>
       )}
       {s === `month` && (
-        <section className="p-5 rounded-[28px] bg-[#F6EDF2] space-y-4">
+        <section className="p-5 rounded-[28px] bg-[#F4E9F0] space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-display font-bold text-[#2B091C] capitalize">{ne}</h2>
+            <h2 className="text-lg font-display font-bold text-[#1F0C17] capitalize">{ne}</h2>
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => O(new Date(te, k - 1, 1))}
-                className="w-9 h-9 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs"
+                className="w-9 h-9 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs"
                 title="Mois précédent"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -331,7 +331,7 @@ export const PlanningPage = ({ onStartActiveMode }) => {
               <button
                 type="button"
                 onClick={() => O(new Date(te, k + 1, 1))}
-                className="w-9 h-9 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs"
+                className="w-9 h-9 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs"
                 title="Mois suivant"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -363,7 +363,7 @@ export const PlanningPage = ({ onStartActiveMode }) => {
               return (
                 <div key={`cal-${n}`} className="flex items-center justify-center">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center text-xs tabular-nums ${i ? fe(i.maxRating) : a ? `bg-white text-[#831843] ring-2 ring-[#EC4899] font-bold` : `text-[#2B091C] font-medium`}`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center text-xs tabular-nums ${i ? fe(i.maxRating) : a ? `bg-white text-[#781539] ring-2 ring-[#EA3E8E] font-bold` : `text-[#1F0C17] font-medium`}`}
                   >
                     {n}
                   </div>
@@ -379,7 +379,7 @@ export const PlanningPage = ({ onStartActiveMode }) => {
         title={l ? l.dayName : `Planifier le jour`}
         subtitle="Sélectionne ta séance (Dos/Pecs, Pecs/Bras, Bas du corps...) et ton circuit Finisher"
         footer={
-          <button type="button" onClick={le} className="w-full py-3.5 rounded-full bg-[#831843] text-white font-bold text-xs min-h-[48px]">
+          <button type="button" onClick={le} className="w-full py-3.5 rounded-full bg-[#781539] text-white font-bold text-xs min-h-[48px]">
             Enregistrer ce jour
           </button>
         }
@@ -394,10 +394,10 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                     key={e}
                     type="button"
                     onClick={() => ce(e)}
-                    className={`p-3 rounded-2xl text-left text-xs font-semibold flex items-center justify-between gap-2 transition-all min-h-[46px] ${t ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#2B091C] hover:bg-[#F1E2EA]`}`}
+                    className={`p-3 rounded-2xl text-left text-xs font-semibold flex items-center justify-between gap-2 transition-all min-h-[46px] ${t ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#1F0C17] hover:bg-[#F1E2EA]`}`}
                   >
                     <span className="flex items-center gap-2 min-w-0">
-                      <Icon name={activityIcon(e)} className={`w-4 h-4 shrink-0 ${t ? `text-[#FBCFE8]` : `text-[#831843]`}`} />
+                      <Icon name={activityIcon(e)} className={`w-4 h-4 shrink-0 ${t ? `text-[#FBCFE8]` : `text-[#781539]`}`} />
                       <span className="truncate">{e}</span>
                     </span>
                     {t && <Check className="w-4 h-4 shrink-0" />}
@@ -408,11 +408,11 @@ export const PlanningPage = ({ onStartActiveMode }) => {
             {!d.includes(`Repos`) && (
               <div className="space-y-3 pt-2 border-t border-[#F1E4EC]">
                 <div>
-                  <label className="block font-bold text-[#2B091C] text-xs mb-1.5">Routine associée (optionnel)</label>
+                  <label className="block font-bold text-[#1F0C17] text-xs mb-1.5">Routine associée (optionnel)</label>
                   <select
                     value={p}
                     onChange={(e) => m(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs font-bold text-[#2B091C]"
+                    className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs font-bold text-[#1F0C17]"
                   >
                     <option value="">Séance automatique selon l’activité choisie</option>
                     {routines.map((e) => (
@@ -423,8 +423,8 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="block font-bold text-[#2B091C] text-xs flex items-center gap-1.5">
-                    <Flame className="w-3.5 h-3.5 text-[#EC4899]" />
+                  <label className="block font-bold text-[#1F0C17] text-xs flex items-center gap-1.5">
+                    <Flame className="w-3.5 h-3.5 text-[#EA3E8E]" />
                     <span>Circuit Finisher (Abdos ou Cardio)</span>
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -451,7 +451,7 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                             e.id === `cardio` && x(CARDIO_FINISHER_OPTIONS[0]),
                             e.id === `abs` && x(ABS_FINISHER_OPTIONS[0]))
                         }}
-                        className={`py-2.5 px-3 rounded-2xl text-xs font-bold ${v === e.id ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#7A616F]`}`}
+                        className={`py-2.5 px-3 rounded-2xl text-xs font-bold ${v === e.id ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F]`}`}
                       >
                         {e.label}
                       </button>
@@ -461,7 +461,7 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                     <select
                       value={b}
                       onChange={(e) => x(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-2xl bg-[#FCE7F3]/70 text-xs font-bold text-[#831843]"
+                      className="w-full px-3.5 py-2.5 rounded-2xl bg-[#FCE7F3]/70 text-xs font-bold text-[#781539]"
                     >
                       {(v === `abs` ? ABS_FINISHER_OPTIONS : CARDIO_FINISHER_OPTIONS).map((e, t) => (
                         <option key={t} value={e}>

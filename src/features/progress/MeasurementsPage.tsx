@@ -62,14 +62,14 @@ export const MeasurementsPage = ({ onBackToProgress }) => {
           {onBackToProgress && (
             <button
               onClick={onBackToProgress}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#831843] hover:text-[#3B0726] mb-1"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#781539] hover:text-[#3B0726] mb-1"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Retour au Suivi</span>
             </button>
           )}
           <h1 className="text-2xl sm:text-3xl font-semibold font-display text-[#3B0726] tracking-tight flex items-center gap-2.5">
-            <Icon name="body" className="w-6 h-6 text-[#EC4899] shrink-0" />
+            <Icon name="body" className="w-6 h-6 text-[#EA3E8E] shrink-0" />
             <span>Suivi des Mensurations</span>
           </h1>
           <p className="text-xs text-[#7A5267] font-medium">
@@ -78,7 +78,7 @@ export const MeasurementsPage = ({ onBackToProgress }) => {
         </div>
         <button
           onClick={() => E(true)}
-          className="flex items-center gap-1.5 px-5 py-3 text-xs font-bold text-white bg-[#831843] hover:bg-[#3B0726] rounded-full transition-all active:scale-95 shadow-sm"
+          className="flex items-center gap-1.5 px-5 py-3 text-xs font-bold text-white bg-[#781539] hover:bg-[#3B0726] rounded-full transition-all active:scale-95 shadow-sm"
         >
           <Plus className="w-4 h-4" />
           <span>Nouvelle prise de mesures</span>
@@ -92,7 +92,7 @@ export const MeasurementsPage = ({ onBackToProgress }) => {
       >
         <form onSubmit={k} className="space-y-4 text-xs">
           <div>
-            <label className="block text-[11px] font-bold text-[#831843] uppercase mb-1">Date</label>
+            <label className="block text-[11px] font-bold text-[#781539] uppercase mb-1">Date</label>
             <input
               type="date"
               required
@@ -187,7 +187,7 @@ export const MeasurementsPage = ({ onBackToProgress }) => {
             >
               Annuler
             </button>
-            <button type="submit" className="px-6 py-2.5 rounded-full bg-[#831843] hover:bg-[#3B0726] text-white text-xs font-bold">
+            <button type="submit" className="px-6 py-2.5 rounded-full bg-[#781539] hover:bg-[#3B0726] text-white text-xs font-bold">
               Enregistrer
             </button>
           </div>
@@ -197,11 +197,11 @@ export const MeasurementsPage = ({ onBackToProgress }) => {
         <div className="p-6 rounded-[28px] bg-white border border-[#FBCFE8] space-y-4 shadow-2xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <span className="text-xs text-[#EC4899] font-bold block">Évolution corporelle</span>
+              <span className="text-xs text-[#EA3E8E] font-bold block">Évolution corporelle</span>
               <h3 className="font-bold text-[#3B0726] text-base font-display">Comparateur entre deux dates</h3>
             </div>
             <div className="w-40">
-              <MeasurementChart data={ae} width={150} height={38} strokeColor="#831843" />
+              <MeasurementChart data={ae} width={150} height={38} strokeColor="#781539" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3 text-xs">
@@ -284,7 +284,7 @@ export const MeasurementsPage = ({ onBackToProgress }) => {
                     {t === null ? (
                       <span className="text-[10px] text-[#7A5267]">-</span>
                     ) : (
-                      <span className="text-[10px] font-mono font-bold text-[#831843] tabular-nums">
+                      <span className="text-[10px] font-mono font-bold text-[#781539] tabular-nums">
                         {t > 0 ? `+${t}` : t} {e.u}
                       </span>
                     )}
@@ -299,7 +299,7 @@ export const MeasurementsPage = ({ onBackToProgress }) => {
         <h3 className="font-bold font-display text-[#3B0726] text-sm pl-1">Historique chronologique</h3>
         {measurements.length === 0 ? (
           <div className="p-8 rounded-[28px] bg-white border border-[#FBCFE8] text-center space-y-2">
-            <Scale className="w-8 h-8 text-[#EC4899] mx-auto" />
+            <Scale className="w-8 h-8 text-[#EA3E8E] mx-auto" />
             <h4 className="font-bold font-display text-[#3B0726] text-base">Aucune mesure pour l'instant</h4>
             <p className="text-xs text-[#7A5267] max-w-sm mx-auto">
               Prends tes mensurations de départ pour suivre l'évolution de ta silhouette dans le temps.
@@ -310,7 +310,7 @@ export const MeasurementsPage = ({ onBackToProgress }) => {
             <div key={e.id} className="p-5 rounded-[28px] bg-white border border-[#FBCFE8] space-y-3 shadow-2xs">
               <div className="flex items-center justify-between pb-2 border-b border-[#FBCFE8]/60">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-[#EC4899]" />
+                  <Calendar className="w-4 h-4 text-[#EA3E8E]" />
                   <span className="font-bold text-[#3B0726] text-xs font-mono tabular-nums">{e.date}</span>
                   {e.notes && <span className="text-xs text-[#7A5267]">· {e.notes}</span>}
                 </div>

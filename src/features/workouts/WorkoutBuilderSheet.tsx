@@ -383,7 +383,7 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
           {S === `pick_goal` ? (
             <button
               onClick={() => E(s)}
-              className="w-full py-3.5 px-4 rounded-full bg-[#831843] hover:bg-[#3B0726] text-white font-bold text-xs flex items-center justify-center gap-2 active:scale-98 transition-all min-h-[48px]"
+              className="w-full py-3.5 px-4 rounded-full bg-[#781539] hover:bg-[#3B0726] text-white font-bold text-xs flex items-center justify-center gap-2 active:scale-98 transition-all min-h-[48px]"
             >
               <Sparkles className="w-4 h-4" />
               <span>Proposer cette séance</span>
@@ -392,7 +392,7 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
             <>
               <button
                 onClick={() => C(`pick_goal`)}
-                className="py-3.5 px-4 rounded-full bg-[#F6EDF2] text-[#2B091C] font-bold text-xs transition-colors min-h-[48px]"
+                className="py-3.5 px-4 rounded-full bg-[#F4E9F0] text-[#1F0C17] font-bold text-xs transition-colors min-h-[48px]"
               >
                 Retour
               </button>
@@ -407,7 +407,7 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
                   }),
                     onClose())
                 }}
-                className="py-3.5 px-4 rounded-full bg-[#FCE7F3] text-[#831843] font-bold text-xs flex items-center gap-1.5 transition-colors min-h-[48px]"
+                className="py-3.5 px-4 rounded-full bg-[#FCE7F3] text-[#781539] font-bold text-xs flex items-center gap-1.5 transition-colors min-h-[48px]"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>Sauvegarder</span>
@@ -421,7 +421,7 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
                   }),
                     onClose())
                 }}
-                className="flex-1 py-3.5 px-4 rounded-full bg-[#831843] text-white font-bold text-xs flex items-center justify-center gap-1.5 active:scale-98 transition-all min-h-[48px]"
+                className="flex-1 py-3.5 px-4 rounded-full bg-[#781539] text-white font-bold text-xs flex items-center justify-center gap-1.5 active:scale-98 transition-all min-h-[48px]"
               >
                 <Play className="w-4 h-4 fill-white" />
                 <span>Démarrer</span>
@@ -440,11 +440,11 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
                 <button
                   key={e.id}
                   onClick={() => c(e.id)}
-                  className={`w-full p-3.5 rounded-[22px] text-left transition-all flex items-center justify-between gap-3 ${t ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#2B091C] hover:bg-[#F1E2EA]`}`}
+                  className={`w-full p-3.5 rounded-[22px] text-left transition-all flex items-center justify-between gap-3 ${t ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#1F0C17] hover:bg-[#F1E2EA]`}`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <span
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${t ? `bg-white/15 text-[#FBCFE8]` : `bg-white text-[#831843]`}`}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${t ? `bg-white/15 text-[#FBCFE8]` : `bg-white text-[#781539]`}`}
                     >
                       <Icon name={e.icon} className="w-5 h-5" />
                     </span>
@@ -460,7 +460,7 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
           </div>
           {s === `abs` && (
             <div className="p-4 rounded-[24px] bg-[#FCE7F3]/70 space-y-2.5">
-              <span className="block text-xs font-bold text-[#831843]">
+              <span className="block text-xs font-bold text-[#781539]">
                 Choisis ton circuit d’abdos & gainage ({ABS_CIRCUITS.length} disponibles) :
               </span>
               <div className="space-y-1.5">
@@ -471,7 +471,7 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
                       key={e.id}
                       type="button"
                       onClick={() => f(t)}
-                      className={`w-full p-3 rounded-2xl text-left transition-all flex items-center justify-between gap-2 ${n ? `bg-[#831843] text-white font-bold` : `bg-white text-[#2B091C] hover:bg-[#FDFBFD]`}`}
+                      className={`w-full p-3 rounded-2xl text-left transition-all flex items-center justify-between gap-2 ${n ? `bg-[#781539] text-white font-bold` : `bg-white text-[#1F0C17] hover:bg-[#FCF9FC]`}`}
                     >
                       <div className="min-w-0">
                         <span className="text-xs block truncate">{e.name}</span>
@@ -488,7 +488,7 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
           )}
           {s === `cardio` && (
             <div className="p-4 rounded-[24px] bg-[#FCE7F3]/70 space-y-2.5">
-              <span className="block text-xs font-bold text-[#831843]">
+              <span className="block text-xs font-bold text-[#781539]">
                 Choisis ta séance cardio guidée ({CARDIO_SESSIONS.length} disponibles) :
               </span>
               <div className="space-y-1.5">
@@ -499,7 +499,7 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
                       key={e.id}
                       type="button"
                       onClick={() => u(t)}
-                      className={`w-full p-3 rounded-2xl text-left transition-all flex items-center justify-between gap-2 ${n ? `bg-[#831843] text-white font-bold` : `bg-white text-[#2B091C] hover:bg-[#FDFBFD]`}`}
+                      className={`w-full p-3 rounded-2xl text-left transition-all flex items-center justify-between gap-2 ${n ? `bg-[#781539] text-white font-bold` : `bg-white text-[#1F0C17] hover:bg-[#FCF9FC]`}`}
                     >
                       <div className="min-w-0">
                         <span className="text-xs block truncate">{e.name}</span>
@@ -517,15 +517,15 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="p-4 rounded-2xl bg-[#FCE7F3] text-[#2B091C] flex items-center justify-between">
+          <div className="p-4 rounded-2xl bg-[#FCE7F3] text-[#1F0C17] flex items-center justify-between">
             <div>
               <h3 className="font-display font-bold text-base">{v}</h3>
-              <p className="text-xs text-[#831843] font-medium">{p.length} exercices structurés dans l’ordre</p>
+              <p className="text-xs text-[#781539] font-medium">{p.length} exercices structurés dans l’ordre</p>
             </div>
             {s !== `abs` && s !== `cardio` && (
               <button
                 onClick={() => E(s)}
-                className="p-2.5 rounded-full bg-white text-[#831843] transition-colors"
+                className="p-2.5 rounded-full bg-white text-[#781539] transition-colors"
                 title="Régénérer d'autres exercices"
               >
                 <RefreshCw className="w-4 h-4" />
@@ -534,19 +534,19 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
           </div>
           <GearList exercises={p} variant="banner" />
           {D && (
-            <div className="rounded-2xl bg-[#F6EDF2] overflow-hidden">
+            <div className="rounded-2xl bg-[#F4E9F0] overflow-hidden">
               <button
                 onClick={() => x(!b)}
-                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-xs text-[#2B091C]"
+                className="w-full p-3.5 flex items-center justify-between text-left font-bold text-xs text-[#1F0C17]"
               >
                 <span className="flex items-center gap-2">
-                  <Icon name="stretch" className="w-4 h-4 text-[#EC4899] shrink-0" />
+                  <Icon name="stretch" className="w-4 h-4 text-[#EA3E8E] shrink-0" />
                   <span>Échauffement & Étirements adaptés</span>
                 </span>
                 {b ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </button>
               {b && (
-                <div className="p-3.5 pt-0 space-y-3 text-xs text-[#2B091C]">
+                <div className="p-3.5 pt-0 space-y-3 text-xs text-[#1F0C17]">
                   <div>
                     <span className="font-bold block mb-1">Échauffement :</span>
                     <ul className="list-disc list-inside space-y-0.5 text-[#7A616F]">
@@ -569,9 +569,9 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
           )}
           <div className="space-y-2">
             {p.map((e, t) => (
-              <div key={e.id} className="p-3.5 rounded-2xl bg-[#F6EDF2] flex items-center justify-between gap-3">
+              <div key={e.id} className="p-3.5 rounded-2xl bg-[#F4E9F0] flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <span className="font-display font-bold text-xs text-[#2B091C] block truncate">
+                  <span className="font-display font-bold text-xs text-[#1F0C17] block truncate">
                     {t + 1}. {e.exerciseName}
                   </span>
                   <div className="flex items-center gap-2 mt-0.5 flex-wrap">
@@ -580,19 +580,19 @@ export const WorkoutBuilderSheet = ({ isOpen, onClose, onLaunchWorkout, onSaveAs
                       {e.restSeconds > 0 ? ` · Repos ${e.restSeconds}s` : ``}
                     </span>
                     {e.notes && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FCE7F3] text-[#831843]">{e.notes}</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FCE7F3] text-[#781539]">{e.notes}</span>
                     )}
                   </div>
                 </div>
-                <span className="font-mono font-bold text-[#831843] text-xs shrink-0 bg-white px-2.5 py-1 rounded-full">
+                <span className="font-mono font-bold text-[#781539] text-xs shrink-0 bg-white px-2.5 py-1 rounded-full">
                   {e.sets[0]?.targetWeight ? `${e.sets[0].targetWeight} kg` : `PDC`}
                 </span>
               </div>
             ))}
           </div>
           {h && (
-            <div className="p-3.5 rounded-2xl bg-[#FCE7F3]/70 text-xs text-[#831843] flex items-center gap-2">
-              <Flame className="w-4 h-4 text-[#EC4899] shrink-0" />
+            <div className="p-3.5 rounded-2xl bg-[#FCE7F3]/70 text-xs text-[#781539] flex items-center gap-2">
+              <Flame className="w-4 h-4 text-[#EA3E8E] shrink-0" />
               <span>
                 <strong>Finisher :</strong> {h}
               </span>

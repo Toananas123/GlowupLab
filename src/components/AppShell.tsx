@@ -35,7 +35,7 @@ export function AppShell() {
   // Le thème sombre s'applique aussi aux fenêtres modales (rendues dans <body>).
   useEffect(() => {
     document.body.classList.toggle('theme-session', dark)
-    document.querySelector('meta[name=theme-color]')?.setAttribute('content', dark ? '#12030d' : '#fdfbfd')
+    document.querySelector('meta[name=theme-color]')?.setAttribute('content', dark ? '#12030d' : '#fcf9fc')
   }, [dark])
 
   useEffect(() => { window.scrollTo(0, 0) }, [location.pathname])
@@ -57,7 +57,7 @@ export function AppShell() {
           </span>
           <Logo size={36} />
         </button>
-        <button onClick={() => navigate('/seances')} className="mb-6 flex items-center justify-center gap-2 rounded-full bg-[#831843] py-3 text-sm font-semibold text-white shadow-md shadow-[#831843]/25 transition hover:bg-[#6d1438]">
+        <button onClick={() => navigate('/seances')} className="mb-6 flex items-center justify-center gap-2 rounded-full bg-[#781539] py-3 text-sm font-semibold text-white shadow-md shadow-[#781539]/25 transition hover:bg-[#6d1438]">
           <Plus size={16} /> Nouvelle séance
         </button>
         <nav className="flex flex-1 flex-col gap-1" aria-label="Navigation principale">
@@ -95,7 +95,7 @@ export function AppShell() {
             <InstallButton />
             <a href={spotify} target="_blank" rel="noopener noreferrer" aria-label="Playlist Spotify" className="grid size-9 place-items-center rounded-full border border-line bg-soft text-plum"><Music2 size={15} /></a>
             <button onClick={() => setProfileOpen(true)} aria-label="Mon profil et réglages" className="flex items-center gap-1.5 rounded-full border border-line bg-soft py-1 pr-3 pl-1 text-sm font-semibold">
-              <span className="grid size-7 place-items-center rounded-full bg-[#831843] text-xs font-bold text-white">{name.charAt(0).toUpperCase()}</span>
+              <span className="grid size-7 place-items-center rounded-full bg-[#781539] text-xs font-bold text-white">{name.charAt(0).toUpperCase()}</span>
               <span className="max-w-24 truncate">{profile?.displayName || 'Profil'}</span>
               <ChevronDown size={14} className="text-plum" />
             </button>
@@ -105,7 +105,7 @@ export function AppShell() {
         <main className="pb-28 md:pb-10">
           {activeWorkout && !inSession && (
             <div className="sticky top-[57px] z-20 px-4 pt-3 md:top-0 md:px-8">
-              <div className="flex items-center justify-between gap-3 rounded-2xl bg-[#831843] px-3 py-2.5 text-white shadow-lg shadow-[#831843]/30">
+              <div className="flex items-center justify-between gap-3 rounded-2xl bg-[#781539] px-3 py-2.5 text-white shadow-lg shadow-[#781539]/30">
                 <button onClick={() => navigate('/seance')} className="flex min-w-0 items-center gap-3 text-left">
                   <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white/15"><Icon name="weightlifter" className="size-5" /></span>
                   <span className="min-w-0">
@@ -114,7 +114,7 @@ export function AppShell() {
                   </span>
                 </button>
                 <div className="flex shrink-0 items-center gap-1">
-                  <button onClick={() => navigate('/seance')} className="rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-[#831843]">Reprendre</button>
+                  <button onClick={() => navigate('/seance')} className="rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-[#781539]">Reprendre</button>
                   <button onClick={confirmCancel} aria-label="Fermer la séance" className="grid size-8 place-items-center rounded-full hover:bg-white/15"><X size={16} /></button>
                 </div>
               </div>
@@ -193,10 +193,10 @@ function InstallButton() {
     <Modal open={guide} onClose={() => setGuide(false)} title={<span className="flex items-center gap-2"><Sparkles size={18} className="text-pink" /> Installer sur iPhone / iPad</span>} maxWidth="max-w-sm">
       <ol className="space-y-3 text-sm">
         {[<>Touchez le bouton <strong>Partager</strong> dans la barre Safari.</>, <>Faites défiler et appuyez sur <strong>« Sur l’écran d’accueil »</strong>.</>, <>Appuyez sur <strong>Ajouter</strong> en haut à droite.</>].map((t, i) => (
-          <li key={i} className="flex gap-3"><span className="grid size-6 shrink-0 place-items-center rounded-full bg-[#831843] text-xs font-bold text-white">{i + 1}</span><p>{t}</p></li>
+          <li key={i} className="flex gap-3"><span className="grid size-6 shrink-0 place-items-center rounded-full bg-[#781539] text-xs font-bold text-white">{i + 1}</span><p>{t}</p></li>
         ))}
       </ol>
-      <button onClick={() => setGuide(false)} className="mt-5 w-full rounded-full bg-[#831843] py-3 text-sm font-semibold text-white">Compris</button>
+      <button onClick={() => setGuide(false)} className="mt-5 w-full rounded-full bg-[#781539] py-3 text-sm font-semibold text-white">Compris</button>
     </Modal>
   </>)
 }

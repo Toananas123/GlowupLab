@@ -1,19 +1,25 @@
 @import "tailwindcss";
-@import "@fontsource-variable/figtree";
-@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/newsreader/opsz.css";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700.css";
 
 /* Jetons de couleur : valeurs de l'app d'origine. Le thème sombre s'active pendant une séance en cours. */
 :root {
-  --bg: #fdfbfd;
+  /* Dégradés du README */
+  --grad: linear-gradient(135deg, #ea3e8e 0%, #781539 100%);
+  --gradPlum: linear-gradient(160deg, #781539 0%, #1f0c17 100%);
+  --bg: #fcf9fc;
   --surface: #ffffff;
-  --soft: #f8eef3;
+  --soft: #f4e9f0;
   --soft-2: #fff0f5;
-  --ink: #2b091c;
+  --ink: #1f0c17;
   --ink-2: #3b0726;
   --muted: #7a616f;
   --line: #f3e5ed;
-  --plum: #831843;
-  --pink: #ec4899;
+  --plum: #781539;
+  --pink: #ea3e8e;
   --pink-2: #f472b6;
   --blush: #fce7f3;
   --blush-line: #fbcfe8;
@@ -48,13 +54,12 @@
   --color-pink-2: var(--pink-2);
   --color-blush: var(--blush);
   --color-blush-line: var(--blush-line);
-  /* Police unique sur tous les appareils (avant : police système, différente sur Android/Windows). */
-  --font-sans: "Figtree Variable", system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque Variable", "Figtree Variable", system-ui, sans-serif;
-  --font-compact: "Figtree Variable", system-ui, sans-serif;
-  --font-serif: "Bricolage Grotesque Variable", Georgia, serif;
-  /* Les chiffres (charges, chronos) gardent une largeur fixe sans police monospace « Courier ». */
-  --font-mono: "Figtree Variable", system-ui, sans-serif;
+  /* Polices du README : Inter (texte et titres), Newsreader (accents éditoriaux), Space Mono (chiffres). */
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Inter Variable", system-ui, sans-serif;
+  --font-compact: "Inter Variable", system-ui, sans-serif;
+  --font-serif: "Newsreader Variable", Georgia, serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
 }
 
 html, body, #root { min-height: 100%; }
@@ -79,8 +84,9 @@ button:disabled { cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) { .animate-fade-up { animation: none; } }
 
 /* Classes reprises de l'app d'origine */
-.font-display { font-family: var(--font-display); letter-spacing: -.02em; font-weight: 700; font-variation-settings: "wdth" 92; }
-.font-mono, .tabular-nums { font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.font-display { font-family: var(--font-display); letter-spacing: -.03em; font-weight: 700; }
+.tabular-nums { font-variant-numeric: tabular-nums; }
+.font-mono { letter-spacing: -.02em; }
 .font-compact { font-family: var(--font-compact); }
 
 /* Lisibilité sur ordinateur : les petites tailles héritées du mobile grandissent un peu. */

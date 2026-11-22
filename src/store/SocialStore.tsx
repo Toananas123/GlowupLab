@@ -1,14 +1,12 @@
 // @ts-nocheck — store social porté depuis l'app d'origine (amies et fil simulés localement).
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+// TEMPORAIRE : remplacé par le vrai Club Supabase (tables profiles / friends / social).
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../features/auth/AuthProvider'
-import { db } from '../lib/firebase'
-import { clean } from '../lib/utils'
 import { useWorkout } from './WorkoutStore'
 
 const SOCIAL_STORAGE_PREFIX = 'glow_up_lab_social_v2_'
 const SOCIAL_DOC_ID = 'social_state_v2'
-const AVATAR_COLORS = ['#BE185D', '#831843', '#9D174D', '#DB2777', '#701A75', '#A21CAF']
+const AVATAR_COLORS = ['#BE185D', '#781539', '#9D174D', '#DB2777', '#701A75', '#A21CAF']
 const EMPTY_FRIENDS = [], EMPTY_REQUESTS = [], EMPTY_POSTS = [], EMPTY_DATES = []
 const SocialContext = createContext(undefined)
 
@@ -150,7 +148,7 @@ export const SocialProvider = ({ children }) => {
     [l, u] = useState({
       handle: s,
       friendCode: c,
-      avatarColor: `#831843`,
+      avatarColor: `#781539`,
       bioStatus: `En plein Glow Up 🌸 4 exos par séance, zéro excuse !`,
       favoriteExercise: `Hip Thrust à la barre`,
       hideWeights: false,
@@ -188,21 +186,6 @@ export const SocialProvider = ({ children }) => {
             e.challengeTitle && T(e.challengeTitle))
         }
       } catch {}
-      if (user?.uid)
-        try {
-          let e = await getDoc(doc(db, `users`, user.uid, `profile`, SOCIAL_DOC_ID))
-          if (e.exists()) {
-            let t = e.data()
-            ;(t.mySocialProfile && u(t.mySocialProfile),
-              Array.isArray(t.friends) && (n = t.friends),
-              Array.isArray(t.friendRequests) && m(t.friendRequests),
-              Array.isArray(t.feedPosts) && (r = t.feedPosts),
-              Array.isArray(t.gymDates) && y(t.gymDates),
-              t.pokedFriendIds && typeof t.pokedFriendIds == `object` && x(t.pokedFriendIds),
-              t.challengeTarget && C(t.challengeTarget),
-              t.challengeTitle && T(t.challengeTitle))
-          }
-        } catch {}
       let i = E(n, r)
       ;(f(n), g(i))
     }
@@ -227,12 +210,6 @@ export const SocialProvider = ({ children }) => {
       try {
         localStorage.setItem(`${SOCIAL_STORAGE_PREFIX}${o}`, JSON.stringify(n))
       } catch {}
-      if (user?.uid)
-        try {
-          await setDoc(doc(db, `users`, user.uid, `profile`, SOCIAL_DOC_ID), clean(n), {
-            merge: true,
-          })
-        } catch {}
     },
     te = async (e) => {
       let t = {

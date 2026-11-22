@@ -302,7 +302,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
       <div className="w-full max-w-xl rounded-[32px] bg-[#FCFBF9] p-5 sm:p-6 shadow-2xl border border-[#E6E2D8] my-4 max-h-[93vh] flex flex-col animate-in fade-in zoom-in-95 duration-150">
         <div className="flex items-center justify-between pb-3 border-b border-[#F5B8EE]">
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-[#2B091C] font-display">Saisir & Personnaliser ma Séance</h2>
+            <h2 className="text-base sm:text-lg font-bold text-[#1F0C17] font-display">Saisir & Personnaliser ma Séance</h2>
             <p className="text-xs text-[#7A616F] font-medium">
               Tape quelques lettres pour ajouter tes exos et choisis ton circuit Finisher
             </p>
@@ -311,7 +311,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
             <button
               type="button"
               onClick={Te}
-              className="p-2 rounded-full text-[#831843] bg-[#FCE7F3] hover:bg-[#FBCFE8] transition-colors flex items-center gap-1 text-xs font-bold"
+              className="p-2 rounded-full text-[#781539] bg-[#FCE7F3] hover:bg-[#FBCFE8] transition-colors flex items-center gap-1 text-xs font-bold"
               title="Partager cette séance"
             >
               {le ? <Check className="w-4 h-4 text-emerald-600" /> : <Share2 className="w-4 h-4" />}
@@ -329,41 +329,41 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
           </div>
         )}
         {ne && (
-          <div className="mt-2 p-2.5 rounded-xl bg-[#FCE7F3] border border-[#FBCFE8] text-[#831843] text-xs font-bold flex items-center gap-2 animate-in fade-in">
-            <Sparkles className="w-4 h-4 text-[#EC4899] shrink-0" />
+          <div className="mt-2 p-2.5 rounded-xl bg-[#FCE7F3] border border-[#FBCFE8] text-[#781539] text-xs font-bold flex items-center gap-2 animate-in fade-in">
+            <Sparkles className="w-4 h-4 text-[#EA3E8E] shrink-0" />
             <span>{ne}</span>
           </div>
         )}
-        <div className="flex-1 overflow-y-auto space-y-4 py-4 pr-1 text-xs leading-relaxed text-[#2B091C]">
+        <div className="flex-1 overflow-y-auto space-y-4 py-4 pr-1 text-xs leading-relaxed text-[#1F0C17]">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2 space-y-1">
-              <label className="text-[11px] font-bold text-[#831843]">Nom de la séance</label>
+              <label className="text-[11px] font-bold text-[#781539]">Nom de la séance</label>
               <input
                 type="text"
                 value={l}
                 onChange={(e) => u(e.target.value)}
                 placeholder="ex: Séance Dos / Pecs, Leg Day Fessiers..."
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl border border-[#E5D4DF] bg-white text-[#2B091C] font-semibold focus:outline-hidden focus:border-[#831843]"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl border border-[#E5D4DF] bg-white text-[#1F0C17] font-semibold focus:outline-hidden focus:border-[#781539]"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[11px] font-bold text-[#831843]">Date</label>
+              <label className="text-[11px] font-bold text-[#781539]">Date</label>
               <input
                 type="date"
                 value={s}
                 onChange={(e) => c(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs rounded-2xl border border-[#E5D4DF] bg-white text-[#2B091C] font-semibold"
+                className="w-full px-3.5 py-2.5 text-xs rounded-2xl border border-[#E5D4DF] bg-white text-[#1F0C17] font-semibold"
               />
             </div>
           </div>
-          <div className="p-4 rounded-[26px] bg-[#F6EDF2] border border-[#E5D4DF] space-y-3">
+          <div className="p-4 rounded-[26px] bg-[#F4E9F0] border border-[#E5D4DF] space-y-3">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <span className="w-7 h-7 rounded-xl bg-[#831843] text-white flex items-center justify-center shrink-0">
+                <span className="w-7 h-7 rounded-xl bg-[#781539] text-white flex items-center justify-center shrink-0">
                   <Search className="w-3.5 h-3.5" />
                 </span>
                 <div>
-                  <span className="font-display font-bold text-xs text-[#2B091C] block">Ajouter un exercice (Saisie intelligente)</span>
+                  <span className="font-display font-bold text-xs text-[#1F0C17] block">Ajouter un exercice (Saisie intelligente)</span>
                   <span className="text-[10px] text-[#7A616F] block">
                     Tape quelques lettres (ex: « hip », « tir », « pec », « fent ») et clique sur une proposition
                   </span>
@@ -372,13 +372,13 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
               <button
                 type="button"
                 onClick={() => y(!v)}
-                className="text-[11px] font-bold text-[#831843] px-2.5 py-1 rounded-full bg-white hover:bg-[#FCE7F3]"
+                className="text-[11px] font-bold text-[#781539] px-2.5 py-1 rounded-full bg-white hover:bg-[#FCE7F3]"
               >
                 {v ? `Réduire` : `Ouvrir`}
               </button>
             </div>
             <div className="relative">
-              <Search className="w-4 h-4 text-[#831843] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-4 h-4 text-[#781539] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={p}
@@ -387,13 +387,13 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                   ;(m(e.target.value), y(true))
                 }}
                 placeholder="Écris les premières lettres d'un exercice (ex: tirage, hip thrust, développé, curl...)"
-                className="w-full pl-9 pr-9 py-2.5 rounded-2xl bg-white border-2 border-[#FBCFE8] focus:border-[#831843] focus:outline-hidden text-xs font-semibold text-[#2B091C] placeholder:text-[#8C6D7E]"
+                className="w-full pl-9 pr-9 py-2.5 rounded-2xl bg-white border-2 border-[#FBCFE8] focus:border-[#781539] focus:outline-hidden text-xs font-semibold text-[#1F0C17] placeholder:text-[#8C6D7E]"
               />
               {p && (
                 <button
                   type="button"
                   onClick={() => m(``)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C6D7E] hover:text-[#2B091C]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C6D7E] hover:text-[#1F0C17]"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -442,7 +442,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                         key={e.id}
                         type="button"
                         onClick={() => g(e.id)}
-                        className={`px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap transition-all ${t ? `bg-[#831843] text-white` : `bg-white text-[#7A616F] hover:text-[#2B091C]`}`}
+                        className={`px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap transition-all ${t ? `bg-[#781539] text-white` : `bg-white text-[#7A616F] hover:text-[#1F0C17]`}`}
                       >
                         {e.label}
                       </button>
@@ -463,8 +463,8 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                       >
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5">
-                            <span className="font-bold text-xs text-[#2B091C] truncate">{e.name}</span>
-                            {t && <Star className="w-3 h-3 fill-[#EC4899] text-[#EC4899] shrink-0" />}
+                            <span className="font-bold text-xs text-[#1F0C17] truncate">{e.name}</span>
+                            {t && <Star className="w-3 h-3 fill-[#EA3E8E] text-[#EA3E8E] shrink-0" />}
                             {r && (
                               <span className="px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-bold">
                                 Déjà ajouté
@@ -472,11 +472,11 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                             )}
                           </div>
                           <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
-                            <span className="text-[10px] font-semibold text-[#831843]">{e.primaryMuscle}</span>
+                            <span className="text-[10px] font-semibold text-[#781539]">{e.primaryMuscle}</span>
                             <span className={`text-[9px] px-1.5 py-0.2 rounded-full ${n.badgeClass}`}>{n.label}</span>
                           </div>
                         </div>
-                        <span className="px-3 py-1.5 rounded-full bg-[#831843] text-white text-[11px] font-bold shrink-0">+ Ajouter</span>
+                        <span className="px-3 py-1.5 rounded-full bg-[#781539] text-white text-[11px] font-bold shrink-0">+ Ajouter</span>
                       </button>
                     )
                   })}
@@ -484,13 +484,13 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                     <button
                       type="button"
                       onClick={() => x(p.trim())}
-                      className="w-full p-3 rounded-2xl bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#831843] text-left flex items-center justify-between gap-2 font-bold text-xs transition-all"
+                      className="w-full p-3 rounded-2xl bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#781539] text-left flex items-center justify-between gap-2 font-bold text-xs transition-all"
                     >
                       <span className="flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-[#EC4899] shrink-0" />
+                        <Sparkles className="w-4 h-4 text-[#EA3E8E] shrink-0" />
                         <span>Créer l’exercice « {p.trim()} » (avec sa fiche complète)</span>
                       </span>
-                      <span className="px-2.5 py-1 rounded-full bg-[#831843] text-white text-[10px]">+ Créer</span>
+                      <span className="px-2.5 py-1 rounded-full bg-[#781539] text-white text-[10px]">+ Créer</span>
                     </button>
                   )}
                 </div>
@@ -504,7 +504,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
               className="w-full p-3 bg-[#F2EFE9] text-left flex items-center justify-between font-semibold text-xs text-[#3B0726]"
             >
               <div className="flex items-center gap-2">
-                <Icon name="stretch" className="w-4 h-4 text-[#EC4899] shrink-0" />
+                <Icon name="stretch" className="w-4 h-4 text-[#EA3E8E] shrink-0" />
                 <span>Protocole conseillé : Échauffement dynamique & Étirements</span>
               </div>
               {A ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -517,11 +517,11 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
           </div>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-xs text-[#2B091C] uppercase tracking-wider">Exercices sélectionnés ({d.length})</span>
+              <span className="font-bold text-xs text-[#1F0C17] uppercase tracking-wider">Exercices sélectionnés ({d.length})</span>
               <button
                 type="button"
                 onClick={() => x(``)}
-                className="text-[11px] font-bold text-[#831843] hover:underline flex items-center gap-1"
+                className="text-[11px] font-bold text-[#781539] hover:underline flex items-center gap-1"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Créer un nouvel exo perso</span>
@@ -544,10 +544,10 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                     <div className="flex items-start justify-between">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold font-display text-[#2B091C] text-sm">
+                          <span className="font-bold font-display text-[#1F0C17] text-sm">
                             {t + 1}. {e.exerciseName}
                           </span>
-                          {favorites.includes(e.exerciseId) && <Star className="w-3.5 h-3.5 fill-[#EC4899] text-[#EC4899]" />}
+                          {favorites.includes(e.exerciseId) && <Star className="w-3.5 h-3.5 fill-[#EA3E8E] text-[#EA3E8E]" />}
                         </div>
                         <div className="flex items-center gap-2 mt-0.5">
                           <span className={`text-[9px] px-2 py-0.5 rounded-full ${s.badgeClass}`}>{s.label}</span>
@@ -564,9 +564,9 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                       </button>
                     </div>
                     {n && (
-                      <div className="flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-[#FCE7F3]/60 text-[11px] text-[#2B091C]">
+                      <div className="flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-[#FCE7F3]/60 text-[11px] text-[#1F0C17]">
                         <div className="flex items-center gap-1 font-medium">
-                          <History className="w-3 h-3 text-[#831843]" />
+                          <History className="w-3 h-3 text-[#781539]" />
                           <span>
                             Dernière charge : <strong>{n.weight} kg</strong> ({n.reps} reps)
                           </span>
@@ -574,7 +574,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                         <button
                           type="button"
                           onClick={() => ve(t, n.weight, n.reps)}
-                          className="px-2 py-0.5 rounded-full bg-white font-bold text-[10px] text-[#831843] hover:bg-[#FCE7F3] flex items-center gap-1"
+                          className="px-2 py-0.5 rounded-full bg-white font-bold text-[10px] text-[#781539] hover:bg-[#FCE7F3] flex items-center gap-1"
                         >
                           <RotateCcw className="w-2.5 h-2.5" />
                           <span>Reprendre</span>
@@ -583,7 +583,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                           <button
                             type="button"
                             onClick={() => _e(t, i)}
-                            className="px-2 py-0.5 rounded-full bg-[#831843] font-bold text-[10px] text-white flex items-center gap-1"
+                            className="px-2 py-0.5 rounded-full bg-[#781539] font-bold text-[10px] text-white flex items-center gap-1"
                           >
                             <Lightbulb className="w-2.5 h-2.5 text-[#FBCFE8]" />
                             <span>Essayer {i} kg</span>
@@ -600,7 +600,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                       </div>
                       {e.sets.map((n, r) => (
                         <div key={n.id} className="grid grid-cols-12 gap-2 items-center">
-                          <span className="col-span-2 font-display font-bold text-[#831843] pl-1">#{r + 1}</span>
+                          <span className="col-span-2 font-display font-bold text-[#781539] pl-1">#{r + 1}</span>
                           <div className="col-span-5">
                             <input
                               type="number"
@@ -617,7 +617,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                               min="0"
                               value={n.targetWeight}
                               onChange={(e) => ge(t, r, n.targetReps, parseFloat(e.target.value) || 0)}
-                              className="w-full px-2.5 py-1.5 text-xs rounded-xl border border-[#E5D4DF] bg-[#FCFBF9] text-center font-mono font-bold text-[#2B091C]"
+                              className="w-full px-2.5 py-1.5 text-xs rounded-xl border border-[#E5D4DF] bg-[#FCFBF9] text-center font-mono font-bold text-[#1F0C17]"
                             />
                           </div>
                           <div className="col-span-1 text-center">
@@ -631,7 +631,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                       ))}
                     </div>
                     <div className="pt-1 flex justify-start">
-                      <button type="button" onClick={() => me(t)} className="text-[11px] font-bold text-[#831843] hover:underline">
+                      <button type="button" onClick={() => me(t)} className="text-[11px] font-bold text-[#781539] hover:underline">
                         + Ajouter une série
                       </button>
                     </div>
@@ -640,13 +640,13 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
               })
             )}
           </div>
-          <div className="space-y-3 p-4 rounded-[26px] bg-[#F6EDF2] border border-[#E5D4DF]">
+          <div className="space-y-3 p-4 rounded-[26px] bg-[#F4E9F0] border border-[#E5D4DF]">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-[#2B091C]">
-                <Flame className="w-4 h-4 text-[#EC4899]" />
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#1F0C17]">
+                <Flame className="w-4 h-4 text-[#EA3E8E]" />
                 <span>Option Finisher : Circuits Abdos, Cardio ou Idées Rapides</span>
               </div>
-              <span className="text-[10px] font-semibold text-[#831843]">
+              <span className="text-[10px] font-semibold text-[#781539]">
                 {ABS_CIRCUITS.length} circuits Abdos · {CARDIO_SESSIONS.length} Cardio
               </span>
             </div>
@@ -654,14 +654,14 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
               <button
                 type="button"
                 onClick={() => be(`none`)}
-                className={`py-2.5 px-3 rounded-2xl text-xs font-bold transition-all ${S === `none` ? `bg-[#2B091C] text-white shadow-xs` : `bg-white text-[#7A616F] hover:bg-[#FCE7F3] border border-[#E5D4DF]`}`}
+                className={`py-2.5 px-3 rounded-2xl text-xs font-bold transition-all ${S === `none` ? `bg-[#1F0C17] text-white shadow-xs` : `bg-white text-[#7A616F] hover:bg-[#FCE7F3] border border-[#E5D4DF]`}`}
               >
                 Aucun
               </button>
               <button
                 type="button"
                 onClick={() => be(`abs`)}
-                className={`py-2.5 px-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${S === `abs` ? `bg-[#831843] text-white shadow-xs` : `bg-white text-[#7A616F] hover:bg-[#FCE7F3] border border-[#E5D4DF]`}`}
+                className={`py-2.5 px-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${S === `abs` ? `bg-[#781539] text-white shadow-xs` : `bg-white text-[#7A616F] hover:bg-[#FCE7F3] border border-[#E5D4DF]`}`}
               >
                 <Icon name="stretch" className="w-3.5 h-3.5 shrink-0" />
                 <span>Abdos & Circuits</span>
@@ -669,7 +669,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
               <button
                 type="button"
                 onClick={() => be(`cardio`)}
-                className={`py-2.5 px-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${S === `cardio` ? `bg-[#EC4899] text-white shadow-xs` : `bg-white text-[#7A616F] hover:bg-[#FCE7F3] border border-[#E5D4DF]`}`}
+                className={`py-2.5 px-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${S === `cardio` ? `bg-[#EA3E8E] text-white shadow-xs` : `bg-white text-[#7A616F] hover:bg-[#FCE7F3] border border-[#E5D4DF]`}`}
               >
                 <Icon name="runner" className="w-3.5 h-3.5 shrink-0" />
                 <span>Cardio & Circuits</span>
@@ -680,7 +680,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                 <button
                   type="button"
                   onClick={() => D(`circuits`)}
-                  className={`flex-1 py-1.5 px-3 rounded-full text-[11px] font-bold transition-all ${E === `circuits` ? `bg-[#FCE7F3] text-[#831843] border border-[#FBCFE8]` : `bg-white text-[#7A616F]`}`}
+                  className={`flex-1 py-1.5 px-3 rounded-full text-[11px] font-bold transition-all ${E === `circuits` ? `bg-[#FCE7F3] text-[#781539] border border-[#FBCFE8]` : `bg-white text-[#7A616F]`}`}
                 >
                   {S === `abs`
                     ? `🔥 Les ${ABS_CIRCUITS.length} Circuits Abdos de l'appli`
@@ -689,7 +689,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                 <button
                   type="button"
                   onClick={() => D(`quick`)}
-                  className={`flex-1 py-1.5 px-3 rounded-full text-[11px] font-bold transition-all ${E === `quick` ? `bg-[#FCE7F3] text-[#831843] border border-[#FBCFE8]` : `bg-white text-[#7A616F]`}`}
+                  className={`flex-1 py-1.5 px-3 rounded-full text-[11px] font-bold transition-all ${E === `quick` ? `bg-[#FCE7F3] text-[#781539] border border-[#FBCFE8]` : `bg-white text-[#7A616F]`}`}
                 >
                   ⚡ Autres idées rapides
                 </button>
@@ -707,7 +707,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                             key={e.id}
                             type="button"
                             onClick={() => xe(e)}
-                            className={`w-full p-2.5 rounded-2xl text-left transition-all flex items-center justify-between gap-2 ${t ? `bg-[#831843] text-white` : `bg-white text-[#2B091C] hover:bg-[#FCE7F3]/50 border border-[#E5D4DF]`}`}
+                            className={`w-full p-2.5 rounded-2xl text-left transition-all flex items-center justify-between gap-2 ${t ? `bg-[#781539] text-white` : `bg-white text-[#1F0C17] hover:bg-[#FCE7F3]/50 border border-[#E5D4DF]`}`}
                           >
                             <div className="min-w-0">
                               <span className="font-bold text-xs block truncate">{e.name.replace(/^\d+\.\s*/, ``)}</span>
@@ -723,13 +723,13 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                     {Ee && (
                       <div className="p-3 rounded-2xl bg-white border border-[#FBCFE8] space-y-2">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="font-bold text-[11px] text-[#831843]">
+                          <span className="font-bold text-[11px] text-[#781539]">
                             Détail du circuit sélectionné ({Ee.exercises.length} exos) :
                           </span>
                           <button
                             type="button"
                             onClick={() => Ce(Ee)}
-                            className="px-2.5 py-1 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#831843] font-bold text-[10px] flex items-center gap-1 transition-colors"
+                            className="px-2.5 py-1 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#781539] font-bold text-[10px] flex items-center gap-1 transition-colors"
                           >
                             <Plus className="w-3 h-3" />
                             <span>Incorporer les exos dans la séance</span>
@@ -739,12 +739,12 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                           {Ee.exercises.map((e, t) => (
                             <div
                               key={t}
-                              className="px-2.5 py-1.5 rounded-xl bg-[#F6EDF2] text-[10px] flex items-center justify-between gap-1"
+                              className="px-2.5 py-1.5 rounded-xl bg-[#F4E9F0] text-[10px] flex items-center justify-between gap-1"
                             >
-                              <span className="font-semibold text-[#2B091C] truncate">
+                              <span className="font-semibold text-[#1F0C17] truncate">
                                 {t + 1}. {e.name}
                               </span>
-                              <span className="font-mono font-bold text-[#831843] shrink-0">{e.reps}</span>
+                              <span className="font-mono font-bold text-[#781539] shrink-0">{e.reps}</span>
                             </div>
                           ))}
                         </div>
@@ -758,7 +758,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                         key={t}
                         type="button"
                         onClick={() => T(e)}
-                        className={`px-2.5 py-1.5 rounded-full text-[10px] font-semibold border transition-colors ${w === e ? `bg-[#831843] text-white border-[#831843]` : `bg-white text-[#2B091C] border-[#E5D4DF] hover:bg-[#FCE7F3]`}`}
+                        className={`px-2.5 py-1.5 rounded-full text-[10px] font-semibold border transition-colors ${w === e ? `bg-[#781539] text-white border-[#781539]` : `bg-white text-[#1F0C17] border-[#E5D4DF] hover:bg-[#FCE7F3]`}`}
                       >
                         {e}
                       </button>
@@ -770,7 +770,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                   value={w}
                   onChange={(e) => T(e.target.value)}
                   placeholder="Ou personnalise librement ton Finisher Abdos..."
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E5D4DF] bg-white text-[#2B091C] font-medium"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E5D4DF] bg-white text-[#1F0C17] font-medium"
                 />
               </div>
             )}
@@ -786,7 +786,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                             key={e.id}
                             type="button"
                             onClick={() => Se(e)}
-                            className={`w-full p-2.5 rounded-2xl text-left transition-all flex items-center justify-between gap-2 ${t ? `bg-[#831843] text-white` : `bg-white text-[#2B091C] hover:bg-[#FCE7F3]/50 border border-[#E5D4DF]`}`}
+                            className={`w-full p-2.5 rounded-2xl text-left transition-all flex items-center justify-between gap-2 ${t ? `bg-[#781539] text-white` : `bg-white text-[#1F0C17] hover:bg-[#FCE7F3]/50 border border-[#E5D4DF]`}`}
                           >
                             <div className="min-w-0">
                               <span className="font-bold text-xs block truncate">{e.name.replace(/^\d+\.\s*/, ``)}</span>
@@ -802,11 +802,11 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                     {De && (
                       <div className="p-3 rounded-2xl bg-white border border-[#FBCFE8] space-y-2">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="font-bold text-[11px] text-[#831843]">Étapes du circuit ({De.machine}) :</span>
+                          <span className="font-bold text-[11px] text-[#781539]">Étapes du circuit ({De.machine}) :</span>
                           <button
                             type="button"
                             onClick={() => we(De)}
-                            className="px-2.5 py-1 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#831843] font-bold text-[10px] flex items-center gap-1 transition-colors"
+                            className="px-2.5 py-1 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#781539] font-bold text-[10px] flex items-center gap-1 transition-colors"
                           >
                             <Plus className="w-3 h-3" />
                             <span>Incorporer les paliers dans la séance</span>
@@ -816,10 +816,10 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                           {De.intervals.map((e, t) => (
                             <div
                               key={t}
-                              className="px-2.5 py-1 rounded-xl bg-[#F6EDF2] text-[10px] flex items-center justify-between gap-2"
+                              className="px-2.5 py-1 rounded-xl bg-[#F4E9F0] text-[10px] flex items-center justify-between gap-2"
                             >
-                              <span className="font-mono font-bold text-[#831843] shrink-0">{e.time}</span>
-                              <span className="text-[#2B091C] truncate flex-1 text-right">{e.instruction}</span>
+                              <span className="font-mono font-bold text-[#781539] shrink-0">{e.time}</span>
+                              <span className="text-[#1F0C17] truncate flex-1 text-right">{e.instruction}</span>
                             </div>
                           ))}
                         </div>
@@ -833,7 +833,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                         key={t}
                         type="button"
                         onClick={() => T(e)}
-                        className={`px-2.5 py-1.5 rounded-full text-[10px] font-semibold border transition-colors ${w === e ? `bg-[#831843] text-white border-[#831843]` : `bg-white text-[#2B091C] border-[#E5D4DF] hover:bg-[#FCE7F3]`}`}
+                        className={`px-2.5 py-1.5 rounded-full text-[10px] font-semibold border transition-colors ${w === e ? `bg-[#781539] text-white border-[#781539]` : `bg-white text-[#1F0C17] border-[#E5D4DF] hover:bg-[#FCE7F3]`}`}
                       >
                         {e}
                       </button>
@@ -845,7 +845,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                   value={w}
                   onChange={(e) => T(e.target.value)}
                   placeholder="Ou écris ton Finisher Cardio sur-mesure..."
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E5D4DF] bg-white text-[#2B091C] font-medium"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-[#E5D4DF] bg-white text-[#1F0C17] font-medium"
                 />
               </div>
             )}
@@ -861,7 +861,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
               <div>
                 <label className="text-xs font-semibold text-[#3B0726] flex items-center gap-1.5">
                   <span>Ressenti d'intensité : {ie}/5</span>
-                  <Icon name="heart-pulse" className="w-3.5 h-3.5 text-[#EC4899]" />
+                  <Icon name="heart-pulse" className="w-3.5 h-3.5 text-[#EA3E8E]" />
                 </label>
                 <span className="text-[10px] text-neutral-500">
                   {ie === 1 && `Doux · Récupération active`}
@@ -911,7 +911,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                   }),
                   onClose())
             }}
-            className="py-3 px-4 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#831843] font-bold text-xs flex items-center gap-1.5 transition-colors"
+            className="py-3 px-4 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#781539] font-bold text-xs flex items-center gap-1.5 transition-colors"
           >
             <Save className="w-3.5 h-3.5" />
             <span>Enregistrer routine</span>
@@ -919,9 +919,9 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
           <button
             type="button"
             onClick={Te}
-            className="py-3 px-3.5 rounded-full bg-[#F6EDF2] hover:bg-[#F1E2EA] text-[#2B091C] font-bold text-xs flex items-center gap-1 transition-colors"
+            className="py-3 px-3.5 rounded-full bg-[#F4E9F0] hover:bg-[#F1E2EA] text-[#1F0C17] font-bold text-xs flex items-center gap-1 transition-colors"
           >
-            <Share2 className="w-3.5 h-3.5 text-[#831843]" />
+            <Share2 className="w-3.5 h-3.5 text-[#781539]" />
             <span>Partager</span>
           </button>
           <button
@@ -939,7 +939,7 @@ export const WorkoutGeneratorSheet = ({ isOpen, onClose, onLaunchWorkout, onSave
                   }),
                   onClose())
             }}
-            className="flex-1 py-3 px-4 rounded-full bg-[#831843] hover:bg-[#5B0E2D] text-white font-bold text-xs flex items-center justify-center gap-1.5 active:scale-98 transition-all"
+            className="flex-1 py-3 px-4 rounded-full bg-[#781539] hover:bg-[#5B0E2D] text-white font-bold text-xs flex items-center justify-center gap-1.5 active:scale-98 transition-all"
           >
             <Play className="w-4 h-4 fill-white" />
             <span>Démarrer la séance active</span>

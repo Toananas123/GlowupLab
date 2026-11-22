@@ -2,7 +2,7 @@ import { LogOut, Trash2 } from 'lucide-react'
 import { useEffect, useState, type FormEvent } from 'react'
 import { Alert, Field, Modal, PrimaryButton } from '../../components/ui'
 import { useAuth } from '../auth/AuthProvider'
-import { changeDisplayName, changePassword, deleteAccount, signOut, usesPassword } from '../auth/authService'
+import { changePassword, deleteAccount, signOut } from '../auth/authService'
 import { authErrorMessage } from '../auth/errors'
 import { REST_OPTIONS, type UnitSystem } from './types'
 
@@ -31,7 +31,6 @@ export function ProfileModal({ open, onClose }: { open: boolean; onClose: () => 
     }
     setBusy(true); setMsg(null)
     try {
-      if (name.trim() !== user!.displayName) await changeDisplayName(user!, name.trim())
       await saveProfile({ displayName: name.trim(), spotifyUrl: spotify.trim(), unitSystem: units, defaultRestTime: rest })
       setMsg({ tone: 'success', text: 'Enregistré !' })
     } catch (err) { setMsg({ tone: 'error', text: authErrorMessage(err) }) } finally { setBusy(false) }
@@ -56,7 +55,7 @@ export function ProfileModal({ open, onClose }: { open: boolean; onClose: () => 
         <PrimaryButton type="submit" disabled={busy}>Sauvegarder mes préférences</PrimaryButton>
       </form>
 
-      {usesPassword(user) && <PasswordCard />}
+      <PasswordCard />
 
       <div className="space-y-3">
         <button onClick={() => signOut()} className="flex w-full items-center justify-center gap-2 rounded-full border border-blush-line bg-surface py-3 text-sm font-semibold text-ink hover:bg-soft">
@@ -77,7 +76,7 @@ function PasswordCard() {
   const [busy, setBusy] = useState(false)
   async function submit(e: FormEvent) {
     e.preventDefault(); setBusy(true); setMsg(null)
-    try { await changePassword(user!, current, next); setCurrent(''); setNext(''); setMsg({ tone: 'success', text: 'Mot de passe modifié.' }) }
+    try { await changePassword(user!.email, current, next); setCurrent(''); setNext(''); setMsg({ tone: 'success', text: 'Mot de passe modifié.' }) }
     catch (err) { setMsg({ tone: 'error', text: authErrorMessage(err) }) } finally { setBusy(false) }
   }
   return (
@@ -99,11 +98,10 @@ function DeleteAccount() {
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   if (!user) return null
-  const needsPassword = usesPassword(user)
 
   async function submit(e: FormEvent) {
     e.preventDefault(); setBusy(true); setError('')
-    try { await deleteAccount(user!, needsPassword ? password : undefined) }
+    try { await deleteAccount(user!.email, password) }
     catch (err) { setError(authErrorMessage(err)); setBusy(false) }
   }
 
@@ -116,7 +114,7 @@ function DeleteAccount() {
     <form onSubmit={submit} className="space-y-3 rounded-3xl border border-rose-200 bg-rose-50 p-6">
       <h2 className="font-semibold text-rose-700">Supprimer définitivement mon compte</h2>
       <p className="text-sm text-rose-700/80">Tes séances, programmes, mensurations et réglages seront effacés. Cette action est irréversible.</p>
-      {needsPassword && <Field type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />}
+      {<Field type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />}
       <Field placeholder='Tape "SUPPRIMER" pour confirmer' value={confirm} onChange={(e) => setConfirm(e.target.value)} />
       {error && <Alert>{error}</Alert>}
       <div className="flex gap-2">

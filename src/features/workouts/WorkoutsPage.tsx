@@ -294,18 +294,18 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
   return (
     <div className="space-y-4 pb-12 animate-in fade-in duration-150">
       <div className="flex items-center justify-between pt-1">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#2B091C]">Séances</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#1F0C17]">Séances</h1>
         <div className="flex items-center gap-2">
           <button
             onClick={() => D(true)}
-            className="w-10 h-10 rounded-full bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#831843] flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-full bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#781539] flex items-center justify-center transition-colors"
             title="Importer une séance partagée"
           >
             <Icon name="share" className="w-4 h-4" />
           </button>
           <button
             onClick={() => xe(true)}
-            className="w-10 h-10 rounded-full bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#831843] flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-full bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#781539] flex items-center justify-center transition-colors"
             title="Échauffement & Étirements"
           >
             <Icon name="stretch" className="w-4 h-4" />
@@ -315,7 +315,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         <button
           onClick={() => g(true)}
-          className="p-4 rounded-[26px] bg-[#831843] hover:bg-[#3B0726] text-white text-left flex items-center justify-between gap-3.5 transition-all active:scale-99"
+          className="p-4 rounded-[26px] bg-[#781539] hover:bg-[#3B0726] text-white text-left flex items-center justify-between gap-3.5 transition-all active:scale-99"
         >
           <div className="flex items-center gap-3.5 min-w-0">
             <span className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-white shrink-0">
@@ -332,18 +332,18 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
         </button>
         <button
           onClick={() => m(true)}
-          className="p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 text-[#2B091C] text-left flex items-center justify-between gap-3.5 transition-all active:scale-99"
+          className="p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#781539]/5 text-[#1F0C17] text-left flex items-center justify-between gap-3.5 transition-all active:scale-99"
         >
           <div className="flex items-center gap-3.5 min-w-0">
-            <span className="w-12 h-12 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#EC4899] shrink-0">
+            <span className="w-12 h-12 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#EA3E8E] shrink-0">
               <Sparkles className="w-5 h-5" />
             </span>
             <div className="min-w-0">
-              <h2 className="font-display font-bold text-[15px] text-[#2B091C] leading-snug">Propose-moi une séance</h2>
+              <h2 className="font-display font-bold text-[15px] text-[#1F0C17] leading-snug">Propose-moi une séance</h2>
               <p className="text-xs text-[#7A616F] truncate">Muscu, circuits abdos & cardio</p>
             </div>
           </div>
-          <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#831843] shrink-0">
+          <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#781539] shrink-0">
             <ChevronRight className="w-4 h-4" />
           </span>
         </button>
@@ -358,10 +358,10 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
         <div className="p-4 rounded-[26px] bg-[#FCE7F3] space-y-3">
           <div className="flex items-start justify-between">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843]">Séance partagée reçue</span>
-              <h3 className="font-display font-bold text-base text-[#2B091C]">{sharedTemplateWorkout.name}</h3>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539]">Séance partagée reçue</span>
+              <h3 className="font-display font-bold text-base text-[#1F0C17]">{sharedTemplateWorkout.name}</h3>
             </div>
-            <button onClick={() => setSharedTemplateWorkout(null)} className="p-1 text-[#7A616F] hover:text-[#2B091C] rounded-full">
+            <button onClick={() => setSharedTemplateWorkout(null)} className="p-1 text-[#7A616F] hover:text-[#1F0C17] rounded-full">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -377,7 +377,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                   setSharedTemplateWorkout(null),
                   onStartActiveMode())
               }}
-              className="px-4 py-2 rounded-full bg-[#831843] text-white font-bold text-xs"
+              className="px-4 py-2 rounded-full bg-[#781539] text-white font-bold text-xs"
             >
               Démarrer
             </button>
@@ -393,7 +393,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                   setSharedTemplateWorkout(null),
                   Ce(`Routine sauvegardée !`))
               }}
-              className="px-4 py-2 rounded-full bg-white text-[#831843] font-bold text-xs"
+              className="px-4 py-2 rounded-full bg-white text-[#781539] font-bold text-xs"
             >
               Sauvegarder
             </button>
@@ -403,22 +403,22 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
       <div className="flex items-center gap-6 border-b border-[#F1E4EC] pt-1">
         <button
           onClick={() => y(`routines`)}
-          className={`pb-2.5 flex items-center gap-1.5 text-sm transition-colors border-b-2 -mb-[1px] ${v === `routines` ? `border-[#831843] font-bold text-[#2B091C]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#2B091C]`}`}
+          className={`pb-2.5 flex items-center gap-1.5 text-sm transition-colors border-b-2 -mb-[1px] ${v === `routines` ? `border-[#781539] font-bold text-[#1F0C17]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#1F0C17]`}`}
         >
           <span>Séances proposées</span>
           <span
-            className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${v === `routines` ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#F6EDF2] text-[#8C6D7E]`}`}
+            className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${v === `routines` ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#F4E9F0] text-[#8C6D7E]`}`}
           >
             {routines.length + ABS_CIRCUITS.length + CARDIO_SESSIONS.length}
           </span>
         </button>
         <button
           onClick={() => y(`history`)}
-          className={`pb-2.5 flex items-center gap-1.5 text-sm transition-colors border-b-2 -mb-[1px] ${v === `history` ? `border-[#831843] font-bold text-[#2B091C]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#2B091C]`}`}
+          className={`pb-2.5 flex items-center gap-1.5 text-sm transition-colors border-b-2 -mb-[1px] ${v === `history` ? `border-[#781539] font-bold text-[#1F0C17]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#1F0C17]`}`}
         >
           <span>Historique</span>
           <span
-            className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${v === `history` ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#F6EDF2] text-[#8C6D7E]`}`}
+            className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${v === `history` ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#F4E9F0] text-[#8C6D7E]`}`}
           >
             {Se.length}
           </span>
@@ -454,7 +454,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                 <button
                   key={e.id}
                   onClick={() => x(e.id)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all active:scale-95 ${t ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#7A616F] hover:text-[#2B091C]`}`}
+                  className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all active:scale-95 ${t ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F] hover:text-[#1F0C17]`}`}
                 >
                   {e.label}
                 </button>
@@ -470,20 +470,20 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                 <div
                   key={e.id}
                   onClick={() => we(e)}
-                  className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
+                  className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#781539]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
                 >
                   <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                    <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#781539] shrink-0">
                       <Icon name={r} className="w-6 h-6" />
                     </div>
                     <div className="min-w-0 flex-1 space-y-1">
-                      <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#831843] block leading-none">
+                      <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#781539] block leading-none">
                         {n}
                       </span>
-                      <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">{e.name}</h3>
+                      <h3 className="font-display font-semibold text-[15px] text-[#1F0C17] leading-snug line-clamp-2">{e.name}</h3>
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#7A616F]">
-                        <span className="inline-flex items-center gap-1.5 font-medium text-[#831843]">
-                          <span className="w-2 h-2 rounded-full bg-[#EC4899]" />
+                        <span className="inline-flex items-center gap-1.5 font-medium text-[#781539]">
+                          <span className="w-2 h-2 rounded-full bg-[#EA3E8E]" />
                           <span>{e.exercises.length} exercices</span>
                         </span>
                         <span>·</span>
@@ -508,13 +508,13 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                       onClick={(t) => {
                         ;(t.stopPropagation(), Ae(e))
                       }}
-                      className="w-8 h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs"
+                      className="w-8 h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs"
                       title="Partager"
                     >
                       <Share2 className="w-3.5 h-3.5" />
                     </button>
-                    <span className="w-8 h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs">
-                      <Play className="w-3.5 h-3.5 fill-[#831843]" />
+                    <span className="w-8 h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs">
+                      <Play className="w-3.5 h-3.5 fill-[#781539]" />
                     </span>
                   </div>
                 </div>
@@ -524,24 +524,24 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
           {(b === `all` || b === `abs`) && (
             <section className="space-y-2.5 pt-2">
               <div className="flex items-center justify-between px-1">
-                <h2 className="text-base font-display font-bold text-[#2B091C]">Circuits Abdos & Gainage ({ABS_CIRCUITS.length})</h2>
+                <h2 className="text-base font-display font-bold text-[#1F0C17]">Circuits Abdos & Gainage ({ABS_CIRCUITS.length})</h2>
               </div>
               <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
                 {ABS_CIRCUITS.map((e) => (
                   <div
                     key={e.id}
                     onClick={() => C(e)}
-                    className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
+                    className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#781539]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
                   >
                     <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                      <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
+                      <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#781539] shrink-0">
                         <Icon name="stretch" className="w-6 h-6" />
                       </div>
                       <div className="min-w-0 flex-1 space-y-1">
-                        <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#EC4899] block leading-none">
+                        <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#EA3E8E] block leading-none">
                           Circuit Abdos · {e.durationMinutes} min
                         </span>
-                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">
+                        <h3 className="font-display font-semibold text-[15px] text-[#1F0C17] leading-snug line-clamp-2">
                           {e.name.replace(/^\d+\.\s*/, ``)}
                         </h3>
                         <p className="text-xs text-[#7A616F] truncate">
@@ -554,10 +554,10 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                       onClick={(t) => {
                         ;(t.stopPropagation(), Te(e))
                       }}
-                      className="w-9 h-9 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs shrink-0"
+                      className="w-9 h-9 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs shrink-0"
                       title="Lancer ce circuit"
                     >
-                      <Play className="w-3.5 h-3.5 fill-[#831843]" />
+                      <Play className="w-3.5 h-3.5 fill-[#781539]" />
                     </button>
                   </div>
                 ))}
@@ -567,24 +567,24 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
           {(b === `all` || b === `cardio`) && (
             <section className="space-y-2.5 pt-2">
               <div className="flex items-center justify-between px-1">
-                <h2 className="text-base font-display font-bold text-[#2B091C]">Circuits Cardio Guidés ({CARDIO_SESSIONS.length})</h2>
+                <h2 className="text-base font-display font-bold text-[#1F0C17]">Circuits Cardio Guidés ({CARDIO_SESSIONS.length})</h2>
               </div>
               <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
                 {CARDIO_SESSIONS.map((e) => (
                   <div
                     key={e.id}
                     onClick={() => T(e)}
-                    className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
+                    className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#781539]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
                   >
                     <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                      <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
+                      <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#781539] shrink-0">
                         <Icon name="runner" className="w-6 h-6" />
                       </div>
                       <div className="min-w-0 flex-1 space-y-1">
-                        <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#831843] block leading-none">
+                        <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#781539] block leading-none">
                           {e.machine} · {e.durationMinutes} min · {e.intensity}
                         </span>
-                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">
+                        <h3 className="font-display font-semibold text-[15px] text-[#1F0C17] leading-snug line-clamp-2">
                           {e.name.replace(/^\d+\.\s*/, ``)}
                         </h3>
                         <p className="text-xs text-[#7A616F] truncate">{e.description}</p>
@@ -595,10 +595,10 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                       onClick={(t) => {
                         ;(t.stopPropagation(), Ee(e))
                       }}
-                      className="w-9 h-9 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs shrink-0"
+                      className="w-9 h-9 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs shrink-0"
                       title="Lancer ce circuit"
                     >
-                      <Play className="w-3.5 h-3.5 fill-[#831843]" />
+                      <Play className="w-3.5 h-3.5 fill-[#781539]" />
                     </button>
                   </div>
                 ))}
@@ -610,21 +610,21 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
       {v === `history` && (
         <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
           {Se.length === 0 ? (
-            <div className="p-8 rounded-[28px] bg-[#F6EDF2] text-center space-y-2 lg:col-span-2">
-              <h3 className="font-bold font-display text-[#2B091C] text-base">Aucune séance terminée</h3>
+            <div className="p-8 rounded-[28px] bg-[#F4E9F0] text-center space-y-2 lg:col-span-2">
+              <h3 className="font-bold font-display text-[#1F0C17] text-base">Aucune séance terminée</h3>
               <p className="text-xs text-[#7A616F]">Lance une routine ci-dessus pour démarrer ton historique.</p>
             </div>
           ) : (
             Se.map((e) => (
-              <div key={e.id} className="p-3.5 sm:p-4 rounded-[26px] bg-[#F6EDF2] flex items-center justify-between gap-3.5">
+              <div key={e.id} className="p-3.5 sm:p-4 rounded-[26px] bg-[#F4E9F0] flex items-center justify-between gap-3.5">
                 <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                  <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#781539] shrink-0">
                     <Icon name="weightlifter" className="w-6 h-6" />
                   </div>
                   <div className="min-w-0 flex-1 space-y-1">
-                    <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">{e.name}</h3>
+                    <h3 className="font-display font-semibold text-[15px] text-[#1F0C17] leading-snug line-clamp-2">{e.name}</h3>
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#7A616F]">
-                      <span className="inline-flex items-center gap-1.5 font-medium text-[#831843]">
+                      <span className="inline-flex items-center gap-1.5 font-medium text-[#781539]">
                         <span className="w-2 h-2 rounded-full bg-emerald-500" />
                         <span>{e.date}</span>
                       </span>
@@ -644,7 +644,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                           .map((e) => (
                             <span
                               key={e.id}
-                              className="inline-block px-2 py-0.5 rounded-full bg-white text-[#831843] text-[10px] font-semibold"
+                              className="inline-block px-2 py-0.5 rounded-full bg-white text-[#781539] text-[10px] font-semibold"
                             >
                               {e.replacedFrom} remplacé par {e.exerciseName}
                             </span>
@@ -656,21 +656,21 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                 <div className="flex items-center gap-1.5 shrink-0">
                   <button
                     onClick={() => ke(e)}
-                    className="w-8 h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs"
+                    className="w-8 h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs"
                     title="Partager"
                   >
                     <Share2 className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => Pe(e)}
-                    className="w-8 h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shadow-2xs"
+                    className="w-8 h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shadow-2xs"
                     title="Modifier"
                   >
                     <Pen className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => De(e)}
-                    className="h-8 px-3 rounded-full bg-[#831843] text-white text-xs font-semibold flex items-center gap-1"
+                    className="h-8 px-3 rounded-full bg-[#781539] text-white text-xs font-semibold flex items-center gap-1"
                     title="Refaire cette séance"
                   >
                     <RotateCcw className="w-3 h-3" />
@@ -692,12 +692,12 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
           <div className="space-y-4">
             <div className="space-y-2.5">
               {S.exercises.map((e, t) => (
-                <div key={t} className="p-3.5 rounded-2xl bg-[#F6EDF2] space-y-1">
+                <div key={t} className="p-3.5 rounded-2xl bg-[#F4E9F0] space-y-1">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-display font-bold text-xs text-[#2B091C]">
+                    <span className="font-display font-bold text-xs text-[#1F0C17]">
                       {t + 1}. {e.name}
                     </span>
-                    <span className="font-mono text-[11px] font-bold text-[#831843] bg-white px-2.5 py-0.5 rounded-full shrink-0">
+                    <span className="font-mono text-[11px] font-bold text-[#781539] bg-white px-2.5 py-0.5 rounded-full shrink-0">
                       {e.reps}
                     </span>
                   </div>
@@ -707,7 +707,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
             </div>
             <button
               onClick={() => Te(S)}
-              className="w-full py-3.5 rounded-full bg-[#831843] text-white font-bold text-xs flex items-center justify-center gap-2 min-h-[48px]"
+              className="w-full py-3.5 rounded-full bg-[#781539] text-white font-bold text-xs flex items-center justify-center gap-2 min-h-[48px]"
             >
               <Play className="w-4 h-4 fill-white" />
               <span>Démarrer ce circuit abdos</span>
@@ -726,15 +726,15 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
             <p className="text-xs text-[#7A616F] leading-relaxed">{w.description}</p>
             <div className="space-y-2">
               {w.intervals.map((e, t) => (
-                <div key={t} className="p-3.5 rounded-2xl bg-[#F6EDF2] flex items-start gap-3">
-                  <span className="font-mono font-bold text-[11px] text-[#831843] bg-white px-2.5 py-1 rounded-xl shrink-0">{e.time}</span>
-                  <span className="text-xs text-[#2B091C] font-medium leading-relaxed">{e.instruction}</span>
+                <div key={t} className="p-3.5 rounded-2xl bg-[#F4E9F0] flex items-start gap-3">
+                  <span className="font-mono font-bold text-[11px] text-[#781539] bg-white px-2.5 py-1 rounded-xl shrink-0">{e.time}</span>
+                  <span className="text-xs text-[#1F0C17] font-medium leading-relaxed">{e.instruction}</span>
                 </div>
               ))}
             </div>
             <button
               onClick={() => Ee(w)}
-              className="w-full py-3.5 rounded-full bg-[#831843] text-white font-bold text-xs flex items-center justify-center gap-2 min-h-[48px]"
+              className="w-full py-3.5 rounded-full bg-[#781539] text-white font-bold text-xs flex items-center justify-center gap-2 min-h-[48px]"
             >
               <Play className="w-4 h-4 fill-white" />
               <span>Démarrer ce circuit cardio</span>
@@ -745,15 +745,15 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
       <Sheet isOpen={!!ne} onClose={() => re(null)} title="Partager la séance" subtitle={ne?.title}>
         {ne && (
           <div className="space-y-4">
-            <div className="p-3.5 rounded-2xl bg-[#F6EDF2] space-y-2">
+            <div className="p-3.5 rounded-2xl bg-[#F4E9F0] space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-[#2B091C] flex items-center gap-1.5 text-xs">
-                  <Link className="w-3.5 h-3.5 text-[#831843]" />
+                <span className="font-bold text-[#1F0C17] flex items-center gap-1.5 text-xs">
+                  <Link className="w-3.5 h-3.5 text-[#781539]" />
                   <span>Lien direct</span>
                 </span>
                 <button
                   onClick={() => je(`link`, ne.shareUrl)}
-                  className="px-3 py-1.5 rounded-full bg-[#831843] text-white font-bold text-[11px] flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-full bg-[#781539] text-white font-bold text-[11px] flex items-center gap-1"
                 >
                   {ie === `link` ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                   <span>{ie === `link` ? `Copié !` : `Copier`}</span>
@@ -763,30 +763,30 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                 type="text"
                 readOnly
                 value={ne.shareUrl}
-                className="w-full px-3 py-2 rounded-xl bg-white font-mono text-[10px] text-[#2B091C]"
+                className="w-full px-3 py-2 rounded-xl bg-white font-mono text-[10px] text-[#1F0C17]"
               />
             </div>
-            <div className="p-3.5 rounded-2xl bg-[#F6EDF2] space-y-2">
+            <div className="p-3.5 rounded-2xl bg-[#F4E9F0] space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-[#2B091C] flex items-center gap-1.5 text-xs">
-                  <FileText className="w-3.5 h-3.5 text-[#831843]" />
+                <span className="font-bold text-[#1F0C17] flex items-center gap-1.5 text-xs">
+                  <FileText className="w-3.5 h-3.5 text-[#781539]" />
                   <span>Résumé texte</span>
                 </span>
                 <button
                   onClick={() => je(`text`, ne.formattedText)}
-                  className="px-3 py-1.5 rounded-full bg-[#EC4899] text-white font-bold text-[11px] flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-full bg-[#EA3E8E] text-white font-bold text-[11px] flex items-center gap-1"
                 >
                   {ie === `text` ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                   <span>{ie === `text` ? `Copié !` : `Copier`}</span>
                 </button>
               </div>
-              <pre className="p-3 rounded-xl bg-white font-sans text-[11px] text-[#2B091C] whitespace-pre-wrap max-h-40 overflow-y-auto">
+              <pre className="p-3 rounded-xl bg-white font-sans text-[11px] text-[#1F0C17] whitespace-pre-wrap max-h-40 overflow-y-auto">
                 {ne.formattedText}
               </pre>
             </div>
             <button
               onClick={Me}
-              className="w-full py-3.5 rounded-full bg-[#831843] text-white font-bold text-xs flex items-center justify-center gap-2 min-h-[48px]"
+              className="w-full py-3.5 rounded-full bg-[#781539] text-white font-bold text-xs flex items-center justify-center gap-2 min-h-[48px]"
             >
               <Share2 className="w-4 h-4" />
               <span>Envoyer</span>
@@ -801,10 +801,10 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
             onChange={(e) => O(e.target.value)}
             placeholder="Colle ici le lien ?share=... ou le code..."
             rows={3}
-            className="w-full p-3 rounded-2xl bg-[#F6EDF2] text-xs font-mono text-[#2B091C]"
+            className="w-full p-3 rounded-2xl bg-[#F4E9F0] text-xs font-mono text-[#1F0C17]"
           />
           {te && <p className="text-xs text-red-600 font-bold">{te}</p>}
-          <button onClick={Ne} className="w-full py-3.5 rounded-full bg-[#831843] text-white font-bold text-xs min-h-[48px]">
+          <button onClick={Ne} className="w-full py-3.5 rounded-full bg-[#781539] text-white font-bold text-xs min-h-[48px]">
             Charger la séance
           </button>
         </div>
@@ -813,32 +813,32 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
         {A && (
           <div className="space-y-3.5">
             <div>
-              <label className="block font-bold text-[#2B091C] text-[11px] mb-1">Nom de la séance</label>
+              <label className="block font-bold text-[#1F0C17] text-[11px] mb-1">Nom de la séance</label>
               <input
                 type="text"
                 value={le}
                 onChange={(e) => ue(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs font-bold text-[#1F0C17]"
               />
             </div>
             <div>
-              <label className="block font-bold text-[#2B091C] text-[11px] mb-1">Date</label>
+              <label className="block font-bold text-[#1F0C17] text-[11px] mb-1">Date</label>
               <input
                 type="date"
                 value={de}
                 onChange={(e) => fe(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs font-bold text-[#1F0C17]"
               />
             </div>
             <div>
-              <label className="block font-bold text-[#2B091C] text-[11px] mb-1">Ressenti ({he}/5)</label>
+              <label className="block font-bold text-[#1F0C17] text-[11px] mb-1">Ressenti ({he}/5)</label>
               <div className="flex items-center gap-1.5">
                 {[1, 2, 3, 4, 5].map((e) => (
                   <button
                     key={e}
                     type="button"
                     onClick={() => ge(e)}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${he >= e ? `bg-[#EC4899] text-white` : `bg-[#F6EDF2] text-[#8C6D7E]`}`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${he >= e ? `bg-[#EA3E8E] text-white` : `bg-[#F4E9F0] text-[#8C6D7E]`}`}
                   >
                     <Icon name="heart-pulse" className="w-4 h-4" />
                   </button>
@@ -846,12 +846,12 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
               </div>
             </div>
             <div>
-              <label className="block font-bold text-[#2B091C] text-[11px] mb-1">Notes</label>
+              <label className="block font-bold text-[#1F0C17] text-[11px] mb-1">Notes</label>
               <textarea
                 value={pe}
                 onChange={(e) => me(e.target.value)}
                 rows={2}
-                className="w-full p-3 rounded-2xl bg-[#F6EDF2] text-xs text-[#2B091C]"
+                className="w-full p-3 rounded-2xl bg-[#F4E9F0] text-xs text-[#1F0C17]"
               />
             </div>
             <div className="flex items-center gap-2">
@@ -863,7 +863,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
               >
                 Supprimer
               </button>
-              <button onClick={Fe} className="flex-1 py-3.5 rounded-full bg-[#831843] text-white font-bold text-xs">
+              <button onClick={Fe} className="flex-1 py-3.5 rounded-full bg-[#781539] text-white font-bold text-xs">
                 Enregistrer
               </button>
             </div>

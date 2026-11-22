@@ -34,11 +34,11 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
       <div className="w-full max-w-lg rounded-[32px] bg-[#FCFBF9] p-6 shadow-2xl border border-[#E6E1D8] my-6 max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95 duration-150">
         <div className="flex items-center justify-between pb-3 border-b border-[#F5B8EE]">
           <div className="flex items-center gap-2.5">
-            <span className="w-9 h-9 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843]">
+            <span className="w-9 h-9 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#781539]">
               <Icon name="dumbbell" className="w-5 h-5" />
             </span>
             <div>
-              <h2 className="font-bold text-[#2B091C] text-base font-display">Créer mon propre exercice</h2>
+              <h2 className="font-bold text-[#1F0C17] text-base font-display">Créer mon propre exercice</h2>
               <p className="text-[11px] text-[#7A616F]">Génère automatiquement une fiche complète comme les autres exos</p>
             </div>
           </div>
@@ -101,26 +101,26 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
               }
             }
           }}
-          className="mt-4 space-y-3.5 text-xs text-[#2B091C] overflow-y-auto pr-1 flex-1"
+          className="mt-4 space-y-3.5 text-xs text-[#1F0C17] overflow-y-auto pr-1 flex-1"
         >
           <div>
-            <label className="block font-bold text-[#831843] uppercase text-[10px] mb-1">Nom de ton exercice *</label>
+            <label className="block font-bold text-[#781539] uppercase text-[10px] mb-1">Nom de ton exercice *</label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="ex: Tirage horizontal prise large, Développé incliné, Hip Thrust..."
-              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] border border-[#E5D4DF] focus:outline-hidden focus:border-[#831843] text-xs font-semibold text-[#2B091C]"
+              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] border border-[#E5D4DF] focus:outline-hidden focus:border-[#781539] text-xs font-semibold text-[#1F0C17]"
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block font-bold text-[#831843] uppercase text-[10px] mb-1">Zone / Muscle ciblé *</label>
+              <label className="block font-bold text-[#781539] uppercase text-[10px] mb-1">Zone / Muscle ciblé *</label>
               <select
                 value={muscle}
                 onChange={(e) => setMuscle(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] border border-[#E5D4DF] focus:outline-hidden focus:border-[#831843] text-xs font-semibold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] border border-[#E5D4DF] focus:outline-hidden focus:border-[#781539] text-xs font-semibold text-[#1F0C17]"
               >
                 <optgroup label="Bas du corps">
                   <option value="fessiers">Fessiers</option>
@@ -153,11 +153,11 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
               </select>
             </div>
             <div>
-              <label className="block font-bold text-[#831843] uppercase text-[10px] mb-1">Matériel utilisé *</label>
+              <label className="block font-bold text-[#781539] uppercase text-[10px] mb-1">Matériel utilisé *</label>
               <select
                 value={equipment}
                 onChange={(e) => setEquipment(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] border border-[#E5D4DF] focus:outline-hidden focus:border-[#831843] text-xs font-semibold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] border border-[#E5D4DF] focus:outline-hidden focus:border-[#781539] text-xs font-semibold text-[#1F0C17]"
               >
                 <option value="dumbbell">Haltères (Poids libres)</option>
                 <option value="barbell">Barre / Smith Machine</option>
@@ -177,7 +177,7 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
                 max="10"
                 value={sets}
                 onChange={(e) => setSets(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-2xl bg-[#F6EDF2] border border-[#E5D4DF] text-xs text-center font-mono tabular-nums font-bold"
+                className="w-full px-3 py-2 rounded-2xl bg-[#F4E9F0] border border-[#E5D4DF] text-xs text-center font-mono tabular-nums font-bold"
               />
             </div>
             <div>
@@ -187,7 +187,7 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
                 value={reps}
                 onChange={(e) => setReps(e.target.value)}
                 placeholder="10-12"
-                className="w-full px-3 py-2 rounded-2xl bg-[#F6EDF2] border border-[#E5D4DF] text-xs text-center font-mono tabular-nums font-bold"
+                className="w-full px-3 py-2 rounded-2xl bg-[#F4E9F0] border border-[#E5D4DF] text-xs text-center font-mono tabular-nums font-bold"
               />
             </div>
             <div>
@@ -198,21 +198,21 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
                 min="0"
                 value={rest}
                 onChange={(e) => setRest(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-2xl bg-[#F6EDF2] border border-[#E5D4DF] text-xs text-center font-mono tabular-nums font-bold"
+                className="w-full px-3 py-2 rounded-2xl bg-[#F4E9F0] border border-[#E5D4DF] text-xs text-center font-mono tabular-nums font-bold"
               />
             </div>
           </div>
           <div className="rounded-[24px] bg-[#FCE7F3]/50 border border-[#FBCFE8] overflow-hidden">
             <div className="p-3.5 flex items-center justify-between gap-2">
               <button type="button" onClick={() => setShowPreview(!showPreview)} className="flex items-center gap-2 text-left flex-1">
-                <span className="w-7 h-7 rounded-xl bg-[#831843] text-white flex items-center justify-center shrink-0">
+                <span className="w-7 h-7 rounded-xl bg-[#781539] text-white flex items-center justify-center shrink-0">
                   <Sparkles className="w-3.5 h-3.5" />
                 </span>
                 <div>
-                  <span className="font-display font-bold text-xs text-[#2B091C] block">
+                  <span className="font-display font-bold text-xs text-[#1F0C17] block">
                     Fiche Exercice Complète (Générée automatiquement)
                   </span>
-                  <span className="text-[10px] text-[#831843] font-medium block">
+                  <span className="text-[10px] text-[#781539] font-medium block">
                     Position, 4 étapes, respiration, réglages machine & erreurs à éviter
                   </span>
                 </div>
@@ -230,11 +230,11 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
                       description.trim() || setDescription(e.description),
                       tip.trim() || setTip(e.formTips[0]))
                   }}
-                  className="px-2.5 py-1 rounded-full bg-white text-[#831843] font-bold text-[10px] hover:bg-[#FCE7F3] border border-[#FBCFE8]"
+                  className="px-2.5 py-1 rounded-full bg-white text-[#781539] font-bold text-[10px] hover:bg-[#FCE7F3] border border-[#FBCFE8]"
                 >
                   Personnaliser
                 </button>
-                <button type="button" onClick={() => setShowPreview(!showPreview)} className="p-1 text-[#831843]">
+                <button type="button" onClick={() => setShowPreview(!showPreview)} className="p-1 text-[#781539]">
                   {showPreview ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </button>
               </div>
@@ -243,16 +243,16 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
               <div className="px-3.5 pb-3.5 space-y-2.5 text-[11px] border-t border-[#FBCFE8]/60 pt-2.5">
                 <div className="p-2.5 rounded-2xl bg-white/90 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-[#831843] uppercase text-[10px]">Aperçu de ta fiche dans l’appli :</span>
+                    <span className="font-bold text-[#781539] uppercase text-[10px]">Aperçu de ta fiche dans l’appli :</span>
                     <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
                       <Check className="w-3 h-3" /> Fiche 100% complète
                     </span>
                   </div>
-                  <p className="text-[#2B091C]">
+                  <p className="text-[#1F0C17]">
                     <strong>Position :</strong> {success || sheet.startingPosition}
                   </p>
                   <div>
-                    <strong className="text-[#2B091C] block mb-0.5">Étapes (1 à 4) :</strong>
+                    <strong className="text-[#1F0C17] block mb-0.5">Étapes (1 à 4) :</strong>
                     <ol className="list-decimal list-inside space-y-0.5 text-[#7A616F]">
                       {(error
                         ? error
@@ -270,12 +270,12 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
                     </ol>
                   </div>
                   <p className="text-[#7A616F]">
-                    <strong className="text-[#2B091C]">Réglage & Sécurité :</strong> {sheet.machineSetup.seatSetting}
+                    <strong className="text-[#1F0C17]">Réglage & Sécurité :</strong> {sheet.machineSetup.seatSetting}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div>
-                    <label className="block font-bold text-[#831843] text-[10px] mb-1">Précision / Description (optionnel)</label>
+                    <label className="block font-bold text-[#781539] text-[10px] mb-1">Précision / Description (optionnel)</label>
                     <input
                       type="text"
                       value={description}
@@ -285,7 +285,7 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-[#831843] text-[10px] mb-1">Ton astuce perso (optionnel)</label>
+                    <label className="block font-bold text-[#781539] text-[10px] mb-1">Ton astuce perso (optionnel)</label>
                     <input
                       type="text"
                       value={tip}
@@ -299,13 +299,13 @@ export const CustomExerciseSheet = ({ isOpen, onClose, initialName = ``, onExerc
             )}
           </div>
           <div className="pt-3 border-t border-[#F5B8EE] flex items-center justify-end gap-2">
-            <button type="button" onClick={onClose} className="px-4 py-2.5 rounded-full bg-[#F6EDF2] text-[#2B091C] font-bold text-xs">
+            <button type="button" onClick={onClose} className="px-4 py-2.5 rounded-full bg-[#F4E9F0] text-[#1F0C17] font-bold text-xs">
               Annuler
             </button>
             <button
               type="submit"
               disabled={saving || !name.trim()}
-              className="px-5 py-2.5 rounded-full bg-[#831843] hover:bg-[#5B0E2D] disabled:opacity-50 text-white font-bold text-xs flex items-center gap-1.5 active:scale-95 transition-all shadow-xs"
+              className="px-5 py-2.5 rounded-full bg-[#781539] hover:bg-[#5B0E2D] disabled:opacity-50 text-white font-bold text-xs flex items-center gap-1.5 active:scale-95 transition-all shadow-xs"
             >
               <Plus className="w-4 h-4" />
               <span>{saving ? `Création de la fiche...` : `Créer mon exo & sa fiche`}</span>

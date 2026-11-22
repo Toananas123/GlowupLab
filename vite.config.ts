@@ -4,6 +4,8 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  // Accepte les variables SUPABASE_* du README en plus des VITE_*.
+  envPrefix: ['VITE_', 'SUPABASE_'],
   plugins: [
     react(),
     tailwindcss(),
@@ -16,8 +18,8 @@ export default defineConfig({
         description: 'Application personnelle et esthétique de musculation et suivi de progression.',
         start_url: '/',
         display: 'standalone',
-        background_color: '#fdfbfd',
-        theme_color: '#fdfbfd',
+        background_color: '#fcf9fc',
+        theme_color: '#fcf9fc',
         lang: 'fr',
         icons: [
           { src: '/pwa-192x192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },

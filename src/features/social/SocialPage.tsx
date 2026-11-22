@@ -251,7 +251,7 @@ export const SocialPage = () => {
             height: le ? 52 : de,
           }}
         >
-          <div className="px-4 py-2 rounded-full bg-[#FCE7F3] border border-[#F472B6]/40 text-[#831843] text-xs font-bold flex items-center gap-2 shadow-2xs">
+          <div className="px-4 py-2 rounded-full bg-[#FCE7F3] border border-[#F472B6]/40 text-[#781539] text-xs font-bold flex items-center gap-2 shadow-2xs">
             {le ? (
               <>
                 <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -273,17 +273,17 @@ export const SocialPage = () => {
       )}
       <div className="pt-1 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
-          <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#831843] block">
+          <span className="font-compact text-[11px] font-semibold uppercase tracking-wider text-[#781539] block">
             Le Club · Gym Besties & Motivation
           </span>
-          <h1 className="text-2xl sm:text-4xl font-display font-bold tracking-tight text-[#2B091C] mt-0.5">Social & Amies</h1>
+          <h1 className="text-2xl sm:text-4xl font-display font-bold tracking-tight text-[#1F0C17] mt-0.5">Social & Amies</h1>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={Dt}
             disabled={le}
-            className="px-3 py-2 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#831843] text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer disabled:opacity-60"
+            className="px-3 py-2 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#781539] text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer disabled:opacity-60"
             title="Actualiser le fil, les amies et les invitations (ou glisser vers le bas)"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${le ? `animate-spin` : ``}`} />
@@ -302,7 +302,7 @@ export const SocialPage = () => {
                 ),
               )
             }
-            className={`px-3 py-2 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${mySocialProfile.hideWeights ? `bg-[#831843] text-white shadow-2xs` : `bg-[#F6EDF2] text-[#831843] hover:bg-[#FCE7F3]`}`}
+            className={`px-3 py-2 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${mySocialProfile.hideWeights ? `bg-[#781539] text-white shadow-2xs` : `bg-[#F4E9F0] text-[#781539] hover:bg-[#FCE7F3]`}`}
             title="Activer ou désactiver le masquage de tes charges en kg"
           >
             {mySocialProfile.hideWeights ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
@@ -314,7 +314,7 @@ export const SocialPage = () => {
               ;(navigator.clipboard?.writeText(mySocialProfile.friendCode).catch(() => {}),
                 Et(`Code ami ${mySocialProfile.friendCode} copié dans le presse-papiers !`))
             }}
-            className="px-3 py-2 rounded-full bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#831843] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+            className="px-3 py-2 rounded-full bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#781539] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
             title="Cliquer pour copier ton code ami"
           >
             <Copy className="w-3.5 h-3.5" />
@@ -323,7 +323,7 @@ export const SocialPage = () => {
           <button
             type="button"
             onClick={() => Te(true)}
-            className="px-3.5 py-2 rounded-full bg-[#831843] hover:bg-[#500724] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all active:scale-95 cursor-pointer"
+            className="px-3.5 py-2 rounded-full bg-[#781539] hover:bg-[#500724] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all active:scale-95 cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#FBCFE8]" />
             <span>Story Récap</span>
@@ -331,7 +331,7 @@ export const SocialPage = () => {
         </div>
       </div>
       {me && (
-        <div className="p-4 rounded-[24px] bg-gradient-to-r from-[#831843] via-[#BE185D] to-[#EC4899] text-white shadow-md flex items-center justify-between gap-3 animate-in fade-in duration-150">
+        <div className="p-4 rounded-[24px] bg-gradient-to-r from-[#781539] via-[#BE185D] to-[#EA3E8E] text-white shadow-md flex items-center justify-between gap-3 animate-in fade-in duration-150">
           <div className="flex items-center gap-3">
             <span className="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
               <Zap className="w-5 h-5 text-[#FBCFE8]" />
@@ -351,7 +351,7 @@ export const SocialPage = () => {
         </div>
       )}
       {A && (
-        <div className="p-3.5 rounded-2xl bg-[#831843] text-white text-xs font-bold flex items-center justify-between gap-2 shadow-md animate-in fade-in duration-150">
+        <div className="p-3.5 rounded-2xl bg-[#781539] text-white text-xs font-bold flex items-center justify-between gap-2 shadow-md animate-in fade-in duration-150">
           <div className="flex items-center gap-2">
             <Check className="w-4 h-4 text-[#FBCFE8] shrink-0" />
             <span>{A}</span>
@@ -361,7 +361,7 @@ export const SocialPage = () => {
           </button>
         </div>
       )}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 rounded-[24px] bg-[#F6EDF2]">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 rounded-[24px] bg-[#F4E9F0]">
         {[
           {
             id: `feed`,
@@ -390,12 +390,12 @@ export const SocialPage = () => {
               key={e.id}
               type="button"
               onClick={() => se(e.id)}
-              className={`py-2.5 px-3 rounded-[18px] text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${t ? `bg-[#831843] text-white shadow-xs` : `text-[#7A616F] hover:text-[#2B091C] hover:bg-white/60`}`}
+              className={`py-2.5 px-3 rounded-[18px] text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${t ? `bg-[#781539] text-white shadow-xs` : `text-[#7A616F] hover:text-[#1F0C17] hover:bg-white/60`}`}
             >
               <span className="truncate">{e.label}</span>
               {e.badge !== void 0 && (
                 <span
-                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold leading-none ${t ? `bg-white/20 text-white` : `bg-[#FCE7F3] text-[#831843]`}`}
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold leading-none ${t ? `bg-white/20 text-white` : `bg-[#FCE7F3] text-[#781539]`}`}
                 >
                   {e.badge}
                 </span>
@@ -409,26 +409,26 @@ export const SocialPage = () => {
           <div className="p-4 sm:p-5 rounded-[28px] bg-grainy-pink border border-[#F472B6]/30 space-y-3">
             <div className="flex items-center justify-between gap-2">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">En direct du planning</span>
-                <h2 className="font-display font-bold text-base sm:text-lg text-[#2B091C]">Qui s’entraîne aujourd’hui ?</h2>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">En direct du planning</span>
+                <h2 className="font-display font-bold text-base sm:text-lg text-[#1F0C17]">Qui s’entraîne aujourd’hui ?</h2>
               </div>
-              <button type="button" onClick={() => se(`besties`)} className="text-xs font-bold text-[#831843] hover:underline">
+              <button type="button" onClick={() => se(`besties`)} className="text-xs font-bold text-[#781539] hover:underline">
                 Comparer nos plannings →
               </button>
             </div>
             {friends.length === 0 ? (
               <div className="p-4 rounded-[22px] bg-white/90 border border-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
                 <div>
-                  <p className="font-display font-bold text-sm text-[#2B091C]">Tu n’as pas encore de Gym Bestie dans ton cercle 🌸</p>
+                  <p className="font-display font-bold text-sm text-[#1F0C17]">Tu n’as pas encore de Gym Bestie dans ton cercle 🌸</p>
                   <p className="text-xs text-[#7A616F] mt-0.5">
                     Ajoute une amie avec son @pseudo ou partage-lui ton code{' '}
-                    <strong className="text-[#831843]">{mySocialProfile.friendCode}</strong> pour voir ses séances du jour !
+                    <strong className="text-[#781539]">{mySocialProfile.friendCode}</strong> pour voir ses séances du jour !
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => se(`friends`)}
-                  className="px-4 py-2 rounded-full bg-[#831843] hover:bg-[#500724] text-white text-xs font-bold flex items-center gap-1.5 shrink-0 cursor-pointer"
+                  className="px-4 py-2 rounded-full bg-[#781539] hover:bg-[#500724] text-white text-xs font-bold flex items-center gap-1.5 shrink-0 cursor-pointer"
                 >
                   <UserPlus className="w-3.5 h-3.5" />
                   <span>Ajouter une amie</span>
@@ -454,24 +454,24 @@ export const SocialPage = () => {
                             {e.displayName.charAt(0)}
                           </span>
                           <div className="min-w-0">
-                            <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C] truncate">{e.displayName}</p>
+                            <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17] truncate">{e.displayName}</p>
                             <p className="text-[11px] text-[#7A616F] truncate">{e.handle}</p>
                           </div>
                         </button>
                         <span
-                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${e.isTrainingToday ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#F6EDF2] text-[#7A616F]`}`}
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${e.isTrainingToday ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#F4E9F0] text-[#7A616F]`}`}
                         >
                           {e.isTrainingToday ? `À la salle` : `Repos`}
                         </span>
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-[#2B091C] truncate">{e.todayActivity}</p>
+                        <p className="text-xs font-bold text-[#1F0C17] truncate">{e.todayActivity}</p>
                         {e.todayWorkoutName && <p className="text-[11px] text-[#7A616F] truncate">{e.todayWorkoutName}</p>}
                       </div>
                       <button
                         type="button"
                         onClick={() => jt(e)}
-                        className={`w-full py-2 px-3 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer ${t ? `bg-[#FCE7F3] text-[#831843] border border-[#F472B6]/40` : `bg-[#831843] hover:bg-[#500724] text-white shadow-2xs`}`}
+                        className={`w-full py-2 px-3 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer ${t ? `bg-[#FCE7F3] text-[#781539] border border-[#F472B6]/40` : `bg-[#781539] hover:bg-[#500724] text-white shadow-2xs`}`}
                       >
                         <Zap className="w-3.5 h-3.5" />
                         <span>{t ? `⚡ Wizz envoyé (${t}) · Relancer` : `⚡ Envoyer un Wizz motivation`}</span>
@@ -486,14 +486,14 @@ export const SocialPage = () => {
             <div className="p-4 sm:p-5 rounded-[28px] bg-white border-2 border-[#F472B6]/45 shadow-2xs space-y-3">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-9 h-9 rounded-2xl bg-[#FCE7F3] text-[#831843] flex items-center justify-center shrink-0">
+                  <span className="w-9 h-9 rounded-2xl bg-[#FCE7F3] text-[#781539] flex items-center justify-center shrink-0">
                     <Calendar className="w-4 h-4" />
                   </span>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">
                       Rendez-vous « On s’entraîne ensemble ? »
                     </span>
-                    <h3 className="font-display font-bold text-sm sm:text-base text-[#2B091C]">
+                    <h3 className="font-display font-bold text-sm sm:text-base text-[#1F0C17]">
                       Tes invitations de séance programmées ({gymDates.length})
                     </h3>
                   </div>
@@ -501,7 +501,7 @@ export const SocialPage = () => {
                 <button
                   type="button"
                   onClick={() => se(`besties`)}
-                  className="px-3 py-1.5 rounded-full bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#831843] text-xs font-bold shrink-0 cursor-pointer"
+                  className="px-3 py-1.5 rounded-full bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#781539] text-xs font-bold shrink-0 cursor-pointer"
                 >
                   Gérer dans RDV →
                 </button>
@@ -522,15 +522,15 @@ export const SocialPage = () => {
                         {e.friendName.charAt(0)}
                       </span>
                       <div className="min-w-0">
-                        <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C] truncate">
+                        <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17] truncate">
                           Avec {e.friendName} · {e.dayLabel} à {e.timeSlot}
                         </p>
-                        <p className="text-[11px] font-semibold text-[#831843] truncate">{e.workoutTheme}</p>
+                        <p className="text-[11px] font-semibold text-[#781539] truncate">{e.workoutTheme}</p>
                         {e.locationNote && <p className="text-[10px] text-[#7A616F] truncate italic">« {e.locationNote} »</p>}
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <span className="px-2.5 py-1 rounded-full bg-[#FCE7F3] text-[#831843] text-[10px] font-bold">
+                      <span className="px-2.5 py-1 rounded-full bg-[#FCE7F3] text-[#781539] text-[10px] font-bold">
                         {e.status === `accepted` ? `Envoyée ✓` : `En attente`}
                       </span>
                       <button
@@ -538,7 +538,7 @@ export const SocialPage = () => {
                         onClick={() => {
                           ;(deleteGymDateInvite(e.id), Et(`Invitation de séance retirée.`))
                         }}
-                        className="p-1.5 rounded-full text-[#8C6D7E] hover:text-[#831843] hover:bg-white cursor-pointer"
+                        className="p-1.5 rounded-full text-[#8C6D7E] hover:text-[#781539] hover:bg-white cursor-pointer"
                         title="Annuler ce RDV"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -549,8 +549,8 @@ export const SocialPage = () => {
               </div>
             </div>
           )}
-          <div className="p-4 rounded-[26px] bg-[#F6EDF2] flex flex-wrap items-center justify-between gap-2.5">
-            <span className="text-xs font-bold text-[#2B091C]">Partager avec tes amies :</span>
+          <div className="p-4 rounded-[26px] bg-[#F4E9F0] flex flex-wrap items-center justify-between gap-2.5">
+            <span className="text-xs font-bold text-[#1F0C17]">Partager avec tes amies :</span>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
@@ -558,7 +558,7 @@ export const SocialPage = () => {
                   let e = workouts[0]
                   e ? (shareWorkoutToFeed(e), Et(`Ta séance « ${e.name} » est publiée dans le Club !`)) : Te(true)
                 }}
-                className="px-3 py-1.5 rounded-full bg-white hover:bg-[#FCE7F3] text-[#831843] text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
+                className="px-3 py-1.5 rounded-full bg-white hover:bg-[#FCE7F3] text-[#781539] text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
               >
                 <Icon name="weightlifter" className="w-3.5 h-3.5" />
                 <span>Ma dernière séance</span>
@@ -566,23 +566,23 @@ export const SocialPage = () => {
               <button
                 type="button"
                 onClick={() => De(true)}
-                className="px-3 py-1.5 rounded-full bg-white hover:bg-[#FCE7F3] text-[#831843] text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
+                className="px-3 py-1.5 rounded-full bg-white hover:bg-[#FCE7F3] text-[#781539] text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
               >
-                <Trophy className="w-3.5 h-3.5 text-[#EC4899]" />
+                <Trophy className="w-3.5 h-3.5 text-[#EA3E8E]" />
                 <span>Célébrer un PR</span>
               </button>
               <button
                 type="button"
                 onClick={Bt}
-                className="px-3 py-1.5 rounded-full bg-white hover:bg-[#FCE7F3] text-[#831843] text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
+                className="px-3 py-1.5 rounded-full bg-white hover:bg-[#FCE7F3] text-[#781539] text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
               >
-                <Check className="w-3.5 h-3.5 text-[#EC4899]" />
+                <Check className="w-3.5 h-3.5 text-[#EA3E8E]" />
                 <span>Mes 3 objectifs</span>
               </button>
               <button
                 type="button"
                 onClick={() => se(`besties`)}
-                className="px-3 py-1.5 rounded-full bg-[#831843] hover:bg-[#500724] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
+                className="px-3 py-1.5 rounded-full bg-[#781539] hover:bg-[#500724] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
               >
                 <Calendar className="w-3.5 h-3.5 text-[#FBCFE8]" />
                 <span>Inviter en séance</span>
@@ -609,7 +609,7 @@ export const SocialPage = () => {
                   key={e.id}
                   type="button"
                   onClick={() => je(e.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${Ae === e.id ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#7A616F] hover:text-[#2B091C]`}`}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${Ae === e.id ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F] hover:text-[#1F0C17]`}`}
                 >
                   {e.label}
                 </button>
@@ -633,14 +633,14 @@ export const SocialPage = () => {
                       </span>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-display font-bold text-sm text-[#2B091C]">{e.authorName}</span>
+                          <span className="font-display font-bold text-sm text-[#1F0C17]">{e.authorName}</span>
                           <span className="text-xs text-[#7A616F]">{e.authorHandle}</span>
                         </div>
                         <span className="text-[11px] text-[#8C6D7E] block">{e.createdAt}</span>
                       </div>
                     </div>
                     <span
-                      className={`px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 ${e.type === `pr` || e.type === `wizz` ? `bg-grainy-pink text-[#831843] border border-[#F472B6]/40` : e.type === `objective` || e.type === `gym_date` ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#F6EDF2] text-[#831843]`}`}
+                      className={`px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 ${e.type === `pr` || e.type === `wizz` ? `bg-grainy-pink text-[#781539] border border-[#F472B6]/40` : e.type === `objective` || e.type === `gym_date` ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#F4E9F0] text-[#781539]`}`}
                     >
                       {e.type === `pr` && `🏆 Record Personnel (PR)`}
                       {e.type === `workout` && `🏋️‍♀️ Séance · ${e.durationMinutes || 45} min`}
@@ -653,19 +653,19 @@ export const SocialPage = () => {
                   {e.type === `wizz` && (
                     <div className="p-3.5 rounded-2xl bg-grainy-pink border border-[#F472B6]/40 flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <span className="w-10 h-10 rounded-2xl bg-[#831843] text-white flex items-center justify-center shrink-0">
+                        <span className="w-10 h-10 rounded-2xl bg-[#781539] text-white flex items-center justify-center shrink-0">
                           <Zap className="w-5 h-5 text-[#FBCFE8]" />
                         </span>
                         <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">
                             Boost d’énergie envoyé
                           </span>
-                          <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C]">
+                          <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17]">
                             Wizz envoyé à {e.wizzTargetName || `ta Gym Bestie`} {e.wizzTargetHandle ? `(${e.wizzTargetHandle})` : ``}
                           </p>
                         </div>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-white text-[#831843] font-mono font-bold text-[11px] shrink-0 shadow-2xs">
+                      <span className="px-3 py-1 rounded-full bg-white text-[#781539] font-mono font-bold text-[11px] shrink-0 shadow-2xs">
                         ⚡ Vibrations
                       </span>
                     </div>
@@ -673,21 +673,21 @@ export const SocialPage = () => {
                   {e.type === `gym_date` && e.gymDateSummary && (
                     <div className="p-3.5 rounded-2xl bg-[#FAF5F8] border border-[#FBCFE8] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <span className="w-10 h-10 rounded-2xl bg-[#831843] text-white flex items-center justify-center shrink-0">
+                        <span className="w-10 h-10 rounded-2xl bg-[#781539] text-white flex items-center justify-center shrink-0">
                           <Calendar className="w-5 h-5 text-[#FBCFE8]" />
                         </span>
                         <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">RDV Salle programmé</span>
-                          <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C]">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">RDV Salle programmé</span>
+                          <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17]">
                             Avec {e.gymDateSummary.friendName} · {e.gymDateSummary.dayLabel} à {e.gymDateSummary.timeSlot}
                           </p>
-                          <p className="text-xs font-semibold text-[#831843]">{e.gymDateSummary.workoutTheme}</p>
+                          <p className="text-xs font-semibold text-[#781539]">{e.gymDateSummary.workoutTheme}</p>
                         </div>
                       </div>
                       <button
                         type="button"
                         onClick={() => se(`besties`)}
-                        className="px-3 py-1.5 rounded-full bg-[#FCE7F3] text-[#831843] text-xs font-bold shrink-0 cursor-pointer"
+                        className="px-3 py-1.5 rounded-full bg-[#FCE7F3] text-[#781539] text-xs font-bold shrink-0 cursor-pointer"
                       >
                         Voir mes RDV →
                       </button>
@@ -696,27 +696,27 @@ export const SocialPage = () => {
                   {e.type === `pr` && e.prExerciseName && (
                     <div className="p-3.5 rounded-2xl bg-grainy-pink border border-[#F472B6]/35 flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <span className="w-10 h-10 rounded-2xl bg-[#831843] text-white flex items-center justify-center shrink-0">
+                        <span className="w-10 h-10 rounded-2xl bg-[#781539] text-white flex items-center justify-center shrink-0">
                           <Icon name="trophy" className="w-5 h-5 text-[#FBCFE8]" />
                         </span>
                         <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Nouveau Record Battu</span>
-                          <p className="font-display font-bold text-sm sm:text-base text-[#2B091C]">{e.prExerciseName}</p>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Nouveau Record Battu</span>
+                          <p className="font-display font-bold text-sm sm:text-base text-[#1F0C17]">{e.prExerciseName}</p>
                         </div>
                       </div>
-                      <span className="px-3 py-1.5 rounded-xl bg-white text-[#831843] font-mono font-extrabold text-xs sm:text-sm shrink-0 shadow-2xs">
+                      <span className="px-3 py-1.5 rounded-xl bg-white text-[#781539] font-mono font-extrabold text-xs sm:text-sm shrink-0 shadow-2xs">
                         {e.hideWeights ? `${e.prReps || 8} reps (Charge masquée)` : `${e.prWeight} kg × ${e.prReps || 8}`}
                       </span>
                     </div>
                   )}
                   {e.type === `objective` && e.objectiveLabel && (
-                    <div className="p-3.5 rounded-2xl bg-[#F6EDF2] border border-[#FBCFE8] flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-xl bg-[#831843] text-white flex items-center justify-center shrink-0">
+                    <div className="p-3.5 rounded-2xl bg-[#F4E9F0] border border-[#FBCFE8] flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-xl bg-[#781539] text-white flex items-center justify-center shrink-0">
                         <Check className="w-4 h-4 stroke-[2.5]" />
                       </span>
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Objectif Suivi validé</span>
-                        <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C]">{e.objectiveLabel}</p>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Objectif Suivi validé</span>
+                        <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17]">{e.objectiveLabel}</p>
                       </div>
                     </div>
                   )}
@@ -724,9 +724,9 @@ export const SocialPage = () => {
                     <div className="p-3.5 rounded-2xl bg-[#FAF5F8] space-y-2">
                       {e.workoutName && (
                         <div className="flex items-center justify-between">
-                          <span className="font-display font-bold text-xs sm:text-sm text-[#2B091C]">{e.workoutName}</span>
+                          <span className="font-display font-bold text-xs sm:text-sm text-[#1F0C17]">{e.workoutName}</span>
                           {e.hideWeights && (
-                            <span className="text-[10px] font-semibold text-[#831843] flex items-center gap-1">
+                            <span className="text-[10px] font-semibold text-[#781539] flex items-center gap-1">
                               <EyeOff className="w-3 h-3" /> Charges masquées
                             </span>
                           )}
@@ -738,10 +738,10 @@ export const SocialPage = () => {
                             key={n}
                             className="px-3 py-2 rounded-xl bg-white flex items-center justify-between text-xs border border-[#F3E5ED]"
                           >
-                            <span className="font-semibold text-[#2B091C] truncate pr-2">
+                            <span className="font-semibold text-[#1F0C17] truncate pr-2">
                               {n + 1}. {t.name}
                             </span>
-                            <span className="font-mono text-[11px] font-bold text-[#831843] shrink-0">
+                            <span className="font-mono text-[11px] font-bold text-[#781539] shrink-0">
                               {e.hideWeights || !t.topWeight ? `${t.setsCount}×${t.reps}` : `${t.setsCount}×${t.reps} · ${t.topWeight}kg`}
                             </span>
                           </div>
@@ -750,22 +750,22 @@ export const SocialPage = () => {
                     </div>
                   )}
                   {e.sharedRoutine && (
-                    <div className="p-3.5 rounded-2xl bg-[#F6EDF2] flex items-center justify-between gap-3">
+                    <div className="p-3.5 rounded-2xl bg-[#F4E9F0] flex items-center justify-between gap-3">
                       <div>
-                        <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C]">{e.sharedRoutine.name}</p>
+                        <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17]">{e.sharedRoutine.name}</p>
                         <p className="text-[11px] text-[#7A616F]">{e.sharedRoutine.exercises.length} exercices structurés</p>
                       </div>
                       <button
                         type="button"
                         onClick={() => Rt(e.sharedRoutine)}
-                        className="px-3 py-2 rounded-full bg-[#831843] text-white text-xs font-bold flex items-center gap-1.5 shrink-0 cursor-pointer"
+                        className="px-3 py-2 rounded-full bg-[#781539] text-white text-xs font-bold flex items-center gap-1.5 shrink-0 cursor-pointer"
                       >
                         <Download className="w-3.5 h-3.5" />
                         <span>Importer</span>
                       </button>
                     </div>
                   )}
-                  {e.caption && <p className="text-xs sm:text-sm text-[#2B091C] leading-relaxed">{e.caption}</p>}
+                  {e.caption && <p className="text-xs sm:text-sm text-[#1F0C17] leading-relaxed">{e.caption}</p>}
                   <div className="pt-1 flex flex-wrap items-center justify-between gap-2 border-t border-[#F3E5ED]">
                     <div className="flex flex-wrap items-center gap-1.5">
                       {STORY_THEMES.map((t) => {
@@ -776,13 +776,13 @@ export const SocialPage = () => {
                             key={t.key}
                             type="button"
                             onClick={() => toggleReaction(e.id, t.key)}
-                            className={`px-2.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 transition-all active:scale-95 cursor-pointer ${r ? `bg-[#831843] text-white shadow-2xs` : `bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#2B091C]`}`}
+                            className={`px-2.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 transition-all active:scale-95 cursor-pointer ${r ? `bg-[#781539] text-white shadow-2xs` : `bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#1F0C17]`}`}
                           >
                             <span>{t.emoji}</span>
                             <span className="text-[11px]">{t.label}</span>
                             {n.length > 0 && (
                               <span
-                                className={`font-mono text-[10px] px-1 rounded-full ${r ? `bg-white/20 text-white` : `text-[#831843]`}`}
+                                className={`font-mono text-[10px] px-1 rounded-full ${r ? `bg-white/20 text-white` : `text-[#781539]`}`}
                               >
                                 {n.length}
                               </span>
@@ -794,9 +794,9 @@ export const SocialPage = () => {
                     <button
                       type="button"
                       onClick={() => Ce(t ? null : e.id)}
-                      className="px-3 py-1.5 rounded-full bg-[#FAF5F8] hover:bg-[#F6EDF2] text-xs font-bold text-[#7A616F] flex items-center gap-1.5 cursor-pointer"
+                      className="px-3 py-1.5 rounded-full bg-[#FAF5F8] hover:bg-[#F4E9F0] text-xs font-bold text-[#7A616F] flex items-center gap-1.5 cursor-pointer"
                     >
-                      <MessageCircle className="w-3.5 h-3.5 text-[#831843]" />
+                      <MessageCircle className="w-3.5 h-3.5 text-[#781539]" />
                       <span>{e.comments.length > 0 ? `${e.comments.length} mot${e.comments.length > 1 ? `s` : ``}` : `Encourager`}</span>
                     </button>
                   </div>
@@ -805,8 +805,8 @@ export const SocialPage = () => {
                       {e.comments.map((e) => (
                         <div key={e.id} className="p-2.5 rounded-2xl bg-[#FAF5F8] flex items-start justify-between gap-2 text-xs">
                           <div>
-                            <span className="font-bold text-[#831843] mr-1.5">{e.authorName}</span>
-                            <span className="text-[#2B091C]">{e.text}</span>
+                            <span className="font-bold text-[#781539] mr-1.5">{e.authorName}</span>
+                            <span className="text-[#1F0C17]">{e.text}</span>
                           </div>
                           <span className="text-[10px] text-[#8C6D7E] shrink-0">{e.createdAt}</span>
                         </div>
@@ -834,11 +834,11 @@ export const SocialPage = () => {
                             }))
                           }
                           placeholder={`Écrire un mot d’encouragement à ${e.authorName}...`}
-                          className="flex-1 px-3.5 py-2 rounded-full bg-[#F6EDF2] text-xs text-[#2B091C] font-medium focus:outline-hidden"
+                          className="flex-1 px-3.5 py-2 rounded-full bg-[#F4E9F0] text-xs text-[#1F0C17] font-medium focus:outline-hidden"
                         />
                         <button
                           type="submit"
-                          className="px-3.5 py-2 rounded-full bg-[#831843] text-white text-xs font-bold flex items-center gap-1 shrink-0 cursor-pointer"
+                          className="px-3.5 py-2 rounded-full bg-[#781539] text-white text-xs font-bold flex items-center gap-1 shrink-0 cursor-pointer"
                         >
                           <Send className="w-3.5 h-3.5" />
                         </button>
@@ -850,7 +850,7 @@ export const SocialPage = () => {
             })}
             {feedPosts.length === 0 && (
               <div className="p-6 rounded-[28px] bg-white border border-[#F3E5ED] text-center space-y-2 shadow-2xs">
-                <p className="font-display font-bold text-sm text-[#2B091C]">Le fil d’activité est encore vierge ✨</p>
+                <p className="font-display font-bold text-sm text-[#1F0C17]">Le fil d’activité est encore vierge ✨</p>
                 <p className="text-xs text-[#7A616F] max-w-md mx-auto">
                   Ajoute tes amies, envoie un Wizz ou publie ta dernière séance, un record personnel (PR) ou une invitation de séance pour
                   inaugurer le Club !
@@ -865,8 +865,8 @@ export const SocialPage = () => {
           <div className="p-5 rounded-[28px] bg-white border border-[#F3E5ED] shadow-2xs space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Trouver vos créneaux communs</span>
-                <h2 className="font-display font-bold text-base sm:text-lg text-[#2B091C]">Comparateur de planning 7 jours</h2>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Trouver vos créneaux communs</span>
+                <h2 className="font-display font-bold text-base sm:text-lg text-[#1F0C17]">Comparateur de planning 7 jours</h2>
               </div>
               <div className="flex items-center gap-1.5 flex-wrap">
                 {friends.map((e) => (
@@ -874,7 +874,7 @@ export const SocialPage = () => {
                     key={e.id}
                     type="button"
                     onClick={() => Ye(e.id)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${Nt?.id === e.id ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#7A616F] hover:text-[#2B091C]`}`}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${Nt?.id === e.id ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F] hover:text-[#1F0C17]`}`}
                   >
                     Avec {e.displayName}
                   </button>
@@ -896,20 +896,20 @@ export const SocialPage = () => {
                       key={e}
                       className={`p-3 rounded-2xl grid grid-cols-12 items-center gap-2 text-xs border ${c ? `bg-grainy-pink border-[#F472B6]/40` : `bg-[#FAF5F8] border-transparent`}`}
                     >
-                      <div className="col-span-3 sm:col-span-2 font-display font-bold text-[#2B091C] flex items-center gap-1.5">
+                      <div className="col-span-3 sm:col-span-2 font-display font-bold text-[#1F0C17] flex items-center gap-1.5">
                         <span>{t?.dayName || n?.dayName}</span>
                       </div>
                       <div className="col-span-4 sm:col-span-4">
                         <span className="text-[10px] font-semibold text-[#7A616F] block">Toi</span>
-                        <span className="font-bold text-[#2B091C] truncate block">{r}</span>
+                        <span className="font-bold text-[#1F0C17] truncate block">{r}</span>
                       </div>
                       <div className="col-span-5 sm:col-span-4">
                         <span className="text-[10px] font-semibold text-[#7A616F] block">{Nt.displayName}</span>
-                        <span className="font-bold text-[#831843] truncate block">{a}</span>
+                        <span className="font-bold text-[#781539] truncate block">{a}</span>
                       </div>
                       <div className="col-span-12 sm:col-span-2 flex sm:justify-end">
                         {c ? (
-                          <span className="px-2.5 py-1 rounded-full bg-[#831843] text-white text-[10px] font-bold inline-flex items-center gap-1">
+                          <span className="px-2.5 py-1 rounded-full bg-[#781539] text-white text-[10px] font-bold inline-flex items-center gap-1">
                             <Sparkles className="w-3 h-3 text-[#FBCFE8]" /> Match !
                           </span>
                         ) : (
@@ -928,7 +928,7 @@ export const SocialPage = () => {
                 <button
                   type="button"
                   onClick={() => se(`friends`)}
-                  className="px-3.5 py-2 rounded-full bg-[#831843] text-white text-xs font-bold shrink-0 cursor-pointer"
+                  className="px-3.5 py-2 rounded-full bg-[#781539] text-white text-xs font-bold shrink-0 cursor-pointer"
                 >
                   Ajouter une amie
                 </button>
@@ -936,10 +936,10 @@ export const SocialPage = () => {
             )}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="p-5 rounded-[28px] bg-[#F6EDF2] space-y-3.5">
+            <div className="p-5 rounded-[28px] bg-[#F4E9F0] space-y-3.5">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Rendez-vous à la salle</span>
-                <h3 className="font-display font-bold text-base text-[#2B091C]">Proposer « On s’entraîne ensemble ? »</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Rendez-vous à la salle</span>
+                <h3 className="font-display font-bold text-base text-[#1F0C17]">Proposer « On s’entraîne ensemble ? »</h3>
               </div>
               <form
                 onSubmit={(e) => {
@@ -986,7 +986,7 @@ export const SocialPage = () => {
                       <select
                         value={Xe || friends[0]?.id || ``}
                         onChange={(e) => Ze(e.target.value)}
-                        className="w-full px-3 py-2 rounded-xl bg-white text-xs font-bold text-[#2B091C]"
+                        className="w-full px-3 py-2 rounded-xl bg-white text-xs font-bold text-[#1F0C17]"
                       >
                         {friends.map((e) => (
                           <option key={e.id} value={e.id}>
@@ -1000,7 +1000,7 @@ export const SocialPage = () => {
                         value={Qe}
                         onChange={(e) => $e(e.target.value)}
                         placeholder="Prénom ou @pseudo (ex: @lea.glow)"
-                        className="w-full px-3 py-2 rounded-xl bg-white text-xs font-bold text-[#2B091C]"
+                        className="w-full px-3 py-2 rounded-xl bg-white text-xs font-bold text-[#1F0C17]"
                       />
                     )}
                   </div>
@@ -1010,7 +1010,7 @@ export const SocialPage = () => {
                       <select
                         value={et}
                         onChange={(e) => tt(Number(e.target.value))}
-                        className="flex-1 px-2.5 py-2 rounded-xl bg-white text-xs font-bold text-[#2B091C]"
+                        className="flex-1 px-2.5 py-2 rounded-xl bg-white text-xs font-bold text-[#1F0C17]"
                       >
                         <option value={1}>Lundi</option>
                         <option value={2}>Mardi</option>
@@ -1024,7 +1024,7 @@ export const SocialPage = () => {
                         type="text"
                         value={nt}
                         onChange={(e) => rt(e.target.value)}
-                        className="w-18 px-2.5 py-2 rounded-xl bg-white text-xs font-bold text-[#2B091C]"
+                        className="w-18 px-2.5 py-2 rounded-xl bg-white text-xs font-bold text-[#1F0C17]"
                         placeholder="18h00"
                       />
                     </div>
@@ -1036,7 +1036,7 @@ export const SocialPage = () => {
                     type="text"
                     value={it}
                     onChange={(e) => at(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl bg-white text-xs font-semibold text-[#2B091C]"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white text-xs font-semibold text-[#1F0C17]"
                     placeholder="Ex: Leg Day & Fessiers (4 exos)"
                   />
                 </div>
@@ -1053,7 +1053,7 @@ export const SocialPage = () => {
                 <button
                   type="submit"
                   disabled={friends.length === 0 && !Qe.trim()}
-                  className="w-full py-2.5 px-4 rounded-full bg-[#831843] hover:bg-[#500724] disabled:opacity-50 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-2.5 px-4 rounded-full bg-[#781539] hover:bg-[#500724] disabled:opacity-50 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Calendar className="w-3.5 h-3.5" />
                   <span>
@@ -1067,13 +1067,13 @@ export const SocialPage = () => {
             <div ref={j} className="p-5 rounded-[28px] bg-white border border-[#F3E5ED] space-y-3">
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">
                     Vos créneaux à deux (affichés ici & dans le Fil)
                   </span>
-                  <h3 className="font-display font-bold text-base text-[#2B091C]">Séances communes programmées ({gymDates.length})</h3>
+                  <h3 className="font-display font-bold text-base text-[#1F0C17]">Séances communes programmées ({gymDates.length})</h3>
                 </div>
                 {gymDates.length > 0 && (
-                  <span className="px-2.5 py-1 rounded-full bg-[#FCE7F3] text-[#831843] font-mono text-xs font-bold">
+                  <span className="px-2.5 py-1 rounded-full bg-[#FCE7F3] text-[#781539] font-mono text-xs font-bold">
                     {gymDates.length} RDV
                   </span>
                 )}
@@ -1089,7 +1089,7 @@ export const SocialPage = () => {
                   return (
                     <div
                       key={e.id}
-                      className={`p-3.5 rounded-2xl border space-y-2 transition-all ${t ? `bg-grainy-pink border-[#831843] ring-2 ring-[#F472B6]/50 shadow-sm` : `bg-[#FAF5F8] border-[#F3E5ED]`}`}
+                      className={`p-3.5 rounded-2xl border space-y-2 transition-all ${t ? `bg-grainy-pink border-[#781539] ring-2 ring-[#F472B6]/50 shadow-sm` : `bg-[#FAF5F8] border-[#F3E5ED]`}`}
                     >
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2 min-w-0">
@@ -1102,15 +1102,15 @@ export const SocialPage = () => {
                             {e.friendName.charAt(0)}
                           </span>
                           <div className="min-w-0">
-                            <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C] truncate">
+                            <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17] truncate">
                               Avec {e.friendName} · {e.dayLabel} à {e.timeSlot}
                             </p>
-                            <p className="text-[11px] font-semibold text-[#831843] truncate">{e.workoutTheme}</p>
+                            <p className="text-[11px] font-semibold text-[#781539] truncate">{e.workoutTheme}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-1.5 shrink-0">
                           <span
-                            className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${e.status === `accepted` ? `bg-[#FCE7F3] text-[#831843]` : e.status === `declined` ? `bg-gray-100 text-gray-500` : `bg-amber-100 text-amber-800`}`}
+                            className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${e.status === `accepted` ? `bg-[#FCE7F3] text-[#781539]` : e.status === `declined` ? `bg-gray-100 text-gray-500` : `bg-amber-100 text-amber-800`}`}
                           >
                             {e.status === `accepted` ? `Invitation envoyée ✓` : e.status === `declined` ? `Reporté` : `En attente`}
                           </span>
@@ -1119,7 +1119,7 @@ export const SocialPage = () => {
                             onClick={() => {
                               ;(deleteGymDateInvite(e.id), Et(`Invitation de séance annulée.`))
                             }}
-                            className="p-1.5 rounded-full text-[#8C6D7E] hover:text-[#831843] hover:bg-white cursor-pointer"
+                            className="p-1.5 rounded-full text-[#8C6D7E] hover:text-[#781539] hover:bg-white cursor-pointer"
                             title="Supprimer cette invitation"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -1138,7 +1138,7 @@ export const SocialPage = () => {
                             onClick={() => {
                               ;(respondToGymDate(e.id, true), Et(`Séance de ${e.dayLabel} confirmée avec ${e.friendName} !`))
                             }}
-                            className="flex-1 py-2 rounded-full bg-[#831843] text-white text-xs font-bold cursor-pointer"
+                            className="flex-1 py-2 rounded-full bg-[#781539] text-white text-xs font-bold cursor-pointer"
                           >
                             Accepter le RDV
                           </button>
@@ -1160,8 +1160,8 @@ export const SocialPage = () => {
           <div className="p-5 rounded-[28px] bg-white border border-[#F3E5ED] space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Bibliothèque entre amies</span>
-                <h3 className="font-display font-bold text-base sm:text-lg text-[#2B091C]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Bibliothèque entre amies</span>
+                <h3 className="font-display font-bold text-base sm:text-lg text-[#1F0C17]">
                   Séances personnalisées partagées par tes amies
                 </h3>
               </div>
@@ -1188,17 +1188,17 @@ export const SocialPage = () => {
                       >
                         <div className="space-y-2">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="px-2.5 py-0.5 rounded-full bg-[#FCE7F3] text-[#831843] text-[10px] font-bold">
+                            <span className="px-2.5 py-0.5 rounded-full bg-[#FCE7F3] text-[#781539] text-[10px] font-bold">
                               Par {friend.displayName} ({friend.handle})
                             </span>
                             <span className="text-[11px] font-mono font-bold text-[#7A616F]">{routine.exercises.length} exercices</span>
                           </div>
-                          <h4 className="font-display font-bold text-sm sm:text-base text-[#2B091C]">{routine.name}</h4>
+                          <h4 className="font-display font-bold text-sm sm:text-base text-[#1F0C17]">{routine.name}</h4>
                           {routine.description && <p className="text-xs text-[#7A616F]">{routine.description}</p>}
                           <div className="space-y-1 pt-1">
                             {routine.exercises.map((e, t) => (
-                              <p key={e.id} className="text-xs font-medium text-[#2B091C]">
-                                <strong className="text-[#831843]">{t + 1}.</strong> {e.exerciseName} ({e.sets.length} séries)
+                              <p key={e.id} className="text-xs font-medium text-[#1F0C17]">
+                                <strong className="text-[#781539]">{t + 1}.</strong> {e.exerciseName} ({e.sets.length} séries)
                               </p>
                             ))}
                           </div>
@@ -1206,7 +1206,7 @@ export const SocialPage = () => {
                         <button
                           type="button"
                           onClick={() => Rt(routine)}
-                          className={`w-full py-2.5 px-4 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${n ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#831843] hover:bg-[#500724] text-white`}`}
+                          className={`w-full py-2.5 px-4 rounded-full text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${n ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#781539] hover:bg-[#500724] text-white`}`}
                         >
                           {n ? (
                             <>
@@ -1235,7 +1235,7 @@ export const SocialPage = () => {
                     onClick={() => {
                       ;(shareRoutineToClub(e), Et(`Ta routine « ${e.name} » a été partagée à tes amies !`))
                     }}
-                    className="px-3 py-1.5 rounded-full bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#831843] text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                    className="px-3 py-1.5 rounded-full bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#781539] text-xs font-bold flex items-center gap-1.5 cursor-pointer"
                   >
                     <Share2 className="w-3 h-3" />
                     <span>{e.name}</span>
@@ -1251,12 +1251,12 @@ export const SocialPage = () => {
           <div className="p-5 rounded-[28px] bg-grainy-pink border border-[#F472B6]/35 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-2xl bg-[#831843] text-white flex items-center justify-center shrink-0 shadow-sm">
+                <div className="w-12 h-12 rounded-2xl bg-[#781539] text-white flex items-center justify-center shrink-0 shadow-sm">
                   <Flame className="w-6 h-6 text-[#FBCFE8]" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Série de régularité en binôme</span>
-                  <h2 className="font-display font-bold text-lg sm:text-xl text-[#2B091C]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Série de régularité en binôme</span>
+                  <h2 className="font-display font-bold text-lg sm:text-xl text-[#1F0C17]">
                     {Pt ? `Duo Streak : ${mySocialProfile.duoStreakWeeks} semaines d’affilée 🔥` : `Duo Streak : Aucun binôme actif`}
                   </h2>
                   <p className="text-xs text-[#5C3A4D]">
@@ -1272,7 +1272,7 @@ export const SocialPage = () => {
               </div>
               {friends.length > 0 ? (
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[11px] font-bold text-[#831843]">Binôme :</span>
+                  <span className="text-[11px] font-bold text-[#781539]">Binôme :</span>
                   {friends.map((e) => (
                     <button
                       key={e.id}
@@ -1280,7 +1280,7 @@ export const SocialPage = () => {
                       onClick={() => {
                         ;(setDuoPartner(e.id), Et(`${e.displayName} est maintenant ton binôme Duo Streak !`))
                       }}
-                      className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${Pt?.id === e.id ? `bg-[#831843] text-white shadow-2xs` : `bg-white/80 text-[#831843] hover:bg-white`}`}
+                      className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${Pt?.id === e.id ? `bg-[#781539] text-white shadow-2xs` : `bg-white/80 text-[#781539] hover:bg-white`}`}
                     >
                       {e.displayName}
                     </button>
@@ -1290,7 +1290,7 @@ export const SocialPage = () => {
                 <button
                   type="button"
                   onClick={() => se(`friends`)}
-                  className="px-3.5 py-2 rounded-full bg-[#831843] text-white text-xs font-bold shrink-0 cursor-pointer"
+                  className="px-3.5 py-2 rounded-full bg-[#781539] text-white text-xs font-bold shrink-0 cursor-pointer"
                 >
                   Ajouter une amie
                 </button>
@@ -1300,14 +1300,14 @@ export const SocialPage = () => {
           <div className="p-5 rounded-[28px] bg-white border border-[#F3E5ED] shadow-2xs space-y-4">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Défi collectif hebdomadaire</span>
-                <h3 className="font-display font-bold text-base sm:text-lg text-[#2B091C]">{collectiveChallenge.title}</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Défi collectif hebdomadaire</span>
+                <h3 className="font-display font-bold text-base sm:text-lg text-[#1F0C17]">{collectiveChallenge.title}</h3>
                 <p className="text-xs text-[#7A616F] mt-0.5">{collectiveChallenge.description}</p>
               </div>
               <button
                 type="button"
                 onClick={() => Ct((e) => !e)}
-                className="px-3 py-1.5 rounded-full bg-[#F6EDF2] text-[#831843] text-xs font-bold flex items-center gap-1 shrink-0 cursor-pointer"
+                className="px-3 py-1.5 rounded-full bg-[#F4E9F0] text-[#781539] text-xs font-bold flex items-center gap-1 shrink-0 cursor-pointer"
               >
                 <PenLine className="w-3.5 h-3.5" />
                 <span>Objectif</span>
@@ -1320,32 +1320,32 @@ export const SocialPage = () => {
                   let t = parseInt(wt, 10) || 12
                   ;(updateCollectiveChallengeTarget(t), Ct(false), Et(`Cagnotte mise à jour : ${t} séances collectives !`))
                 }}
-                className="p-3 rounded-2xl bg-[#F6EDF2] flex items-center gap-2"
+                className="p-3 rounded-2xl bg-[#F4E9F0] flex items-center gap-2"
               >
-                <span className="text-xs font-bold text-[#2B091C]">Cible de séances cette semaine :</span>
+                <span className="text-xs font-bold text-[#1F0C17]">Cible de séances cette semaine :</span>
                 <input
                   type="number"
                   min={3}
                   max={40}
                   value={wt}
                   onChange={(e) => Tt(e.target.value)}
-                  className="w-20 px-3 py-1.5 rounded-xl bg-white text-xs font-mono font-bold text-[#831843]"
+                  className="w-20 px-3 py-1.5 rounded-xl bg-white text-xs font-mono font-bold text-[#781539]"
                 />
-                <button type="submit" className="px-3.5 py-1.5 rounded-full bg-[#831843] text-white text-xs font-bold cursor-pointer">
+                <button type="submit" className="px-3.5 py-1.5 rounded-full bg-[#781539] text-white text-xs font-bold cursor-pointer">
                   Valider
                 </button>
               </form>
             )}
             <div className="space-y-2">
               <div className="flex items-baseline justify-between">
-                <span className="font-mono font-extrabold text-xl text-[#831843]">
+                <span className="font-mono font-extrabold text-xl text-[#781539]">
                   {Ft} / {collectiveChallenge.targetSessions} séances
                 </span>
                 <span className="text-xs font-bold text-[#7A616F]">{It}% de la cagnotte</span>
               </div>
-              <div className="w-full h-3.5 rounded-full bg-[#F6EDF2] overflow-hidden p-0.5">
+              <div className="w-full h-3.5 rounded-full bg-[#F4E9F0] overflow-hidden p-0.5">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-[#831843] to-[#EC4899] transition-all duration-500"
+                  className="h-full rounded-full bg-gradient-to-r from-[#781539] to-[#EA3E8E] transition-all duration-500"
                   style={{
                     width: `${It}%`,
                   }}
@@ -1364,8 +1364,8 @@ export const SocialPage = () => {
                     {e.name.charAt(0)}
                   </span>
                   <div className="min-w-0">
-                    <p className="font-display font-bold text-xs text-[#2B091C] truncate">{e.name}</p>
-                    <p className="font-mono text-[11px] font-bold text-[#831843]">+{e.sessionsCount} séances</p>
+                    <p className="font-display font-bold text-xs text-[#1F0C17] truncate">{e.name}</p>
+                    <p className="font-mono text-[11px] font-bold text-[#781539]">+{e.sessionsCount} séances</p>
                   </div>
                 </div>
               ))}
@@ -1373,10 +1373,10 @@ export const SocialPage = () => {
           </div>
           <div className="p-5 rounded-[28px] bg-white border border-[#F3E5ED] shadow-2xs space-y-4">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">
                 100 % basé sur l’assiduité · Zéro comparaison de poids
               </span>
-              <h3 className="font-display font-bold text-base sm:text-lg text-[#2B091C]">Podium de régularité bienveillant</h3>
+              <h3 className="font-display font-bold text-base sm:text-lg text-[#1F0C17]">Podium de régularité bienveillant</h3>
             </div>
             <div className="space-y-2.5">
               {Lt.map((e, t) => (
@@ -1385,7 +1385,7 @@ export const SocialPage = () => {
                   className={`p-3.5 rounded-2xl flex items-center justify-between gap-3 ${t === 0 ? `bg-grainy-pink border border-[#F472B6]/40` : `bg-[#FAF5F8] border border-[#F3E5ED]`}`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-7 h-7 rounded-full bg-white text-[#831843] font-mono font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                    <span className="w-7 h-7 rounded-full bg-white text-[#781539] font-mono font-extrabold text-xs flex items-center justify-center shrink-0 shadow-2xs">
                       #{t + 1}
                     </span>
                     <span
@@ -1397,14 +1397,14 @@ export const SocialPage = () => {
                       {e.name.charAt(0)}
                     </span>
                     <div className="min-w-0">
-                      <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C] truncate">{e.name}</p>
+                      <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17] truncate">{e.name}</p>
                       <p className="text-[11px] text-[#7A616F]">
                         {e.sessionsDone}/{e.sessionsTarget} séances · Série de {e.streakWeeks} sem.
                       </p>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="px-3 py-1 rounded-full bg-white text-[#831843] font-mono font-bold text-xs shadow-2xs">
+                    <span className="px-3 py-1 rounded-full bg-white text-[#781539] font-mono font-bold text-xs shadow-2xs">
                       {e.score}% régulière
                     </span>
                   </div>
@@ -1412,10 +1412,10 @@ export const SocialPage = () => {
               ))}
             </div>
           </div>
-          <div className="p-5 rounded-[28px] bg-[#F6EDF2] space-y-3.5">
+          <div className="p-5 rounded-[28px] bg-[#F4E9F0] space-y-3.5">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Tes trophées Glow Up Lab</span>
-              <h3 className="font-display font-bold text-base sm:text-lg text-[#2B091C]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Tes trophées Glow Up Lab</span>
+              <h3 className="font-display font-bold text-base sm:text-lg text-[#1F0C17]">
                 Badges sociaux & régularité ({badges.filter((e) => e.unlocked).length}/{badges.length})
               </h3>
             </div>
@@ -1427,21 +1427,21 @@ export const SocialPage = () => {
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span
-                      className={`w-10 h-10 rounded-2xl flex items-center justify-center ${e.unlocked ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#F6EDF2] text-[#8C6D7E]`}`}
+                      className={`w-10 h-10 rounded-2xl flex items-center justify-center ${e.unlocked ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#F4E9F0] text-[#8C6D7E]`}`}
                     >
                       <Icon name={e.icon} className="w-5 h-5" />
                     </span>
                     <span
-                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${e.unlocked ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#7A616F]`}`}
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${e.unlocked ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F]`}`}
                     >
                       {e.unlocked ? `Débloqué ✓` : `En cours`}
                     </span>
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-sm text-[#2B091C]">{e.title}</h4>
+                    <h4 className="font-display font-bold text-sm text-[#1F0C17]">{e.title}</h4>
                     <p className="text-[11px] text-[#7A616F] mt-0.5">{e.description}</p>
                   </div>
-                  <span className="text-[10px] font-mono font-bold text-[#831843]">{e.progressText}</span>
+                  <span className="text-[10px] font-mono font-bold text-[#781539]">{e.progressText}</span>
                 </div>
               ))}
             </div>
@@ -1453,21 +1453,21 @@ export const SocialPage = () => {
           <div className="p-5 rounded-[28px] bg-grainy-pink border border-[#F472B6]/40 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3.5">
-                <span className="w-14 h-14 rounded-2xl bg-[#831843] text-white font-display font-extrabold text-xl flex items-center justify-center shrink-0 shadow-sm">
+                <span className="w-14 h-14 rounded-2xl bg-[#781539] text-white font-display font-extrabold text-xl flex items-center justify-center shrink-0 shadow-sm">
                   {ae.charAt(0).toUpperCase()}
                 </span>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <h2 className="font-display font-bold text-lg text-[#2B091C]">{ae}</h2>
-                    <span className="px-2.5 py-0.5 rounded-full bg-white/85 text-[#831843] font-mono font-bold text-xs">
+                    <h2 className="font-display font-bold text-lg text-[#1F0C17]">{ae}</h2>
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/85 text-[#781539] font-mono font-bold text-xs">
                       {mySocialProfile.handle}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#831843] text-white font-mono font-bold text-[11px]">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#781539] text-white font-mono font-bold text-[11px]">
                       Code : {mySocialProfile.friendCode}
                     </span>
                   </div>
                   <p className="text-xs text-[#5C3A4D] mt-1">{mySocialProfile.bioStatus}</p>
-                  <p className="text-[11px] font-semibold text-[#831843] mt-0.5">
+                  <p className="text-[11px] font-semibold text-[#781539] mt-0.5">
                     Exercice favori : <strong>{mySocialProfile.favoriteExercise}</strong>
                   </p>
                 </div>
@@ -1478,7 +1478,7 @@ export const SocialPage = () => {
                   onClick={() => {
                     ;(_t(mySocialProfile.handle), yt(mySocialProfile.bioStatus), xt(mySocialProfile.favoriteExercise), ht((e) => !e))
                   }}
-                  className="px-3.5 py-2 rounded-full bg-white text-[#831843] text-xs font-bold flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                  className="px-3.5 py-2 rounded-full bg-white text-[#781539] text-xs font-bold flex items-center gap-1.5 shadow-2xs cursor-pointer"
                 >
                   <PenLine className="w-3.5 h-3.5" />
                   <span>Personnaliser</span>
@@ -1486,7 +1486,7 @@ export const SocialPage = () => {
                 <button
                   type="button"
                   onClick={zt}
-                  className="px-3.5 py-2 rounded-full bg-[#831843] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                  className="px-3.5 py-2 rounded-full bg-[#781539] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs cursor-pointer"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>Copier mon lien d’invitation</span>
@@ -1514,7 +1514,7 @@ export const SocialPage = () => {
                       type="text"
                       value={gt}
                       onChange={(e) => _t(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-[#F6EDF2] text-xs font-bold text-[#2B091C]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#F4E9F0] text-xs font-bold text-[#1F0C17]"
                     />
                   </div>
                   <div>
@@ -1523,7 +1523,7 @@ export const SocialPage = () => {
                       type="text"
                       value={bt}
                       onChange={(e) => xt(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-[#F6EDF2] text-xs font-bold text-[#2B091C]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#F4E9F0] text-xs font-bold text-[#1F0C17]"
                     />
                   </div>
                 </div>
@@ -1533,18 +1533,18 @@ export const SocialPage = () => {
                     type="text"
                     value={vt}
                     onChange={(e) => yt(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#F6EDF2] text-xs text-[#2B091C]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F4E9F0] text-xs text-[#1F0C17]"
                   />
                 </div>
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => ht(false)}
-                    className="px-3.5 py-1.5 rounded-full bg-[#F6EDF2] text-xs font-bold text-[#7A616F]"
+                    className="px-3.5 py-1.5 rounded-full bg-[#F4E9F0] text-xs font-bold text-[#7A616F]"
                   >
                     Annuler
                   </button>
-                  <button type="submit" className="px-4 py-1.5 rounded-full bg-[#831843] text-white text-xs font-bold">
+                  <button type="submit" className="px-4 py-1.5 rounded-full bg-[#781539] text-white text-xs font-bold">
                     Enregistrer
                   </button>
                 </div>
@@ -1552,9 +1552,9 @@ export const SocialPage = () => {
             )}
             <div className="p-3.5 rounded-2xl bg-white/85 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
-                {mySocialProfile.hideWeights ? <EyeOff className="w-4 h-4 text-[#831843]" /> : <Eye className="w-4 h-4 text-[#831843]" />}
+                {mySocialProfile.hideWeights ? <EyeOff className="w-4 h-4 text-[#781539]" /> : <Eye className="w-4 h-4 text-[#781539]" />}
                 <div>
-                  <p className="text-xs font-bold text-[#2B091C]">Mode Confidentialité (« Masquer mes charges »)</p>
+                  <p className="text-xs font-bold text-[#1F0C17]">Mode Confidentialité (« Masquer mes charges »)</p>
                   <p className="text-[11px] text-[#7A616F]">
                     Tes mensurations restent toujours 100 % privées. Active cette option pour partager tes séances sans afficher les kg.
                   </p>
@@ -1567,7 +1567,7 @@ export const SocialPage = () => {
                     hideWeights: !mySocialProfile.hideWeights,
                   })
                 }
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all cursor-pointer ${mySocialProfile.hideWeights ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#831843]`}`}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all cursor-pointer ${mySocialProfile.hideWeights ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#781539]`}`}
               >
                 {mySocialProfile.hideWeights ? `Activé 🔒` : `Désactivé`}
               </button>
@@ -1575,8 +1575,8 @@ export const SocialPage = () => {
           </div>
           <div className="p-5 rounded-[28px] bg-white border border-[#F3E5ED] shadow-2xs space-y-3.5">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#831843] block">Ajouter une Gym Bestie</span>
-              <h3 className="font-display font-bold text-base text-[#2B091C]">Ajoute une amie et choisis comment tu veux l’appeler</h3>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#781539] block">Ajouter une Gym Bestie</span>
+              <h3 className="font-display font-bold text-base text-[#1F0C17]">Ajoute une amie et choisis comment tu veux l’appeler</h3>
             </div>
             <form onSubmit={Vt} className="grid grid-cols-1 sm:grid-cols-12 gap-2">
               <input
@@ -1584,18 +1584,18 @@ export const SocialPage = () => {
                 value={ft}
                 onChange={(e) => pt(e.target.value)}
                 placeholder="Son prénom ou surnom (ex: Ma Chloé, Camille...)"
-                className="sm:col-span-5 px-4 py-2.5 rounded-full bg-[#F6EDF2] text-xs font-semibold text-[#2B091C] focus:outline-hidden"
+                className="sm:col-span-5 px-4 py-2.5 rounded-full bg-[#F4E9F0] text-xs font-semibold text-[#1F0C17] focus:outline-hidden"
               />
               <input
                 type="text"
                 value={ut}
                 onChange={(e) => dt(e.target.value)}
                 placeholder="@pseudo ou Code Ami (ex: @chloe ou GLOW-53M)..."
-                className="sm:col-span-5 px-4 py-2.5 rounded-full bg-[#F6EDF2] text-xs font-semibold text-[#2B091C] focus:outline-hidden"
+                className="sm:col-span-5 px-4 py-2.5 rounded-full bg-[#F4E9F0] text-xs font-semibold text-[#1F0C17] focus:outline-hidden"
               />
               <button
                 type="submit"
-                className="sm:col-span-2 px-4 py-2.5 rounded-full bg-[#831843] hover:bg-[#500724] text-white text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
+                className="sm:col-span-2 px-4 py-2.5 rounded-full bg-[#781539] hover:bg-[#500724] text-white text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
               >
                 <UserPlus className="w-4 h-4" />
                 <span>Ajouter</span>
@@ -1603,7 +1603,7 @@ export const SocialPage = () => {
             </form>
             {Mt.length > 0 && (
               <div className="pt-2 space-y-2">
-                <span className="text-xs font-bold text-[#831843] block">Demandes d’amies reçues ({Mt.length})</span>
+                <span className="text-xs font-bold text-[#781539] block">Demandes d’amies reçues ({Mt.length})</span>
                 {Mt.map((e) => (
                   <div
                     key={e.id}
@@ -1619,7 +1619,7 @@ export const SocialPage = () => {
                         {e.fromUser.displayName.charAt(0)}
                       </span>
                       <div>
-                        <p className="font-display font-bold text-xs sm:text-sm text-[#2B091C]">
+                        <p className="font-display font-bold text-xs sm:text-sm text-[#1F0C17]">
                           {e.fromUser.displayName} <span className="text-[#7A616F] font-normal">({e.fromUser.handle})</span>
                         </p>
                         <p className="text-[11px] text-[#7A616F]">{e.fromUser.bioStatus}</p>
@@ -1631,7 +1631,7 @@ export const SocialPage = () => {
                         onClick={() => {
                           ;(acceptFriendRequest(e.id), Et(`${e.fromUser.displayName} fait maintenant partie de tes amies !`))
                         }}
-                        className="px-3.5 py-1.5 rounded-full bg-[#831843] text-white text-xs font-bold cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-full bg-[#781539] text-white text-xs font-bold cursor-pointer"
                       >
                         Accepter
                       </button>
@@ -1649,10 +1649,10 @@ export const SocialPage = () => {
             )}
           </div>
           <div className="space-y-3">
-            <h3 className="font-display font-bold text-base text-[#2B091C] px-1">Mes Gym Besties ({friends.length})</h3>
+            <h3 className="font-display font-bold text-base text-[#1F0C17] px-1">Mes Gym Besties ({friends.length})</h3>
             {friends.length === 0 ? (
               <div className="p-6 rounded-[26px] bg-white border border-[#F3E5ED] shadow-2xs text-center space-y-2">
-                <p className="font-display font-bold text-sm text-[#2B091C]">Aucune amie dans ton cercle pour l’instant 🌸</p>
+                <p className="font-display font-bold text-sm text-[#1F0C17]">Aucune amie dans ton cercle pour l’instant 🌸</p>
                 <p className="text-xs text-[#7A616F] max-w-md mx-auto">
                   Utilise la barre de recherche ci-dessus pour ajouter une amie avec son @pseudo ou son code GLOW-XXX, ou partage ton QR
                   Code !
@@ -1678,11 +1678,11 @@ export const SocialPage = () => {
                           </span>
                           <div>
                             <div className="flex items-center gap-1.5">
-                              <p className="font-display font-bold text-sm text-[#2B091C]">{e.displayName}</p>
+                              <p className="font-display font-bold text-sm text-[#1F0C17]">{e.displayName}</p>
                               <button
                                 type="button"
                                 onClick={() => Ht(e)}
-                                className="p-1 rounded-full bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#831843] cursor-pointer"
+                                className="p-1 rounded-full bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#781539] cursor-pointer"
                                 title="Renommer cette amie comme tu veux"
                               >
                                 <PenLine className="w-3 h-3" />
@@ -1691,20 +1691,20 @@ export const SocialPage = () => {
                             <p className="text-xs text-[#7A616F]">{e.handle}</p>
                           </div>
                         </div>
-                        <span className="px-2 py-0.5 rounded-full bg-[#F6EDF2] text-[#831843] font-mono text-[10px] font-bold">
+                        <span className="px-2 py-0.5 rounded-full bg-[#F4E9F0] text-[#781539] font-mono text-[10px] font-bold">
                           {e.totalWorkouts} séances
                         </span>
                       </div>
                       <p className="text-xs text-[#5C3A4D]">{e.bioStatus}</p>
                       <p className="text-[11px] text-[#7A616F]">
-                        Ex. favori : <strong className="text-[#831843]">{e.favoriteExercise}</strong>
+                        Ex. favori : <strong className="text-[#781539]">{e.favoriteExercise}</strong>
                       </p>
                     </div>
                     <div className="flex items-center gap-1.5 pt-1">
                       <button
                         type="button"
                         onClick={() => Ht(e)}
-                        className="px-3 py-2 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#831843] text-xs font-bold flex items-center gap-1 cursor-pointer"
+                        className="px-3 py-2 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#781539] text-xs font-bold flex items-center gap-1 cursor-pointer"
                         title="Choisir son nom / surnom"
                       >
                         <PenLine className="w-3 h-3" />
@@ -1713,14 +1713,14 @@ export const SocialPage = () => {
                       <button
                         type="button"
                         onClick={() => ke(e)}
-                        className="flex-1 py-2 rounded-full bg-[#F6EDF2] hover:bg-[#FCE7F3] text-[#831843] text-xs font-bold cursor-pointer"
+                        className="flex-1 py-2 rounded-full bg-[#F4E9F0] hover:bg-[#FCE7F3] text-[#781539] text-xs font-bold cursor-pointer"
                       >
                         Carte
                       </button>
                       <button
                         type="button"
                         onClick={() => jt(e)}
-                        className={`px-3 py-2 rounded-full text-xs font-bold flex items-center gap-1 transition-all active:scale-95 cursor-pointer ${pokedFriendIds[e.id] || e.lastPokedAt ? `bg-[#FCE7F3] text-[#831843] border border-[#F472B6]/40` : `bg-[#831843] hover:bg-[#500724] text-white`}`}
+                        className={`px-3 py-2 rounded-full text-xs font-bold flex items-center gap-1 transition-all active:scale-95 cursor-pointer ${pokedFriendIds[e.id] || e.lastPokedAt ? `bg-[#FCE7F3] text-[#781539] border border-[#F472B6]/40` : `bg-[#781539] hover:bg-[#500724] text-white`}`}
                         title="Envoyer un Wizz motivation"
                       >
                         <Zap className="w-3.5 h-3.5" />
@@ -1744,36 +1744,36 @@ export const SocialPage = () => {
         {Me && (
           <form onSubmit={Ut} className="space-y-3.5">
             <div>
-              <label className="text-xs font-bold text-[#2B091C] block mb-1">Prénom ou surnom affiché *</label>
+              <label className="text-xs font-bold text-[#1F0C17] block mb-1">Prénom ou surnom affiché *</label>
               <input
                 type="text"
                 required
                 value={Pe}
                 onChange={(e) => Fe(e.target.value)}
                 placeholder="Ex: Ma Chloé, Camille, Sarah Bestie..."
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs font-bold text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs font-bold text-[#1F0C17]"
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-[#2B091C] block mb-1">Son @pseudo</label>
+              <label className="text-xs font-bold text-[#1F0C17] block mb-1">Son @pseudo</label>
               <input
                 type="text"
                 value={Ie}
                 onChange={(e) => Le(e.target.value)}
                 placeholder="@chloe.glow"
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs font-semibold text-[#831843]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs font-semibold text-[#781539]"
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-[#2B091C] block mb-1">Petite bio / note sur sa carte</label>
+              <label className="text-xs font-bold text-[#1F0C17] block mb-1">Petite bio / note sur sa carte</label>
               <input
                 type="text"
                 value={Re}
                 onChange={(e) => ze(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs text-[#2B091C]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs text-[#1F0C17]"
               />
             </div>
-            <button type="submit" className="w-full py-3 rounded-full bg-[#831843] text-white text-xs font-bold cursor-pointer">
+            <button type="submit" className="w-full py-3 rounded-full bg-[#781539] text-white text-xs font-bold cursor-pointer">
               Enregistrer son nouveau nom ✨
             </button>
           </form>
@@ -1796,49 +1796,49 @@ export const SocialPage = () => {
           className="space-y-3.5"
         >
           <div>
-            <label className="text-xs font-bold text-[#2B091C] block mb-1">Exercice</label>
+            <label className="text-xs font-bold text-[#1F0C17] block mb-1">Exercice</label>
             <input
               type="text"
               required
               value={Be}
               onChange={(e) => Ve(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs font-bold text-[#2B091C]"
+              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs font-bold text-[#1F0C17]"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-bold text-[#2B091C] block mb-1">Charge record (kg)</label>
+              <label className="text-xs font-bold text-[#1F0C17] block mb-1">Charge record (kg)</label>
               <input
                 type="number"
                 step="0.5"
                 required
                 value={He}
                 onChange={(e) => Ue(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs font-mono font-bold text-[#831843]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs font-mono font-bold text-[#781539]"
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-[#2B091C] block mb-1">Répétitions</label>
+              <label className="text-xs font-bold text-[#1F0C17] block mb-1">Répétitions</label>
               <input
                 type="number"
                 required
                 value={We}
                 onChange={(e) => Ge(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs font-mono font-bold text-[#831843]"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs font-mono font-bold text-[#781539]"
               />
             </div>
           </div>
           <div>
-            <label className="text-xs font-bold text-[#2B091C] block mb-1">Petit mot (optionnel)</label>
+            <label className="text-xs font-bold text-[#1F0C17] block mb-1">Petit mot (optionnel)</label>
             <input
               type="text"
               value={Ke}
               onChange={(e) => qe(e.target.value)}
               placeholder="Ex: Trop fière, la barre est montée super vite !"
-              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F6EDF2] text-xs text-[#2B091C]"
+              className="w-full px-3.5 py-2.5 rounded-2xl bg-[#F4E9F0] text-xs text-[#1F0C17]"
             />
           </div>
-          <button type="submit" className="w-full py-3 rounded-full bg-[#831843] text-white text-xs font-bold cursor-pointer">
+          <button type="submit" className="w-full py-3 rounded-full bg-[#781539] text-white text-xs font-bold cursor-pointer">
             Publier mon Record Personnel 🏆
           </button>
         </form>
@@ -1858,14 +1858,14 @@ export const SocialPage = () => {
                     {Oe.displayName.charAt(0)}
                   </span>
                   <div>
-                    <h4 className="font-display font-bold text-lg text-[#2B091C]">{Oe.displayName}</h4>
+                    <h4 className="font-display font-bold text-lg text-[#1F0C17]">{Oe.displayName}</h4>
                     <p className="text-xs text-[#5C3A4D]">{Oe.bioStatus}</p>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => Ht(Oe)}
-                  className="px-3 py-1.5 rounded-full bg-white text-[#831843] text-xs font-bold flex items-center gap-1 shadow-2xs cursor-pointer"
+                  className="px-3 py-1.5 rounded-full bg-white text-[#781539] text-xs font-bold flex items-center gap-1 shadow-2xs cursor-pointer"
                 >
                   <PenLine className="w-3.5 h-3.5" />
                   <span>Renommer</span>
@@ -1873,25 +1873,25 @@ export const SocialPage = () => {
               </div>
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div className="p-2.5 rounded-2xl bg-white/85">
-                  <span className="font-mono font-extrabold text-base text-[#831843] block">{Oe.totalWorkouts}</span>
+                  <span className="font-mono font-extrabold text-base text-[#781539] block">{Oe.totalWorkouts}</span>
                   <span className="text-[10px] font-bold text-[#7A616F]">Séances</span>
                 </div>
                 <div className="p-2.5 rounded-2xl bg-white/85">
-                  <span className="font-mono font-extrabold text-base text-[#831843] block">{Oe.streakWeeks} sem.</span>
+                  <span className="font-mono font-extrabold text-base text-[#781539] block">{Oe.streakWeeks} sem.</span>
                   <span className="text-[10px] font-bold text-[#7A616F]">Régularité</span>
                 </div>
                 <div className="p-2.5 rounded-2xl bg-white/85">
-                  <span className="font-mono font-extrabold text-base text-[#831843] block">{Oe.objectivesDoneCount}/3</span>
+                  <span className="font-mono font-extrabold text-base text-[#781539] block">{Oe.objectivesDoneCount}/3</span>
                   <span className="text-[10px] font-bold text-[#7A616F]">Objectifs</span>
                 </div>
               </div>
               <div className="p-3 rounded-2xl bg-white/85 text-xs">
                 <span className="text-[#7A616F] font-semibold">Exercice favori : </span>
-                <strong className="text-[#831843]">{Oe.favoriteExercise}</strong>
+                <strong className="text-[#781539]">{Oe.favoriteExercise}</strong>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {Oe.badges.map((e) => (
-                  <span key={e} className="px-2.5 py-1 rounded-full bg-[#831843] text-white text-[10px] font-bold">
+                  <span key={e} className="px-2.5 py-1 rounded-full bg-[#781539] text-white text-[10px] font-bold">
                     🏅 {e}
                   </span>
                 ))}
@@ -1903,7 +1903,7 @@ export const SocialPage = () => {
                 onClick={() => {
                   ;(jt(Oe), ke(null))
                 }}
-                className="flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-[#831843] to-[#EC4899] text-white text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
+                className="flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-[#781539] to-[#EA3E8E] text-white text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Zap className="w-3.5 h-3.5" />
                 <span>Envoyer un Wizz ⚡</span>
@@ -1913,7 +1913,7 @@ export const SocialPage = () => {
                 onClick={() => {
                   ;(Ye(Oe.id), Ze(Oe.id), ke(null), se(`besties`))
                 }}
-                className="flex-1 py-2.5 px-3 rounded-full bg-[#831843] text-white text-xs font-bold cursor-pointer"
+                className="flex-1 py-2.5 px-3 rounded-full bg-[#781539] text-white text-xs font-bold cursor-pointer"
               >
                 Inviter / Planning
               </button>
@@ -1922,7 +1922,7 @@ export const SocialPage = () => {
                 onClick={() => {
                   ;(removeFriend(Oe.id), ke(null), Et(`${Oe.displayName} a été retirée de ta liste.`))
                 }}
-                className="px-4 py-2.5 rounded-full bg-[#F6EDF2] text-[#7A616F] text-xs font-bold cursor-pointer"
+                className="px-4 py-2.5 rounded-full bg-[#F4E9F0] text-[#7A616F] text-xs font-bold cursor-pointer"
               >
                 Retirer
               </button>

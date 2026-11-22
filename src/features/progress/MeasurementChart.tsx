@@ -1,5 +1,5 @@
 // @ts-nocheck — composant porté automatiquement depuis l'app d'origine.
-export const MeasurementChart = ({ data = [38, 42, 36, 48, 44, 58, 64], badgeText, strokeColor = `#EC4899`, width = 200, height = 56 }) => {
+export const MeasurementChart = ({ data = [38, 42, 36, 48, 44, 58, 64], badgeText, strokeColor = `#EA3E8E`, width = 200, height = 56 }) => {
   let a = data.length >= 2 ? data : [35, 42, 38, 52, 48, 62],
     o = Math.min(...a),
     s = Math.max(...a) - o || 1,

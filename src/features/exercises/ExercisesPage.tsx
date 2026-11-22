@@ -99,11 +99,11 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
   return (
     <div className="space-y-4 pb-12 animate-in fade-in duration-150">
       <div className="flex items-center justify-between pt-1 gap-3">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#2B091C]">Exercices</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight text-[#1F0C17]">Exercices</h1>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setCreateOpen(true)}
-            className="px-4 py-2.5 rounded-full bg-[#831843] hover:bg-[#3B0726] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all active:scale-95 cursor-pointer"
+            className="px-4 py-2.5 rounded-full bg-[#781539] hover:bg-[#3B0726] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all active:scale-95 cursor-pointer"
             title="Créer mon propre exercice avec une fiche détaillée automatique"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
@@ -120,11 +120,11 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
               onClick={() => {
                 e.id === `fav` ? (setFavoritesOnly(true), setMuscle(`all`)) : (setFavoritesOnly(false), setCategory(e.id), setMuscle(`all`))
               }}
-              className={`pb-2.5 flex items-center gap-1.5 whitespace-nowrap text-sm transition-colors border-b-2 -mb-[1px] cursor-pointer ${t ? `border-[#831843] font-bold text-[#2B091C]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#2B091C]`}`}
+              className={`pb-2.5 flex items-center gap-1.5 whitespace-nowrap text-sm transition-colors border-b-2 -mb-[1px] cursor-pointer ${t ? `border-[#781539] font-bold text-[#1F0C17]` : `border-transparent font-medium text-[#8C6D7E] hover:text-[#1F0C17]`}`}
             >
               <span>{e.label}</span>
               <span
-                className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${t ? `bg-[#FCE7F3] text-[#831843]` : `bg-[#F6EDF2] text-[#8C6D7E]`}`}
+                className={`px-1.5 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${t ? `bg-[#FCE7F3] text-[#781539]` : `bg-[#F4E9F0] text-[#8C6D7E]`}`}
               >
                 {e.count}
               </span>
@@ -140,14 +140,14 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Rechercher un exercice..."
-            className="w-full pl-10 pr-4 py-2.5 text-xs rounded-full bg-[#F6EDF2] text-[#2B091C] placeholder:text-[#8C6D7E] focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-[#FBCFE8]"
+            className="w-full pl-10 pr-4 py-2.5 text-xs rounded-full bg-[#F4E9F0] text-[#1F0C17] placeholder:text-[#8C6D7E] focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-[#FBCFE8]"
           />
         </div>
         {!favoritesOnly && muscleChips.length > 1 && (
           <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
             <button
               onClick={() => setMuscle(`all`)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${muscle === `all` ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#7A616F] hover:bg-[#F1E2EA]`}`}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${muscle === `all` ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F] hover:bg-[#F1E2EA]`}`}
             >
               Tous
             </button>
@@ -157,7 +157,7 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
                 <button
                   key={e.id}
                   onClick={() => setMuscle(e.id)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${t ? `bg-[#831843] text-white` : `bg-[#F6EDF2] text-[#7A616F] hover:bg-[#F1E2EA]`}`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${t ? `bg-[#781539] text-white` : `bg-[#F4E9F0] text-[#7A616F] hover:bg-[#F1E2EA]`}`}
                 >
                   {e.label}
                 </button>
@@ -172,22 +172,22 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
             <button
               type="button"
               onClick={() => setOpenGuide((e) => (e === `legday` ? null : `legday`))}
-              className={`rounded-[26px] border p-3 sm:p-4 flex items-center justify-between gap-2 sm:gap-3 text-left transition-all cursor-pointer ${openGuide === `legday` ? `bg-[#F1E2EA] border-[#EC4899]/50 shadow-2xs` : `bg-[#F6EDF2] border-[#FBCFE8] hover:bg-[#F1E2EA]`}`}
+              className={`rounded-[26px] border p-3 sm:p-4 flex items-center justify-between gap-2 sm:gap-3 text-left transition-all cursor-pointer ${openGuide === `legday` ? `bg-[#F1E2EA] border-[#EA3E8E]/50 shadow-2xs` : `bg-[#F4E9F0] border-[#FBCFE8] hover:bg-[#F1E2EA]`}`}
             >
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
-                  <Icon name="weightlifter" className="w-4 h-4 sm:w-5 sm:h-5 text-[#EC4899]" />
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#781539] shrink-0">
+                  <Icon name="weightlifter" className="w-4 h-4 sm:w-5 sm:h-5 text-[#EA3E8E]" />
                 </div>
                 <div className="min-w-0">
-                  <span className="font-compact text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#EC4899] block truncate">
+                  <span className="font-compact text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#EA3E8E] block truncate">
                     Guide intégré · Bas du corps
                   </span>
-                  <h2 className="font-display font-bold text-xs sm:text-sm text-[#2B091C] leading-snug line-clamp-2">
+                  <h2 className="font-display font-bold text-xs sm:text-sm text-[#1F0C17] leading-snug line-clamp-2">
                     Comment structurer son leg day ?
                   </h2>
                 </div>
               </div>
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shrink-0 shadow-2xs">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shrink-0 shadow-2xs">
                 {openGuide === `legday` ? (
                   <ChevronUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 ) : (
@@ -198,22 +198,22 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
             <button
               type="button"
               onClick={() => setOpenGuide((e) => (e === `legpress` ? null : `legpress`))}
-              className={`rounded-[26px] border p-3 sm:p-4 flex items-center justify-between gap-2 sm:gap-3 text-left transition-all cursor-pointer ${openGuide === `legpress` ? `bg-[#F1E2EA] border-[#EC4899]/50 shadow-2xs` : `bg-[#F6EDF2] border-[#FBCFE8] hover:bg-[#F1E2EA]`}`}
+              className={`rounded-[26px] border p-3 sm:p-4 flex items-center justify-between gap-2 sm:gap-3 text-left transition-all cursor-pointer ${openGuide === `legpress` ? `bg-[#F1E2EA] border-[#EA3E8E]/50 shadow-2xs` : `bg-[#F4E9F0] border-[#FBCFE8] hover:bg-[#F1E2EA]`}`}
             >
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
-                  <Icon name="kettlebell" className="w-4 h-4 sm:w-5 sm:h-5 text-[#EC4899]" />
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#781539] shrink-0">
+                  <Icon name="kettlebell" className="w-4 h-4 sm:w-5 sm:h-5 text-[#EA3E8E]" />
                 </div>
                 <div className="min-w-0">
-                  <span className="font-compact text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#EC4899] block truncate">
+                  <span className="font-compact text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-[#EA3E8E] block truncate">
                     Guide intégré · Bas du corps
                   </span>
-                  <h2 className="font-display font-bold text-xs sm:text-sm text-[#2B091C] leading-snug line-clamp-2">
+                  <h2 className="font-display font-bold text-xs sm:text-sm text-[#1F0C17] leading-snug line-clamp-2">
                     Guide Presse à cuisses 45°
                   </h2>
                 </div>
               </div>
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shrink-0 shadow-2xs">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shrink-0 shadow-2xs">
                 {openGuide === `legpress` ? (
                   <ChevronUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 ) : (
@@ -223,12 +223,12 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
             </button>
           </div>
           {openGuide === `legday` && (
-            <div className="rounded-[26px] bg-[#F6EDF2] border border-[#FBCFE8] p-4 animate-in fade-in duration-150">
+            <div className="rounded-[26px] bg-[#F4E9F0] border border-[#FBCFE8] p-4 animate-in fade-in duration-150">
               <LegDayGuide />
             </div>
           )}
           {openGuide === `legpress` && (
-            <div className="rounded-[26px] bg-[#F6EDF2] border border-[#FBCFE8] p-4 animate-in fade-in duration-150">
+            <div className="rounded-[26px] bg-[#F4E9F0] border border-[#FBCFE8] p-4 animate-in fade-in duration-150">
               <LegPressGuide selectedPlacement={placement} onSelectPlacement={setPlacement} />
             </div>
           )}
@@ -239,27 +239,27 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
           <button
             type="button"
             onClick={() => setBackGuideOpen((e) => !e)}
-            className={`w-full rounded-[26px] border p-3.5 sm:p-4 flex items-center justify-between gap-3 text-left transition-all cursor-pointer ${backGuideOpen ? `bg-[#F1E2EA] border-[#EC4899]/50 shadow-2xs` : `bg-[#F6EDF2] border-[#FBCFE8] hover:bg-[#F1E2EA]`}`}
+            className={`w-full rounded-[26px] border p-3.5 sm:p-4 flex items-center justify-between gap-3 text-left transition-all cursor-pointer ${backGuideOpen ? `bg-[#F1E2EA] border-[#EA3E8E]/50 shadow-2xs` : `bg-[#F4E9F0] border-[#FBCFE8] hover:bg-[#F1E2EA]`}`}
           >
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
-                <Icon name="dumbbell" className="w-5 h-5 text-[#EC4899]" />
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#781539] shrink-0">
+                <Icon name="dumbbell" className="w-5 h-5 text-[#EA3E8E]" />
               </div>
               <div className="min-w-0">
-                <span className="font-compact text-[10px] font-extrabold uppercase tracking-wider text-[#EC4899] block">
+                <span className="font-compact text-[10px] font-extrabold uppercase tracking-wider text-[#EA3E8E] block">
                   Guide intégré · Dos (Ordre 1-2-3-4)
                 </span>
-                <h2 className="font-display font-bold text-sm sm:text-base text-[#2B091C] leading-snug">
+                <h2 className="font-display font-bold text-sm sm:text-base text-[#1F0C17] leading-snug">
                   Tips pour un dos dessiné sans l’élargir :
                 </h2>
               </div>
             </div>
-            <span className="w-8 h-8 rounded-full bg-white text-[#831843] flex items-center justify-center shrink-0 shadow-2xs">
+            <span className="w-8 h-8 rounded-full bg-white text-[#781539] flex items-center justify-center shrink-0 shadow-2xs">
               {backGuideOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             </span>
           </button>
           {backGuideOpen && (
-            <div className="rounded-[26px] bg-[#F6EDF2] border border-[#FBCFE8] p-4 animate-in fade-in duration-150">
+            <div className="rounded-[26px] bg-[#F4E9F0] border border-[#FBCFE8] p-4 animate-in fade-in duration-150">
               <BackGuide onLaunchBackRoutine={launchBackRoutine} />
             </div>
           )}
@@ -267,11 +267,11 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
       )}
       <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
         {filtered.length === 0 ? (
-          <div className="p-8 rounded-[28px] bg-[#F6EDF2] text-center space-y-3 lg:col-span-2">
-            <p className="text-sm font-semibold text-[#2B091C]">Aucun exercice trouvé</p>
+          <div className="p-8 rounded-[28px] bg-[#F4E9F0] text-center space-y-3 lg:col-span-2">
+            <p className="text-sm font-semibold text-[#1F0C17]">Aucun exercice trouvé</p>
             <button
               onClick={() => setCreateOpen(true)}
-              className="px-4 py-2 rounded-full bg-[#831843] text-white font-semibold text-xs inline-flex items-center gap-1.5"
+              className="px-4 py-2 rounded-full bg-[#781539] text-white font-semibold text-xs inline-flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Ajouter un exercice</span>
@@ -287,23 +287,23 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
               <div
                 key={e.id}
                 onClick={() => setSelected(e)}
-                className="group p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
+                className="group p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#781539]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
               >
                 <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                  <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#781539] shrink-0">
                     <Icon name={categoryIcon(e.category)} className="w-6 h-6" />
                   </div>
                   <div className="min-w-0 flex-1 space-y-1">
-                    <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">{e.name}</h3>
+                    <h3 className="font-display font-semibold text-[15px] text-[#1F0C17] leading-snug line-clamp-2">{e.name}</h3>
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#7A616F]">
-                      <span className="inline-flex items-center gap-1.5 font-medium text-[#831843]">
-                        <span className="w-2 h-2 rounded-full bg-[#EC4899]" />
+                      <span className="inline-flex items-center gap-1.5 font-medium text-[#781539]">
+                        <span className="w-2 h-2 rounded-full bg-[#EA3E8E]" />
                         <span>{s?.label || e.primaryMuscle}</span>
                       </span>
                       <span>·</span>
                       <span>{r.label}</span>
                       <span>·</span>
-                      <span className="font-mono font-semibold text-[#2B091C] tabular-nums">
+                      <span className="font-mono font-semibold text-[#1F0C17] tabular-nums">
                         {n ? `${n.weight} kg` : `${e.defaultSets}×${e.defaultReps}`}
                       </span>
                     </div>
@@ -324,12 +324,12 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
                     onClick={(t) => {
                       ;(t.stopPropagation(), toggleFavorite(e.id))
                     }}
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-[#831843]"
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-[#781539]"
                     title="Favori"
                   >
-                    <Star className={`w-4 h-4 ${t ? `fill-[#EC4899] text-[#EC4899]` : `text-[#B89BAC]`}`} />
+                    <Star className={`w-4 h-4 ${t ? `fill-[#EA3E8E] text-[#EA3E8E]` : `text-[#B89BAC]`}`} />
                   </button>
-                  <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#831843] shadow-2xs">
+                  <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#781539] shadow-2xs">
                     <ChevronRight className="w-4 h-4" />
                   </span>
                 </div>

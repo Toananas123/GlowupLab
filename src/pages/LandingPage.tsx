@@ -28,10 +28,12 @@ const PRS = [
 ]
 
 const FEATURES: { title: string; text: string; icon: IconName }[] = [
-  { title: 'Suivi de Séance & Chrono Intégré', text: 'Valide tes séries en un geste, ajuste tes charges avec les boutons rapides et lance automatiquement ton temps de repos entre chaque série.', icon: 'stopwatch' },
-  { title: 'Planning 7 Jours & Séances Sur-Mesure', text: 'Organise ta semaine en quelques secondes ou utilise « Propose-moi une séance » pour générer un entraînement adapté à ton temps et ton matériel.', icon: 'calendar' },
-  { title: 'Exercices Guidés & Réglages Mémorisés', text: 'Consulte les consignes de posture, le guide interactif des pieds à la presse et sauvegarde tes réglages de siège ou de poulie sur chaque machine.', icon: 'dumbbell' },
-  { title: 'Suivi des Charges & Mensurations', text: 'Retrouve automatiquement ta dernière performance sous chaque exercice pour progresser d’une séance à l’autre et suis tes records personnels.', icon: 'trophy' },
+  { title: 'Des séances qui te guident', text: 'Charges proposées et reprise de ta dernière charge, repos chronométré, changement d’exercice en cours de séance et message quand tu bats un record.', icon: 'stopwatch' },
+  { title: 'Des programmes qui progressent avec toi', text: '15 programmes par niveau : les charges évoluent chaque semaine (volume, surcharge, décharge) et un bilan de fin te propose de refaire le cycle plus lourd.', icon: 'sparkle' },
+  { title: 'Du cardio prêt à lancer', text: 'Marche inclinée, 12-3-30, StairMaster, vélo et sprints : des séances complètes avec un minuteur étape par étape, et tes circuits trouvés sur Instagram ou TikTok.', icon: 'runner' },
+  { title: 'Ton cycle, en privé', text: 'Phase du jour, check-in énergie et sommeil, charges ajustées automatiquement. Ces données restent les tiennes et ne sont jamais partagées.', icon: 'heart-pulse' },
+  { title: 'Le Club, entre amies', text: 'Invite tes amies avec ton code GLOW, partagez vos séances et vos records, lancez des défis en duo. Chacune est comparée à elle-même, pas aux autres.', icon: 'user' },
+  { title: 'Ta progression en un coup d’œil', text: 'Records, courbes de charge, objectifs par exercice, mensurations et bilan du mois.', icon: 'trophy' },
 ]
 
 export function LandingPage() {
@@ -56,20 +58,20 @@ export function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/40 to-bg" />
         <header className="relative mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <Logo size={40} />
-          <button onClick={() => setMode('signin')} className="flex items-center gap-2 rounded-full bg-[#831843] px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-[#831843]/25">
-            <Icon name="user" className="size-4" /> Mon compte
+          <button onClick={() => setMode('signin')} className="flex items-center gap-2 rounded-full bg-[#781539] px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-[#781539]/25">
+            Se connecter
           </button>
         </header>
         <section className="relative mx-auto max-w-4xl px-5 pt-10 pb-14 text-center sm:pt-16">
           <h1 className="font-display text-[2.6rem] leading-[1.05] font-extrabold tracking-tight sm:text-7xl">
-            Planifie. Entraîne-toi. <span className="bg-gradient-to-r from-pink to-[#831843] bg-clip-text text-transparent italic">Progresse.</span>
+            Planifie. Entraîne-toi. <span className="bg-gradient-to-r from-pink to-[#781539] bg-clip-text text-transparent italic">Progresse.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base text-muted sm:text-lg">Toute ta routine au même endroit : prépare ta semaine, valide tes séries en un geste et suis l’évolution de tes charges sans effort.</p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <button onClick={() => setMode('signup')} className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink to-[#831843] px-7 py-3.5 font-semibold text-white shadow-lg shadow-pink/30 transition hover:brightness-110">
-              Démarrer gratuitement <ArrowRight size={18} />
+            <button onClick={() => setMode('signup')} className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink to-[#781539] px-7 py-3.5 font-semibold text-white shadow-lg shadow-pink/30 transition hover:brightness-110">
+              Créer un compte <ArrowRight size={18} />
             </button>
-            <button onClick={() => setMode('signin')} className="rounded-full border border-blush-line bg-surface/80 px-7 py-3.5 font-semibold backdrop-blur hover:bg-surface">J’ai déjà un compte</button>
+            <button onClick={() => setMode('signin')} className="rounded-full border border-blush-line bg-surface/80 px-7 py-3.5 font-semibold backdrop-blur hover:bg-surface">Se connecter</button>
           </div>
         </section>
       </div>
@@ -80,12 +82,12 @@ export function LandingPage() {
           <div role="tablist" className="inline-flex rounded-full border border-line bg-surface p-1 shadow-sm">
             {TABS.map((t) => (
               <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => pick(t.id)}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition sm:text-sm ${tab === t.id ? 'bg-[#831843] text-white' : 'text-muted hover:bg-soft-2 hover:text-plum'}`}>{t.label}</button>
+                className={`rounded-full px-4 py-2 text-xs font-semibold transition sm:text-sm ${tab === t.id ? 'bg-[#781539] text-white' : 'text-muted hover:bg-soft-2 hover:text-plum'}`}>{t.label}</button>
             ))}
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-line bg-surface p-4 shadow-xl shadow-[#831843]/5 sm:p-7">
+        <div className="rounded-[2rem] border border-line bg-surface p-4 shadow-xl shadow-[#781539]/5 sm:p-7">
           {tab === 'workout' && (
             <div className="animate-fade-up">
               <DemoHeader icon="weightlifter" eyebrow="Séance en direct" title="Focus Fessiers & Galbe"
@@ -104,7 +106,7 @@ export function LandingPage() {
                         className={`flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-sm transition ${s.done ? 'border-pink-2 bg-blush/80' : 'border-blush-line bg-surface hover:border-pink-2'}`}>
                         <span className="font-semibold text-muted">Série {i + 1}</span>
                         <span className="font-bold">{s.weight} kg <span className="text-pink">×</span> {s.reps} reps</span>
-                        <span className={`grid size-7 place-items-center rounded-full ${s.done ? 'bg-[#831843] text-white' : 'border border-blush-line bg-soft-2 text-plum/40'}`}><Check size={14} /></span>
+                        <span className={`grid size-7 place-items-center rounded-full ${s.done ? 'bg-[#781539] text-white' : 'border border-blush-line bg-soft-2 text-plum/40'}`}><Check size={14} /></span>
                       </button>
                     ))}
                   </div>
@@ -113,7 +115,7 @@ export function LandingPage() {
                 <div className="space-y-3">
                   <DemoNext tag="Exercice suivant" meta="4 × 12 reps" title="Presse à cuisses inclinée" text="Réglage mémorisé : Siège cran 3 · Pieds hauts écartés" />
                   <DemoNext tag="Exercice 3" meta="3 × 10 / jambe" title="Fentes bulgares aux haltères" text="Dernière charge : 14 kg par main" />
-                  <div className="flex items-center justify-between rounded-3xl bg-gradient-to-r from-[#831843] to-pink p-4 text-white">
+                  <div className="flex items-center justify-between rounded-3xl bg-gradient-to-r from-[#781539] to-pink p-4 text-white">
                     <div><p className="text-[11px] font-bold tracking-wider uppercase opacity-80">Finisher Cardio</p><p className="text-sm font-semibold">Marche inclinée · Inclinaison 10 · 15 min</p></div>
                     <Icon name="runner" className="size-7" />
                   </div>
@@ -161,7 +163,7 @@ export function LandingPage() {
 
       <section className="mx-auto max-w-5xl px-5 py-16">
         <h2 className="mb-8 text-center font-display text-3xl font-bold sm:text-4xl">L’essentiel pour tes séances, <span className="text-pink">sans le superflu.</span></h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f) => (
             <div key={f.title} className="flex gap-4 rounded-3xl border border-line bg-surface p-5">
               <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-soft text-plum"><Icon name={f.icon} className="size-6" /></div>
@@ -175,7 +177,7 @@ export function LandingPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#3b0726] via-[#3b0726]/80 to-transparent" />
           <div className="relative flex flex-col items-start gap-5 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
             <div><h3 className="font-display text-2xl font-bold sm:text-3xl">Prête pour ta prochaine séance ?</h3><p className="mt-1 text-blush-line">Accès gratuit, sans publicité, sur téléphone et ordinateur.</p></div>
-            <button onClick={() => setMode('signup')} className="flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-[#831843]">Créer mon compte <ArrowRight size={18} /></button>
+            <button onClick={() => setMode('signup')} className="flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-[#781539]">Créer un compte <ArrowRight size={18} /></button>
           </div>
         </div>
       </section>

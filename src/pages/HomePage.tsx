@@ -72,7 +72,7 @@ export function HomePage() {
             const act = d.activities?.[0] || d.activity || 'Repos'
             return (
               <button key={d.dayOfWeek} onClick={() => setSelectedDow(d.dayOfWeek)} aria-pressed={active}
-                className={`rounded-3xl p-3 text-left transition sm:p-4 ${active ? 'bg-[#831843] text-white shadow-md shadow-[#831843]/25' : isToday ? 'bg-blush text-plum ring-2 ring-pink/30' : 'bg-soft text-ink hover:bg-blush'}`}>
+                className={`rounded-3xl p-3 text-left transition sm:p-4 ${active ? 'bg-[#781539] text-white shadow-md shadow-[#781539]/25' : isToday ? 'bg-blush text-plum ring-2 ring-pink/30' : 'bg-soft text-ink hover:bg-blush'}`}>
                 <span className={`block text-xs font-semibold ${active ? 'text-blush-line' : 'text-muted'}`}>{d.label}</span>
                 <span className="block font-display text-2xl font-bold sm:text-3xl">{d.dayNumber} <span className={`text-sm font-medium uppercase ${active ? 'text-blush-line' : 'text-muted'}`}>{d.month}</span></span>
                 <span className={`my-2 grid size-9 place-items-center rounded-xl ${active ? 'bg-white/20' : 'bg-surface text-plum'}`}><Icon name={activityIcon(act)} className="size-5" /></span>
@@ -86,7 +86,7 @@ export function HomePage() {
       {/* Séance du jour sélectionné */}
       <section className="relative overflow-hidden rounded-[2rem] bg-[#3b0726] text-white">
         <img src="/cta-training.webp" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2b091c] via-[#3b0726]/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1f0c17] via-[#3b0726]/70 to-transparent" />
         <div className="relative flex min-h-48 flex-col lg:min-h-60 justify-between gap-6 p-5 sm:flex-row sm:items-start sm:p-6">
           <div className="flex items-start gap-4">
             <span className="grid size-14 shrink-0 place-items-center rounded-2xl border border-white/20 bg-white/10"><Icon name={activityIcon(main)} className="size-7" /></span>
@@ -100,7 +100,7 @@ export function HomePage() {
               {activities.length > 1 && <p className="text-sm text-blush-line">+ {activities.slice(1).join(' · ')}</p>}
             </div>
           </div>
-          <button onClick={startSelected} className="flex items-center justify-center gap-1.5 self-start rounded-full bg-white px-5 py-3 text-sm font-bold text-[#831843] shadow-lg">
+          <button onClick={startSelected} className="flex items-center justify-center gap-1.5 self-start rounded-full bg-white px-5 py-3 text-sm font-bold text-[#781539] shadow-lg">
             {isRest ? 'Faire une séance quand même' : 'Commencer la séance'} <ChevronRight size={16} />
           </button>
         </div>
@@ -117,12 +117,12 @@ export function HomePage() {
           <h3 className="mb-3 text-xl font-bold">Tous tes exercices par zone</h3>
           <div className="flex flex-wrap gap-2 pr-16">
             {CATEGORY_TILES.map((c) => (
-              <button key={c.category} onClick={() => navigate(`/exercices?zone=${c.category}`)} className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#2b091c] shadow-sm hover:bg-blush">
-                <Icon name={categoryIcon(c.category)} className="size-3.5 text-[#831843]" /> {c.title}
+              <button key={c.category} onClick={() => navigate(`/exercices?zone=${c.category}`)} className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#1f0c17] shadow-sm hover:bg-blush">
+                <Icon name={categoryIcon(c.category)} className="size-3.5 text-[#781539]" /> {c.title}
               </button>
             ))}
           </div>
-          <Link to="/exercices" aria-label="Ouvrir les exercices" className="absolute right-5 bottom-5 grid size-14 place-items-center rounded-full bg-[#831843] text-white shadow-lg">
+          <Link to="/exercices" aria-label="Ouvrir les exercices" className="absolute right-5 bottom-5 grid size-14 place-items-center rounded-full bg-[#781539] text-white shadow-lg">
             <span className="flex flex-col items-center text-[10px] font-bold"><ArrowUpRight size={18} />Voir</span>
           </Link>
         </div>
@@ -157,7 +157,7 @@ export function HomePage() {
           <Link to="/social" className="flex items-center text-sm font-semibold text-plum">Ouvrir le Club <ChevronRight size={16} /></Link>
         </div>
         <Link to="/social" className="flex items-center gap-4 rounded-3xl border border-blush-line bg-gradient-to-r from-blush to-soft-2 p-4">
-          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#831843] text-white"><Icon name="user" className="size-6" /></span>
+          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#781539] text-white"><Icon name="user" className="size-6" /></span>
           <span className="min-w-0 flex-1">
             <span className="flex flex-wrap items-center gap-2"><span className="text-lg font-bold">Qui s’entraîne aujourd’hui ?</span><span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-bold text-plum">{friends.length === 0 ? '0 amie · Inviter' : `${friends.length} ${friends.length > 1 ? 'amies' : 'amie'}`}</span></span>
             <span className="block text-sm text-muted">Fil d’activité, Duo Streak, comparateur de planning 7j & Story Récap</span>
@@ -199,7 +199,7 @@ function FirstNamePrompt({ onSave }: { onSave: (name: string) => Promise<void> }
       </div>
       <form onSubmit={submit} className="flex gap-2">
         <input required value={value} onChange={(e) => setValue(e.target.value)} placeholder="Ton prénom..." className="min-w-0 flex-1 rounded-full border border-blush-line bg-surface px-4 py-2 text-sm outline-none focus:border-pink" />
-        <button disabled={busy} className="rounded-full bg-[#831843] px-4 py-2 text-sm font-semibold text-white">{busy ? '...' : 'OK'}</button>
+        <button disabled={busy} className="rounded-full bg-[#781539] px-4 py-2 text-sm font-semibold text-white">{busy ? '...' : 'OK'}</button>
       </form>
     </div>
   )

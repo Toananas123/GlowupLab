@@ -3,7 +3,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { Logo } from './components/Logo'
 import { AuthProvider, useAuth } from './features/auth/AuthProvider'
-import { firebaseConfigured } from './lib/firebase'
+import { NewPasswordModal } from './features/auth/NewPasswordModal'
+import { demoMode, supabaseConfigured } from './lib/supabase'
 import { LandingPage } from './pages/LandingPage'
 import { SocialProvider } from './store/SocialStore'
 import { WorkoutProvider } from './store/WorkoutStore'
@@ -57,10 +58,10 @@ function Routed() {
 export default function App() {
   return (
     <BrowserRouter>
-      {!firebaseConfigured && (
-        <div className="bg-amber-100 px-4 py-2 text-center text-sm text-amber-900">Firebase n'est pas configuré : copie <code>.env.example</code> en <code>.env</code>.</div>
+      {!supabaseConfigured && !demoMode && (
+        <div className="bg-amber-100 px-4 py-2 text-center text-sm text-amber-900">Supabase n'est pas configuré : renseigne SUPABASE_URL et SUPABASE_ANON_KEY (voir <code>.env.example</code>).</div>
       )}
-      <AuthProvider><Routed /></AuthProvider>
+      <AuthProvider><Routed /><NewPasswordModal /></AuthProvider>
     </BrowserRouter>
   )
 }

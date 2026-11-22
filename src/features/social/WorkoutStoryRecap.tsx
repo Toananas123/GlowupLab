@@ -149,7 +149,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
   return (
     <Sheet isOpen={isOpen} onClose={onClose} title="Carte Récap pour Story Instagram" subtitle="Génère ta carte 9:16 au design Glow Up Lab">
       <div className="space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 bg-[#F6EDF2] p-3 rounded-2xl">
+        <div className="flex flex-wrap items-center justify-between gap-2 bg-[#F4E9F0] p-3 rounded-2xl">
           <div className="flex items-center gap-1.5">
             {[
               {
@@ -169,7 +169,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                 key={e.id}
                 type="button"
                 onClick={() => c(e.id)}
-                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${s === e.id ? `bg-[#831843] text-white shadow-2xs` : `bg-white text-[#7A616F] hover:text-[#2B091C]`}`}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${s === e.id ? `bg-[#781539] text-white shadow-2xs` : `bg-white text-[#7A616F] hover:text-[#1F0C17]`}`}
               >
                 {e.label}
               </button>
@@ -178,7 +178,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
           <button
             type="button"
             onClick={() => o((e) => !e)}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${a ? `bg-[#831843] text-white` : `bg-white text-[#831843] border border-[#FBCFE8]`}`}
+            className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${a ? `bg-[#781539] text-white` : `bg-white text-[#781539] border border-[#FBCFE8]`}`}
           >
             {a ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
             <span>{a ? `Charges masquées` : `Charges visibles`}</span>
@@ -186,7 +186,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
         </div>
         <div className="flex justify-center">
           <div
-            className={`w-full max-w-[320px] aspect-[9/15] rounded-[32px] p-5 flex flex-col justify-between shadow-xl border relative overflow-hidden ${s === `berry` ? `bg-gradient-to-br from-[#831843] via-[#500724] to-[#2B091C] text-white border-[#F472B6]/30` : s === `blush` ? `bg-grainy-pink text-[#2B091C] border-[#F472B6]/40` : `bg-gradient-to-b from-[#180413] to-[#380A28] text-white border-[#EC4899]/30`}`}
+            className={`w-full max-w-[320px] aspect-[9/15] rounded-[32px] p-5 flex flex-col justify-between shadow-xl border relative overflow-hidden ${s === `berry` ? `bg-gradient-to-br from-[#781539] via-[#500724] to-[#1F0C17] text-white border-[#F472B6]/30` : s === `blush` ? `bg-grainy-pink text-[#1F0C17] border-[#F472B6]/40` : `bg-gradient-to-b from-[#180413] to-[#380A28] text-white border-[#EA3E8E]/30`}`}
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -195,7 +195,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                 </span>
                 <div>
                   <span
-                    className={`text-[10px] font-bold uppercase tracking-wider block leading-none ${s === `blush` ? `text-[#831843]` : `text-[#FBCFE8]`}`}
+                    className={`text-[10px] font-bold uppercase tracking-wider block leading-none ${s === `blush` ? `text-[#781539]` : `text-[#FBCFE8]`}`}
                   >
                     Glow Up Lab
                   </span>
@@ -203,7 +203,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                 </div>
               </div>
               <span
-                className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold ${s === `blush` ? `bg-white/80 text-[#831843]` : `bg-white/15 text-[#FBCFE8]`}`}
+                className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold ${s === `blush` ? `bg-white/80 text-[#781539]` : `bg-white/15 text-[#FBCFE8]`}`}
               >
                 {d.durationMinutes || 45} min
               </span>
@@ -211,7 +211,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
             <div className="space-y-2.5 my-auto py-3">
               <div>
                 <span
-                  className={`text-[10px] font-bold uppercase tracking-wider inline-flex items-center gap-1 ${s === `blush` ? `text-[#831843]` : `text-[#F472B6]`}`}
+                  className={`text-[10px] font-bold uppercase tracking-wider inline-flex items-center gap-1 ${s === `blush` ? `text-[#781539]` : `text-[#F472B6]`}`}
                 >
                   <Sparkles className="w-3 h-3" /> Séance validée
                 </span>
@@ -227,7 +227,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                       className={`p-2.5 rounded-2xl flex items-center justify-between gap-2 ${s === `blush` ? `bg-white/85 border border-white` : `bg-white/10 backdrop-blur-xs border border-white/10`}`}
                     >
                       <div className="min-w-0">
-                        <span className={`text-[10px] font-bold block ${s === `blush` ? `text-[#831843]` : `text-[#FBCFE8]`}`}>
+                        <span className={`text-[10px] font-bold block ${s === `blush` ? `text-[#781539]` : `text-[#FBCFE8]`}`}>
                           {t + 1}. {e.exerciseName}
                         </span>
                         <span className={`text-[11px] font-mono font-semibold ${s === `blush` ? `text-[#5C3A4D]` : `text-white/80`}`}>
@@ -235,7 +235,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                         </span>
                       </div>
                       <span
-                        className={`px-2 py-1 rounded-xl text-[11px] font-mono font-bold shrink-0 ${s === `blush` ? `bg-[#FCE7F3] text-[#831843]` : `bg-white/15 text-white`}`}
+                        className={`px-2 py-1 rounded-xl text-[11px] font-mono font-bold shrink-0 ${s === `blush` ? `bg-[#FCE7F3] text-[#781539]` : `bg-white/15 text-white`}`}
                       >
                         {a ? `🔒 Secret` : `${n} kg`}
                       </span>
@@ -251,7 +251,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
           </div>
         </div>
         {l && (
-          <div className="p-3 rounded-2xl bg-[#FCE7F3] text-[#831843] text-xs font-bold flex items-center justify-center gap-2">
+          <div className="p-3 rounded-2xl bg-[#FCE7F3] text-[#781539] text-xs font-bold flex items-center justify-center gap-2">
             <Check className="w-4 h-4" />
             <span>{l}</span>
           </div>
@@ -266,17 +266,17 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
               if (!t) return
               let n = t.createLinearGradient(0, 0, 1080, 1920)
               ;(s === `berry`
-                ? (n.addColorStop(0, `#831843`), n.addColorStop(0.5, `#500724`), n.addColorStop(1, `#2B091C`))
+                ? (n.addColorStop(0, `#781539`), n.addColorStop(0.5, `#500724`), n.addColorStop(1, `#1F0C17`))
                 : s === `blush`
                   ? (n.addColorStop(0, `#FCE7F3`), n.addColorStop(0.5, `#FBCFE8`), n.addColorStop(1, `#F472B6`))
                   : (n.addColorStop(0, `#180413`), n.addColorStop(1, `#380A28`)),
                 (t.fillStyle = n),
                 t.fillRect(0, 0, 1080, 1920))
               let i = s === `blush`
-              ;((t.fillStyle = i ? `#831843` : `#FBCFE8`),
+              ;((t.fillStyle = i ? `#781539` : `#FBCFE8`),
                 (t.font = `bold 38px sans-serif`),
                 t.fillText(`GLOW UP LAB · RÉCAP SÉANCE`, 90, 170),
-                (t.fillStyle = i ? `#2B091C` : `#FFFFFF`),
+                (t.fillStyle = i ? `#1F0C17` : `#FFFFFF`),
                 (t.font = `bold 68px sans-serif`),
                 t.fillText(d.name.slice(0, 28), 90, 280),
                 (t.fillStyle = i ? `#5C3A4D` : `#FBCFE8`),
@@ -288,10 +288,10 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                     t.beginPath(),
                     t.roundRect(90, r, 900, 210, 42),
                     t.fill(),
-                    (t.fillStyle = i ? `#831843` : `#F472B6`),
+                    (t.fillStyle = i ? `#781539` : `#F472B6`),
                     (t.font = `bold 32px sans-serif`),
                     t.fillText(`EXERCICE ${n + 1}`, 140, r + 68),
-                    (t.fillStyle = i ? `#2B091C` : `#FFFFFF`),
+                    (t.fillStyle = i ? `#1F0C17` : `#FFFFFF`),
                     (t.font = `bold 42px sans-serif`),
                     t.fillText(e.exerciseName.slice(0, 32), 140, r + 125))
                   let o = e.sets.reduce((e, t) => Math.max(e, t.actualWeight ?? t.targetWeight ?? 0), 0),
@@ -301,7 +301,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                       : `${e.sets.length} séries × ${s} reps · Top set : ${o} kg`
                   ;((t.fillStyle = i ? `#5C3A4D` : `#FBCFE8`), (t.font = `600 32px sans-serif`), t.fillText(c, 140, r + 175))
                 }),
-                (t.fillStyle = i ? `#831843` : `#FBCFE8`),
+                (t.fillStyle = i ? `#781539` : `#FBCFE8`),
                 (t.font = `bold 36px sans-serif`),
                 t.fillText(`Planifie · Entraîne-toi · Progresse 🌸`, 90, 1780))
               let o = e.toDataURL(`image/png`),
@@ -312,7 +312,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                 u(`Image Story téléchargée en HD !`),
                 setTimeout(() => u(null), 3e3))
             }}
-            className="w-full py-3 px-4 rounded-full bg-[#831843] hover:bg-[#500724] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98 cursor-pointer"
+            className="w-full py-3 px-4 rounded-full bg-[#781539] hover:bg-[#500724] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98 cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>Télécharger pour Story Insta (PNG)</span>
@@ -326,7 +326,7 @@ export const WorkoutStoryRecap = ({ isOpen, onClose, workout }) => {
                   ;(u(null), onClose())
                 }, 1500))
             }}
-            className="w-full py-3 px-4 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#831843] text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer"
+            className="w-full py-3 px-4 rounded-full bg-[#FCE7F3] hover:bg-[#FBCFE8] text-[#781539] text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer"
           >
             <Share2 className="w-4 h-4" />
             <span>Publier dans le Fil des amies</span>

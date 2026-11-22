@@ -1,28 +1,16 @@
-import { FirebaseError } from 'firebase/app'
-
-const MESSAGES: Record<string, string> = {
-  'auth/invalid-email': 'Adresse e-mail invalide.',
-  'auth/missing-email': 'Indique ton adresse e-mail.',
-  'auth/missing-password': 'Indique ton mot de passe.',
-  'auth/invalid-credential': 'Adresse e-mail ou mot de passe incorrect.',
-  'auth/wrong-password': 'Adresse e-mail ou mot de passe incorrect.',
-  'auth/user-not-found': 'Adresse e-mail ou mot de passe incorrect.',
-  'auth/user-disabled': 'Ce compte a été désactivé.',
-  'auth/email-already-in-use': 'Cette adresse e-mail possède déjà un compte. Connecte-toi directement.',
-  'auth/weak-password': 'Le mot de passe doit comporter au moins 6 caractères.',
-  'auth/too-many-requests': 'Trop de tentatives. Réessaie dans quelques minutes.',
-  'auth/network-request-failed': 'Connexion impossible. Vérifie ton réseau.',
-  'auth/popup-closed-by-user': 'Connexion Google annulée.',
-  'auth/cancelled-popup-request': 'Connexion Google annulée.',
-  'auth/popup-blocked': 'La fenêtre Google a été bloquée par le navigateur.',
-  'auth/requires-recent-login': 'Par sécurité, confirme ton identité pour continuer.',
-  'auth/operation-not-allowed': "Ce mode de connexion n'est pas activé.",
-  'auth/invalid-api-key': "Firebase n'est pas configuré (clé API manquante).",
-}
+const MESSAGES: [RegExp, string][] = [
+  [/invalid login credentials/i, 'Adresse e-mail ou mot de passe incorrect.'],
+  [/email not confirmed/i, 'Confirme ton adresse e-mail : clique sur le lien reçu par e-mail, puis reconnecte-toi.'],
+  [/user already registered|already been registered/i, 'Cette adresse e-mail possède déjà un compte. Connecte-toi directement.'],
+  [/password should be at least|weak password/i, 'Le mot de passe doit comporter au moins 6 caractères.'],
+  [/unable to validate email|invalid email|email address .* is invalid/i, 'Adresse e-mail invalide.'],
+  [/rate limit|too many/i, 'Trop de tentatives. Réessaie dans quelques minutes.'],
+  [/failed to fetch|network/i, 'Connexion impossible. Vérifie ton réseau.'],
+  [/same as the old|different from the old/i, 'Le nouveau mot de passe doit être différent de l’ancien.'],
+  [/session.*missing|not authenticated|jwt/i, 'Ta session a expiré. Reconnecte-toi.'],
+]
 
 export function authErrorMessage(err: unknown): string {
-  if (err instanceof FirebaseError) return MESSAGES[err.code] ?? 'Une erreur est survenue. Réessaie.'
-  return 'Une erreur est survenue. Réessaie.'
+  const msg = err instanceof Error ? err.message : typeof err === 'object' && err && 'message' in err ? String((err as { message: unknown }).message) : String(err)
+  return MESSAGES.find(([re]) => re.test(msg))?.[1] ?? 'Une erreur est survenue. Réessaie.'
 }
-
-export const isCode = (err: unknown, code: string) => err instanceof FirebaseError && err.code === code

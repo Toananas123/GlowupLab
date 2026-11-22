@@ -12,7 +12,7 @@ export const LegPressGuideSheet = ({ isOpen, onClose }) => {
       onClose={onClose}
       title={
         <span className="flex items-center gap-2">
-          <Icon name="kettlebell" className="w-5 h-5 text-[#EC4899] shrink-0" />
+          <Icon name="kettlebell" className="w-5 h-5 text-[#EA3E8E] shrink-0" />
           <span>Guide Biomécanique Jambes</span>
         </span>
       }
@@ -20,7 +20,7 @@ export const LegPressGuideSheet = ({ isOpen, onClose }) => {
       footer={
         <button
           onClick={onClose}
-          className="w-full py-3.5 px-6 rounded-full bg-[#831843] hover:bg-[#3B0726] text-white font-bold text-xs active:scale-98 transition-all min-h-[48px]"
+          className="w-full py-3.5 px-6 rounded-full bg-[#781539] hover:bg-[#3B0726] text-white font-bold text-xs active:scale-98 transition-all min-h-[48px]"
         >
           Fermer le guide
         </button>
