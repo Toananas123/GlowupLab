@@ -5,12 +5,14 @@ import { activityIcon, categoryIcon, Icon } from '../components/Icon'
 import { useAuth } from '../features/auth/AuthProvider'
 import { DAY_NAMES, localISO } from '../lib/utils'
 import { CATEGORY_TILES, dailyAffirmation, formatClock, freshExercises, relativeDay, routineForActivity, shortActivity } from '../lib/workout'
+import { useSocial } from '../store/SocialStore'
 import { useWorkout } from '../store/WorkoutStore'
 import type { Routine, WeeklyPlanDay } from '../types'
 
 export function HomePage() {
   const { profile, user, saveProfile } = useAuth()
   const { weeklyPlans, routines, startWorkout, workouts, measurements } = useWorkout()
+  const { friends } = useSocial()
   const navigate = useNavigate()
   const name = (profile?.displayName || user?.displayName || '').trim()
   const todayDow = new Date().getDay()
@@ -152,7 +154,7 @@ export function HomePage() {
         <Link to="/social" className="flex items-center gap-4 rounded-3xl border border-blush-line bg-gradient-to-r from-blush to-soft-2 p-4">
           <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#831843] text-white"><Icon name="user" className="size-6" /></span>
           <span className="min-w-0 flex-1">
-            <span className="block text-lg font-bold">Qui s’entraîne aujourd’hui ?</span>
+            <span className="flex flex-wrap items-center gap-2"><span className="text-lg font-bold">Qui s’entraîne aujourd’hui ?</span><span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-bold text-plum">{friends.length === 0 ? '0 amie · Inviter' : `${friends.length} ${friends.length > 1 ? 'amies' : 'amie'}`}</span></span>
             <span className="block text-sm text-muted">Fil d’activité, Duo Streak, comparateur de planning 7j & Story Récap</span>
           </span>
           <ChevronRight size={18} className="shrink-0 text-plum" />

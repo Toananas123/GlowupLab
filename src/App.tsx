@@ -5,7 +5,7 @@ import { Logo } from './components/Logo'
 import { AuthProvider, useAuth } from './features/auth/AuthProvider'
 import { firebaseConfigured } from './lib/firebase'
 import { LandingPage } from './pages/LandingPage'
-import { Placeholder } from './pages/Placeholder'
+import { SocialProvider } from './store/SocialStore'
 import { WorkoutProvider } from './store/WorkoutStore'
 
 // Chaque écran est chargé à la demande : le premier affichage reste léger.
@@ -19,6 +19,7 @@ const PlanningRoute = page(() => import('./pages/MoreRoutes'), 'PlanningRoute')
 const ProgramsRoute = page(() => import('./pages/MoreRoutes'), 'ProgramsRoute')
 const ProgressRoute = page(() => import('./pages/MoreRoutes'), 'ProgressRoute')
 const MeasurementsRoute = page(() => import('./pages/MoreRoutes'), 'MeasurementsRoute')
+const SocialPage = page(() => import('./features/social/SocialPage'), 'SocialPage')
 const ExercisesRoute = page(() => import('./pages/ExercisesRoute'), 'ExercisesRoute')
 
 function Splash() {
@@ -31,6 +32,7 @@ function Routed() {
   if (!user) return <Routes><Route path="*" element={<LandingPage />} /></Routes>
   return (
     <WorkoutProvider>
+      <SocialProvider>
       <Suspense fallback={<Splash />}>
         <Routes>
           <Route element={<AppShell />}>
@@ -42,11 +44,12 @@ function Routed() {
             <Route path="planning" element={<PlanningRoute />} />
             <Route path="suivi" element={<ProgressRoute />} />
             <Route path="suivi/mensurations" element={<MeasurementsRoute />} />
-            <Route path="social" element={<Placeholder title="Social & Amies" />} />
+            <Route path="social" element={<SocialPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
       </Suspense>
+      </SocialProvider>
     </WorkoutProvider>
   )
 }
