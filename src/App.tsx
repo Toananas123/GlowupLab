@@ -10,7 +10,8 @@ import { SocialProvider } from './store/SocialStore'
 import { WorkoutProvider } from './store/WorkoutStore'
 
 // Chaque écran est chargé à la demande : le premier affichage reste léger.
-const page = <T extends Record<string, React.ComponentType>>(loader: () => Promise<T>, name: keyof T) =>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const page = <T extends Record<string, any>>(loader: () => Promise<T>, name: keyof T) =>
   lazy(() => loader().then((m) => ({ default: m[name] as React.ComponentType })))
 
 const HomePage = page(() => import('./pages/HomePage'), 'HomePage')
@@ -21,6 +22,7 @@ const ProgramsRoute = page(() => import('./pages/MoreRoutes'), 'ProgramsRoute')
 const ProgressRoute = page(() => import('./pages/MoreRoutes'), 'ProgressRoute')
 const MeasurementsRoute = page(() => import('./pages/MoreRoutes'), 'MeasurementsRoute')
 const SocialPage = page(() => import('./features/social/SocialPage'), 'SocialPage')
+const CyclePage = page(() => import('./features/cycle/CyclePage'), 'CyclePage')
 const ExercisesRoute = page(() => import('./pages/ExercisesRoute'), 'ExercisesRoute')
 
 function Splash() {
@@ -46,6 +48,7 @@ function Routed() {
             <Route path="suivi" element={<ProgressRoute />} />
             <Route path="suivi/mensurations" element={<MeasurementsRoute />} />
             <Route path="social" element={<SocialPage />} />
+            <Route path="cycle" element={<CyclePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

@@ -4,6 +4,7 @@ import { EXERCISES } from '../data/exercises'
 import { PROGRAMS } from '../data/programs'
 import { DEFAULT_ROUTINES } from '../data/routines'
 import { useAuth } from '../features/auth/AuthProvider'
+import { adjustWeight, todayAdjust } from '../features/cycle/cycle'
 import { getJournal, getState, onRemoteChange, openCloud, patchState, setJournal, type CloudData } from '../lib/cloud'
 import { clean, DAY_NAMES, decodeBase64, encodeBase64, localISO, readJSON, stripLeadingEmoji, todayISO, WEEK_ORDER, writeJSON } from '../lib/utils'
 import type {
@@ -264,13 +265,19 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   const startWorkout = useCallback((input: StartWorkoutInput) => {
     const { weeklyPlans: plans, activeProgram: ap } = state.current
     const today = plans.find((d) => d.dayOfWeek === new Date().getDay())
+    const cycleAdj = todayAdjust().total
     const w: Workout = clean({
       id: `workout_${Date.now()}`,
       userId: uid ?? 'guest',
       name: input.name,
       date: todayISO(),
       status: 'in_progress',
-      exercises: input.exercises,
+      // Cycle (privé) : charges proposées allégées selon la phase et le check-in du jour.
+      exercises: cycleAdj ? input.exercises.map((ex) => ({
+        ...ex,
+        sets: ex.sets.map((st) => ({ ...st, targetWeight: adjustWeight(st.targetWeight, cycleAdj), actualWeight: st.actualWeight !== undefined ? adjustWeight(st.actualWeight, cycleAdj) : undefined })),
+      })) : input.exercises,
+      loadAdjustPct: cycleAdj || undefined,
       finisher: input.finisher,
       finisherPresetId: input.finisherPresetId || today?.finisherPresetId,
       programId: input.programId || today?.programId || (ap && !ap.isCompleted ? ap.programId : undefined),

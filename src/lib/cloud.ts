@@ -23,6 +23,9 @@ let timer: ReturnType<typeof setTimeout> | null = null
 let channel: RealtimeChannel | null = null
 let lastOwnWrite = 0
 const listeners = new Set<(d: CloudData) => void>()
+/** Notifiés à chaque changement, local ou distant (pour les petits modules comme le cycle). */
+const stateWatchers = new Set<() => void>()
+const notify = () => stateWatchers.forEach((w) => w())
 
 function writeCache() {
   if (!uid) return
@@ -37,7 +40,7 @@ export async function openCloud(userId: string): Promise<CloudData> {
     const cached = localStorage.getItem(cacheKey(userId))
     if (cached) data = JSON.parse(cached)
   } catch { /* cache illisible */ }
-  if (demoMode) return data
+  if (demoMode) { notify(); return data }
 
   const { data: row, error } = await supabase.from('user_data').select('state, journal, updated_at').eq('user_id', userId).maybeSingle()
   if (error) {
@@ -48,6 +51,7 @@ export async function openCloud(userId: string): Promise<CloudData> {
     if (!dirty.journal) data.journal = (row.journal as unknown[]) ?? []
     data.updatedAt = row.updated_at
     writeCache()
+    notify()
   } else {
     await supabase.from('user_data').insert({ user_id: userId })
   }
@@ -61,6 +65,7 @@ export async function openCloud(userId: string): Promise<CloudData> {
       data = { state: row.state ?? {}, journal: row.journal ?? [], updatedAt: row.updated_at }
       writeCache()
       listeners.forEach((l) => l(data))
+      notify()
     })
     .subscribe()
   return data
@@ -82,6 +87,7 @@ export function patchState(patch: CloudState) {
   data = { ...data, state: { ...data.state, ...patch } }
   dirty.state = true
   schedule()
+  notify()
 }
 
 /** Remplace le journal des séances et programme l'enregistrement. */
@@ -114,6 +120,11 @@ export async function flush() {
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => { timer = null; void flush() }, 15000)
   }
+}
+
+export function watchState(watcher: () => void) {
+  stateWatchers.add(watcher)
+  return () => { stateWatchers.delete(watcher) }
 }
 
 export function onRemoteChange(listener: (d: CloudData) => void) {
