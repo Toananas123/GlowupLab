@@ -332,7 +332,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
         </button>
         <button
           onClick={() => m(true)}
-          className="p-4 rounded-[26px] bg-[#F6EDF2] hover:bg-[#F1E2EA] text-[#2B091C] text-left flex items-center justify-between gap-3.5 transition-all active:scale-99"
+          className="p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 text-[#2B091C] text-left flex items-center justify-between gap-3.5 transition-all active:scale-99"
         >
           <div className="flex items-center gap-3.5 min-w-0">
             <span className="w-12 h-12 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#EC4899] shrink-0">
@@ -461,7 +461,7 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
               )
             })}
           </div>
-          <div className="space-y-2.5">
+          <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
             {Re.map((e) => {
               let t = e.exercises.reduce((e, t) => e + t.sets.length, 0),
                 n = Le(e.targetZone, e.name),
@@ -470,17 +470,17 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
                 <div
                   key={e.id}
                   onClick={() => we(e)}
-                  className="p-3.5 sm:p-4 rounded-[26px] bg-[#F6EDF2] hover:bg-[#F1E2EA] transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
+                  className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
                 >
                   <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                    <div className="w-14 h-14 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
                       <Icon name={r} className="w-6 h-6" />
                     </div>
                     <div className="min-w-0 flex-1 space-y-1">
                       <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#831843] block leading-none">
                         {n}
                       </span>
-                      <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug truncate">{e.name}</h3>
+                      <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">{e.name}</h3>
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#7A616F]">
                         <span className="inline-flex items-center gap-1.5 font-medium text-[#831843]">
                           <span className="w-2 h-2 rounded-full bg-[#EC4899]" />
@@ -526,22 +526,22 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
               <div className="flex items-center justify-between px-1">
                 <h2 className="text-base font-display font-bold text-[#2B091C]">Circuits Abdos & Gainage ({ABS_CIRCUITS.length})</h2>
               </div>
-              <div className="space-y-2.5">
+              <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
                 {ABS_CIRCUITS.map((e) => (
                   <div
                     key={e.id}
                     onClick={() => C(e)}
-                    className="p-3.5 sm:p-4 rounded-[26px] bg-[#F6EDF2] hover:bg-[#F1E2EA] transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
+                    className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
                   >
                     <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                      <div className="w-14 h-14 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
+                      <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
                         <Icon name="stretch" className="w-6 h-6" />
                       </div>
                       <div className="min-w-0 flex-1 space-y-1">
                         <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#EC4899] block leading-none">
                           Circuit Abdos · {e.durationMinutes} min
                         </span>
-                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug truncate">
+                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">
                           {e.name.replace(/^\d+\.\s*/, ``)}
                         </h3>
                         <p className="text-xs text-[#7A616F] truncate">
@@ -569,22 +569,22 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
               <div className="flex items-center justify-between px-1">
                 <h2 className="text-base font-display font-bold text-[#2B091C]">Circuits Cardio Guidés ({CARDIO_SESSIONS.length})</h2>
               </div>
-              <div className="space-y-2.5">
+              <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
                 {CARDIO_SESSIONS.map((e) => (
                   <div
                     key={e.id}
                     onClick={() => T(e)}
-                    className="p-3.5 sm:p-4 rounded-[26px] bg-[#F6EDF2] hover:bg-[#F1E2EA] transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
+                    className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
                   >
                     <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                      <div className="w-14 h-14 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
+                      <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
                         <Icon name="runner" className="w-6 h-6" />
                       </div>
                       <div className="min-w-0 flex-1 space-y-1">
                         <span className="font-compact text-[10px] font-bold uppercase tracking-wider text-[#831843] block leading-none">
                           {e.machine} · {e.durationMinutes} min · {e.intensity}
                         </span>
-                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug truncate">
+                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">
                           {e.name.replace(/^\d+\.\s*/, ``)}
                         </h3>
                         <p className="text-xs text-[#7A616F] truncate">{e.description}</p>
@@ -608,9 +608,9 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
         </div>
       )}
       {v === `history` && (
-        <div className="space-y-2.5">
+        <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
           {Se.length === 0 ? (
-            <div className="p-8 rounded-[28px] bg-[#F6EDF2] text-center space-y-2">
+            <div className="p-8 rounded-[28px] bg-[#F6EDF2] text-center space-y-2 lg:col-span-2">
               <h3 className="font-bold font-display text-[#2B091C] text-base">Aucune séance terminée</h3>
               <p className="text-xs text-[#7A616F]">Lance une routine ci-dessus pour démarrer ton historique.</p>
             </div>
@@ -618,11 +618,11 @@ export const WorkoutsPage = ({ onStartActiveMode }) => {
             Se.map((e) => (
               <div key={e.id} className="p-3.5 sm:p-4 rounded-[26px] bg-[#F6EDF2] flex items-center justify-between gap-3.5">
                 <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
                     <Icon name="weightlifter" className="w-6 h-6" />
                   </div>
                   <div className="min-w-0 flex-1 space-y-1">
-                    <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug truncate">{e.name}</h3>
+                    <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">{e.name}</h3>
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#7A616F]">
                       <span className="inline-flex items-center gap-1.5 font-medium text-[#831843]">
                         <span className="w-2 h-2 rounded-full bg-emerald-500" />

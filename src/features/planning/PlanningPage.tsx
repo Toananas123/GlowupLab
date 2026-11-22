@@ -245,7 +245,7 @@ export const PlanningPage = ({ onStartActiveMode }) => {
               ))}
             </div>
           </div>
-          <section className="space-y-2.5">
+          <section className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
             {o.map((e) => {
               let t = e.activities && e.activities.length > 0 ? e.activities : [e.activity || `Repos`],
                 n = t[0] || `Repos`,
@@ -255,15 +255,15 @@ export const PlanningPage = ({ onStartActiveMode }) => {
                 <div
                   key={e.dayOfWeek}
                   onClick={() => A(e)}
-                  className="p-3.5 sm:p-4 rounded-[26px] bg-[#F6EDF2] hover:bg-[#F1E2EA] transition-all cursor-pointer flex items-center justify-between gap-3.5 active:scale-99"
+                  className="p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all cursor-pointer flex items-center justify-between gap-3.5 active:scale-99"
                 >
                   <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                    <div className="w-14 h-14 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
                       <Icon name={activityIcon(n)} className="w-6 h-6" />
                     </div>
                     <div className="min-w-0 flex-1 space-y-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug truncate">{e.dayName}</h3>
+                        <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">{e.dayName}</h3>
                         {e.workoutName && !r && (
                           <span className="text-[11px] text-[#7A616F] truncate hidden sm:inline">· {e.workoutName}</span>
                         )}

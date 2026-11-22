@@ -56,6 +56,9 @@ export function HomePage() {
         <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{name ? `Bonjour ${name}` : 'Accueil'}</h1>
       </header>
 
+      {/* Sur ordinateur : la journée à gauche, le suivi à droite. */}
+      <div className="grid grid-cols-1 gap-7 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] lg:items-start">
+      <div className="min-w-0 space-y-7">
       {/* 3 prochains jours */}
       <section>
         <div className="mb-3 flex items-center justify-between">
@@ -84,7 +87,7 @@ export function HomePage() {
       <section className="relative overflow-hidden rounded-[2rem] bg-[#3b0726] text-white">
         <img src="/cta-training.webp" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-35" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#2b091c] via-[#3b0726]/70 to-transparent" />
-        <div className="relative flex min-h-48 flex-col justify-between gap-6 p-5 sm:flex-row sm:items-start sm:p-6">
+        <div className="relative flex min-h-48 flex-col lg:min-h-60 justify-between gap-6 p-5 sm:flex-row sm:items-start sm:p-6">
           <div className="flex items-start gap-4">
             <span className="grid size-14 shrink-0 place-items-center rounded-2xl border border-white/20 bg-white/10"><Icon name={activityIcon(main)} className="size-7" /></span>
             <div>
@@ -125,6 +128,8 @@ export function HomePage() {
         </div>
       </section>
 
+      </div>
+      <div className="min-w-0 space-y-7">
       {/* Suivi */}
       <section>
         <div className="mb-3 flex items-center justify-between">
@@ -138,7 +143,7 @@ export function HomePage() {
               <span className="text-lg font-bold">{done.length} {done.length > 1 ? 'séances terminées' : 'séance terminée'}</span>
               {thisWeek > 0 && <span className="rounded-full bg-pink px-2 py-0.5 text-[11px] font-bold text-white">{thisWeek} cette semaine</span>}
             </span>
-            <span className="block truncate text-sm text-muted">{last ? `Dernière : ${last.name} (${relativeDay(last.date)})` : 'Aucune séance enregistrée pour l’instant'}</span>
+            <span className="block text-sm text-muted">{last ? `Dernière : ${last.name} (${relativeDay(last.date)})` : 'Aucune séance enregistrée pour l’instant'}</span>
           </span>
           {lastMeasure?.weight && <span className="hidden text-right sm:block"><span className="block text-[11px] text-muted">Poids</span><span className="font-bold">{lastMeasure.weight} kg</span></span>}
           <ChevronRight size={18} className="shrink-0 text-plum" />
@@ -154,14 +159,14 @@ export function HomePage() {
         <Link to="/social" className="flex items-center gap-4 rounded-3xl border border-blush-line bg-gradient-to-r from-blush to-soft-2 p-4">
           <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#831843] text-white"><Icon name="user" className="size-6" /></span>
           <span className="min-w-0 flex-1">
-            <span className="flex flex-wrap items-center gap-2"><span className="text-lg font-bold">Qui s’entraîne aujourd’hui ?</span><span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-bold text-plum">{friends.length === 0 ? '0 amie · Inviter' : `${friends.length} ${friends.length > 1 ? 'amies' : 'amie'}`}</span></span>
+            <span className="flex flex-wrap items-center gap-2"><span className="text-lg font-bold">Qui s’entraîne aujourd’hui ?</span><span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-bold text-plum">{friends.length === 0 ? '0 amie · Inviter' : `${friends.length} ${friends.length > 1 ? 'amies' : 'amie'}`}</span></span>
             <span className="block text-sm text-muted">Fil d’activité, Duo Streak, comparateur de planning 7j & Story Récap</span>
           </span>
           <ChevronRight size={18} className="shrink-0 text-plum" />
         </Link>
       </section>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
         <QuickTimer />
         <Link to="/suivi/mensurations" className="flex items-center gap-4 rounded-3xl bg-soft p-4 transition hover:bg-blush">
           <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-surface text-plum"><Icon name="body" className="size-6" /></span>
@@ -171,6 +176,8 @@ export function HomePage() {
       </div>
 
       <p className="rounded-3xl bg-soft px-6 py-4 text-center font-serif text-sm text-muted italic">« {dailyAffirmation()} »</p>
+      </div>
+      </div>
     </div>
   )
 }

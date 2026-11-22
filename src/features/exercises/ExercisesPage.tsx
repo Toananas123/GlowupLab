@@ -168,7 +168,7 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
       </div>
       {!favoritesOnly && category === `lower-body` && (
         <div className="space-y-2.5">
-          <div className="grid grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             <button
               type="button"
               onClick={() => setOpenGuide((e) => (e === `legday` ? null : `legday`))}
@@ -265,9 +265,9 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
           )}
         </div>
       )}
-      <div className="space-y-2.5">
+      <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
         {filtered.length === 0 ? (
-          <div className="p-8 rounded-[28px] bg-[#F6EDF2] text-center space-y-3">
+          <div className="p-8 rounded-[28px] bg-[#F6EDF2] text-center space-y-3 lg:col-span-2">
             <p className="text-sm font-semibold text-[#2B091C]">Aucun exercice trouvé</p>
             <button
               onClick={() => setCreateOpen(true)}
@@ -287,14 +287,14 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
               <div
                 key={e.id}
                 onClick={() => setSelected(e)}
-                className="group p-3.5 sm:p-4 rounded-[26px] bg-[#F6EDF2] hover:bg-[#F1E2EA] transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
+                className="group p-3.5 sm:p-4 rounded-[26px] bg-white border border-[#F3E5ED] hover:border-[#FBCFE8] hover:bg-[#FFF7FA] hover:shadow-sm hover:shadow-[#831843]/5 transition-all flex items-center justify-between gap-3.5 cursor-pointer active:scale-99"
               >
                 <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-2xs flex items-center justify-center text-[#831843] shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-[#FCE7F3] flex items-center justify-center text-[#831843] shrink-0">
                     <Icon name={categoryIcon(e.category)} className="w-6 h-6" />
                   </div>
                   <div className="min-w-0 flex-1 space-y-1">
-                    <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug truncate">{e.name}</h3>
+                    <h3 className="font-display font-semibold text-[15px] text-[#2B091C] leading-snug line-clamp-2">{e.name}</h3>
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-[#7A616F]">
                       <span className="inline-flex items-center gap-1.5 font-medium text-[#831843]">
                         <span className="w-2 h-2 rounded-full bg-[#EC4899]" />

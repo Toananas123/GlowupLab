@@ -120,7 +120,7 @@ export function AppShell() {
               </div>
             </div>
           )}
-          <div key={location.pathname} className="animate-fade-up mx-auto max-w-5xl px-4 pt-5 md:px-8 md:pt-8">
+          <div key={location.pathname} className="animate-fade-up mx-auto max-w-6xl px-4 pt-5 md:px-8 md:pt-8 xl:px-12">
             <Outlet />
           </div>
         </main>
