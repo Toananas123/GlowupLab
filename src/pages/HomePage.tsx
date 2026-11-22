@@ -14,7 +14,7 @@ import type { Routine, WeeklyPlanDay } from '../types'
 
 const SHORTCUTS: { to: string; label: string; hint: string; icon: IconName }[] = [
   { to: '/seances?rapide=1', label: 'Séance rapide', hint: '20 min', icon: 'stopwatch' },
-  { to: '/seances?vue=cardio', label: 'Cardio', hint: 'Séances complètes', icon: 'runner' },
+  { to: '/cardio', label: 'Cardio', hint: 'Séances guidées', icon: 'runner' },
   { to: '/programmes', label: 'Programmes', hint: 'Par niveau', icon: 'sparkle' },
   { to: '/exercices', label: 'Exercices', hint: 'Fiches & guides', icon: 'dumbbell' },
   { to: '/suivi/mensurations', label: 'Mensurations', hint: 'Mon évolution', icon: 'body' },

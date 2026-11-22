@@ -23,6 +23,7 @@ const ProgressRoute = page(() => import('./pages/MoreRoutes'), 'ProgressRoute')
 const MeasurementsRoute = page(() => import('./pages/MoreRoutes'), 'MeasurementsRoute')
 const ClubPage = page(() => import('./features/club/ClubPage'), 'ClubPage')
 const CyclePage = page(() => import('./features/cycle/CyclePage'), 'CyclePage')
+const CardioPage = page(() => import('./features/cardio/CardioPage'), 'CardioPage')
 const ExercisesRoute = page(() => import('./pages/ExercisesRoute'), 'ExercisesRoute')
 
 function Splash() {
@@ -50,6 +51,7 @@ function Routed() {
             <Route path="social" element={<ClubPage />} />
             <Route path="club" element={<Navigate to="/social" replace />} />
             <Route path="cycle" element={<CyclePage />} />
+            <Route path="cardio" element={<CardioPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
