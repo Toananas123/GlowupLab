@@ -13,8 +13,8 @@ export const DEFAULT_SPOTIFY = 'https://open.spotify.com/playlist/37i9dQZF1DXdLE
 
 const NAV: { to: string; label: string; short?: string; icon: IconName; mobile?: boolean }[] = [
   { to: '/', label: 'Accueil', icon: 'home', mobile: true },
-  { to: '/programmes', label: 'Programmes', icon: 'sparkle', mobile: true },
-  { to: '/exercices', label: 'Exercices', icon: 'dumbbell', mobile: true },
+  { to: '/programmes', label: 'Programmes', short: 'Progr.', icon: 'sparkle', mobile: true },
+  { to: '/exercices', label: 'Exercices', short: 'Exos', icon: 'dumbbell', mobile: true },
   { to: '/seances', label: 'Séances', icon: 'weightlifter' },
   { to: '/planning', label: 'Planning', icon: 'calendar', mobile: true },
   { to: '/suivi', label: 'Suivi', icon: 'heart-pulse', mobile: true },
@@ -147,7 +147,7 @@ export function AppShell() {
 
 function BottomItem({ to, label, short, icon }: { to: string; label: string; short?: string; icon: IconName }) {
   return (
-    <NavLink to={to} end={to === '/'} className={({ isActive }) => `flex flex-1 flex-col items-center gap-0.5 py-1 text-[10px] font-semibold transition ${isActive ? 'text-white' : 'text-[#fbcfe8]/70'}`}>
+    <NavLink to={to} end={to === '/'} className={({ isActive }) => `flex min-w-0 flex-1 flex-col items-center gap-0.5 py-1 text-[10px] font-semibold transition ${isActive ? 'text-white' : 'text-[#fbcfe8]/70'}`}>
       {({ isActive }) => (<>
         <Icon name={icon} className={`size-5 ${isActive ? 'scale-110' : ''} transition`} />
         <span>{short ?? label}</span>

@@ -1,15 +1,18 @@
+import { useId } from 'react'
+
 /** Logo fleur Glow Up Lab (repris à l'identique). */
 export function Logo({ size = 36, variant = 'badge', className = '' }: { size?: number; variant?: 'badge' | 'circle' | 'plain'; className?: string }) {
+  const id = useId()
   const rx = variant === 'circle' ? 256 : variant === 'badge' ? 128 : 0
   return (
     <svg viewBox="0 0 512 512" width={size} height={size} className={`inline-block shrink-0 select-none ${className}`} role="img" aria-label="Glow Up Lab">
       <defs>
-        <radialGradient id="flowerBgGlow" cx="50%" cy="50%" r="55%">
+        <radialGradient id={id} cx="50%" cy="50%" r="55%">
           <stop offset="0%" stopColor="#EDB2D3" />
           <stop offset="100%" stopColor="#E599C0" />
         </radialGradient>
       </defs>
-      {variant !== 'plain' && <rect width="512" height="512" rx={rx} fill="url(#flowerBgGlow)" />}
+      {variant !== 'plain' && <rect width="512" height="512" rx={rx} fill={`url(#${id})`} />}
       <g fill="#FFFFFF">
         {[0, 72, 144, 216, 288].map((a) => <ellipse key={a} cx="256" cy="180" rx="66" ry="88" transform={`rotate(${a} 256 256)`} />)}
         <circle cx="256" cy="256" r="75" />
