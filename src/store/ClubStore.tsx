@@ -50,7 +50,11 @@ export interface Post {
 export interface ReactEntry { owner: string; postId: string; reaction?: Reaction; comment?: string; at: string }
 export interface WizzEntry { to: string; kind: 'wizz' | 'mot'; text: string; at: string }
 
+export interface LiveInfo { name: string; pct: number; current?: string; at: string }
+
 export interface PublicData {
+  /** Séance en cours, partagée en direct (option « Partager ma séance en direct »). */
+  live?: LiveInfo | null
   /** Dates des séances terminées (90 derniers jours) : sert aux défis et à « Chacune sa victoire ». */
   sessionDates?: string[]
   /** Activité prévue chaque jour de la semaine (0 = dimanche). */
@@ -92,6 +96,8 @@ interface ClubState {
   shareWorkout: (w: Workout, text?: string) => Promise<void>
   groupTarget: number
   setGroupTarget: (n: number) => void
+  /** Amies en séance en ce moment (mise à jour il y a moins de 3 h). */
+  liveFriends: (Member & { live: LiveInfo })[]
   /** Encouragements donnés depuis une date (réactions, commentaires, wizz, mots doux). */
   encouragementsSince: (memberId: string, since: string) => number
 }
@@ -107,7 +113,7 @@ const toMember = (r: Record<string, unknown>): Member => ({
 
 export function ClubProvider({ children }: { children: ReactNode }) {
   const { user, profile } = useAuth()
-  const { workouts, weeklyPlans } = useWorkout()
+  const { workouts, weeklyPlans, activeWorkout } = useWorkout()
   const uid = user?.id ?? null
   const [loading, setLoading] = useState(true)
   const [members, setMembers] = useState<Record<string, Member>>({})
@@ -152,14 +158,19 @@ export function ClubProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!uid || demoMode || loading) return
     const since = localISO(new Date(Date.now() - 90 * DAY))
+    const share = getState().liveShare !== false
+    const aw = activeWorkout
+    const all = aw ? aw.exercises.reduce((n, e) => n + e.sets.length, 0) : 0
+    const done = aw ? aw.exercises.reduce((n, e) => n + e.sets.filter((x) => x.completed).length, 0) : 0
     const publicData: PublicData = {
+      live: aw && share ? { name: aw.name, pct: all ? Math.round((done / all) * 100) : 0, current: aw.exercises.find((e) => e.sets.some((x) => !x.completed))?.exerciseName, at: new Date().toISOString().slice(0, 16) } : null,
       sessionDates: workouts.filter((w) => w.status === 'completed' && w.date >= since).map((w) => w.date).sort(),
       week: Object.fromEntries(weeklyPlans.map((d) => [d.dayOfWeek, d.activities?.[0] || d.activity || 'Repos'])),
     }
     if (JSON.stringify(publicData) === JSON.stringify(members[uid]?.publicData)) return
-    const t = setTimeout(() => { void supabase.from('profiles').update({ public_data: publicData }).eq('id', uid) }, 1500)
+    const t = setTimeout(() => { void supabase.from('profiles').update({ public_data: publicData }).eq('id', uid) }, aw ? 5000 : 1500)
     return () => clearTimeout(t)
-  }, [uid, loading, workouts, weeklyPlans, members])
+  }, [uid, loading, workouts, weeklyPlans, members, activeWorkout])
 
   const writeRow = useCallback(async (kind: 'feed' | 'reacts' | 'wizz', data: unknown[]) => {
     if (!uid) return
@@ -274,9 +285,12 @@ export function ClubProvider({ children }: { children: ReactNode }) {
     return r.reacts.filter((x) => x.at >= since).length + r.wizz.filter((x) => x.at >= since).length
   }, [rows])
 
+  const liveFriends = useMemo(() => friends.filter((f) => f.publicData.live && Date.now() - new Date(f.publicData.live.at).getTime() < 3 * 3600000) as (Member & { live: LiveInfo })[], [friends])
+  liveFriends.forEach((f) => { f.live = f.publicData.live! })
+
   const value: ClubState = {
     loading, me, friends, feed, stories, wizzReceived, refresh: load, updateMe, addFriendByCode, removeFriend,
-    publish, deletePost, react, comment, sendWizz, shareWorkout, groupTarget, setGroupTarget, encouragementsSince,
+    publish, deletePost, react, comment, sendWizz, shareWorkout, groupTarget, setGroupTarget, encouragementsSince, liveFriends,
   }
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

@@ -2,6 +2,7 @@ import { Check, Copy, EyeOff, Lock, MessageCircle, Plus, Send, Trash2, UserPlus,
 import { useMemo, useState, type FormEvent, type ReactNode } from 'react'
 import { Icon } from '../../components/Icon'
 import { Modal } from '../../components/ui'
+import { getState, patchState } from '../../lib/cloud'
 import { monthReport } from '../../lib/monthReport'
 import { localISO } from '../../lib/utils'
 import { freshExercises } from '../../lib/workout'
@@ -98,6 +99,23 @@ function FeedTab() {
           </button>
         ))}
       </section>
+
+      {club.liveFriends.length > 0 && (
+        <section className="space-y-2 rounded-3xl p-4" style={{ background: 'var(--grad)' }}>
+          <p className="flex items-center gap-2 text-sm font-bold text-[#781539]"><span className="size-2.5 animate-pulse rounded-full bg-pink" /> En direct à la salle</p>
+          {club.liveFriends.map((f) => (
+            <div key={f.id} className="flex items-center gap-3 rounded-2xl bg-white p-3">
+              <Avatar m={f} size={36} />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-semibold">{f.pseudo} · {f.live.name}</p>
+                <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-soft"><div className="h-full rounded-full bg-pink" style={{ width: `${f.live.pct}%` }} /></div>
+                <p className="mt-0.5 truncate text-xs text-muted">{f.live.pct} %{f.live.current ? ` · ${f.live.current}` : ''}</p>
+              </div>
+              <button onClick={() => club.sendWizz(f, 'wizz', 'Allez, tu gères ! 🔥')} className="rounded-full bg-[#781539] px-3 py-1.5 text-xs font-semibold text-white">Encourager</button>
+            </div>
+          ))}
+        </section>
+      )}
 
       {club.wizzReceived.slice(0, 3).filter((w) => Date.now() - new Date(w.at).getTime() < 3 * DAY).map((w) => (
         <div key={w.at + w.from.id} className="flex items-center gap-3 rounded-3xl bg-blush px-4 py-3">
@@ -500,6 +518,16 @@ function ChallengesTab() {
   )
 }
 
+function LiveShareToggle() {
+  const [on, setOn] = useState(() => getState().liveShare !== false)
+  return (
+    <label className="flex items-center justify-between gap-3 rounded-2xl bg-soft px-4 py-3">
+      <span><span className="block text-sm font-semibold">Partager ma séance en direct</span><span className="block text-xs text-muted">Tes amies voient que tu es à la salle et ta progression.</span></span>
+      <input type="checkbox" checked={on} onChange={(e) => { setOn(e.target.checked); patchState({ liveShare: e.target.checked }) }} className="size-5 accent-[#781539]" />
+    </label>
+  )
+}
+
 // ---------------------------------------------------------------- Profil Club
 function ProfileTab() {
   const club = useClub()
@@ -523,6 +551,7 @@ function ProfileTab() {
         <span><span className="block text-sm font-semibold">Masquer mes charges</span><span className="block text-xs text-muted">Tes séances et records sont partagés sans les kilos.</span></span>
         <input type="checkbox" checked={me.hideLoads} onChange={(e) => club.updateMe({ hideLoads: e.target.checked })} className="size-5 accent-[#781539]" />
       </label>
+      <LiveShareToggle />
       <p className="flex items-start gap-1.5 text-xs text-muted"><Lock size={13} className="mt-0.5 shrink-0" /> Tes mensurations, ton cycle, ton check-in et tes notes restent privés : ils ne sont jamais publiés au Club.</p>
       <button className="w-full rounded-full bg-[#781539] py-3 text-sm font-semibold text-white">{saved ? 'Enregistré ✓' : 'Enregistrer'}</button>
     </form>

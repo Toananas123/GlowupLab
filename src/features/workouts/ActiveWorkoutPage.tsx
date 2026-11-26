@@ -14,6 +14,7 @@ import { equipmentMeta } from '../exercises/meta'
 import { playRestDoneSound } from './helpers'
 import { useAuth } from '../auth/AuthProvider'
 import { useWorkout } from '../../store/WorkoutStore'
+import { useClub } from '../../store/ClubStore'
 import {
   ArrowDownToLine,
   ArrowLeftRight,
@@ -66,6 +67,7 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
     [ce, le] = useState(activeWorkout?.notes || ``),
     [ue, de] = useState(activeWorkout?.rating || 5),
     [prToast, setPrToast] = useState(null),
+    { liveFriends } = useClub(),
     [fe, pe] = useState(false),
     [me, he] = useState(false),
     [ge, _e] = useState(profile?.spotifyUrl || ``),
@@ -301,6 +303,17 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
       }),
         b(null))
     },
+    setRpe = (e, t, v) => {
+      let i = [...activeWorkout.exercises]
+      i[e] = { ...i[e], sets: i[e].sets.map((x, j) => (j === t ? { ...x, rpe: x.rpe === v ? undefined : v } : x)) }
+      updateActiveWorkout({ ...activeWorkout, exercises: i })
+    },
+    // « Tout valider » : coche toutes les séries d'un exercice avec les charges affichées.
+    checkAll = (e) => {
+      let i = [...activeWorkout.exercises]
+      i[e] = { ...i[e], sets: i[e].sets.map((x) => ({ ...x, completed: true, actualWeight: x.actualWeight ?? x.targetWeight, actualReps: x.actualReps ?? x.targetReps })) }
+      updateActiveWorkout({ ...activeWorkout, exercises: i })
+    },
     Xe = (e, t) => {
       let i = [...activeWorkout.exercises],
         a = {
@@ -432,6 +445,17 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
     }
   return (
     <div className="space-y-4 pb-48 lg:pb-28 animate-in fade-in duration-200">
+      {/* En direct : amies aussi en séance */}
+      {liveFriends.length > 0 && (
+        <p className="flex items-center gap-2 text-xs text-[#B98AA2]"><span className="size-2 animate-pulse rounded-full bg-[#EA3E8E]" />{liveFriends.map((f) => `${f.pseudo.split(' ')[0]} (${f.live.pct} %)`).join(', ')} {liveFriends.length > 1 ? 'sont' : 'est'} aussi en séance</p>
+      )}
+      {/* Programme : règle de la semaine, version et technique d'intensité */}
+      {activeWorkout.programPhase && (
+        <div className="rounded-2xl border border-[#EA3E8E]/30 bg-[#2C0F1D] p-3 text-xs text-[#FCE9F1]">
+          <p className="font-semibold">{activeWorkout.programPhase}</p>
+          {activeWorkout.programNote && <p className="mt-1 text-[#F9B8D6]"><strong>Technique d’intensité :</strong> {activeWorkout.programNote}</p>}
+        </div>
+      )}
       {prToast && (
         <div role="status" className="fixed inset-x-4 top-4 z-[95] mx-auto max-w-md rounded-2xl bg-amber-400 px-4 py-3 text-center text-sm font-black text-[#1F0C17] shadow-xl">{prToast}</div>
       )}
@@ -828,14 +852,17 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
                   </div>
                 )
               })()}
+              {e.sets.some((x) => !x.completed) && (
+                <button type="button" onClick={() => checkAll(t)} className="mb-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold text-[#F9D3E3]">Tout valider</button>
+              )}
               <div className="space-y-2">
                 {e.sets.map((n, r) => {
                   let i = n.actualWeight ?? n.targetWeight ?? 0,
                     a = n.actualReps ?? n.targetReps ?? 10,
                     o = e.equipment === `dumbbell` ? 1 : 2.5
                   return (
+                    <div key={n.id}>
                     <div
-                      key={n.id}
                       className={`p-2.5 sm:p-3 rounded-2xl border transition-all flex items-center justify-between gap-2.5 ${n.completed ? `bg-[#EA3E8E]/15 border-[#EA3E8E]/40` : `bg-white/[0.03] border-white/6`}`}
                     >
                       <button type="button" onClick={() => Xe(t, r)} className="flex items-center gap-2.5 min-h-[38px] text-left group">
@@ -890,6 +917,17 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
                         </div>
                       </div>
                     </div>
+                    {/* Ressenti de la série (app d'origine) : sans surcharge la semaine suivante si « Dur ». */}
+                    {n.completed && (
+                      <div className="mt-1.5 ml-11 flex gap-1.5" role="group" aria-label={`Ressenti série ${r + 1}`}>
+                        {[[1, `Facile`, `bg-[#7FD1AE] text-[#0E3B2A]`], [2, `Juste`, `bg-[#F9B8D6] text-[#781539]`], [3, `Dur`, `bg-[#EA3E8E] text-white`]].map(([v, l, on]) => (
+                          <button key={v} type="button" aria-pressed={n.rpe === v} onClick={() => setRpe(t, r, v)}
+                            className={`flex-1 rounded-full border py-1 text-[11.5px] font-semibold transition ${n.rpe === v ? `${on} border-transparent` : `border-white/15 bg-white/5 text-[#B98AA2]`}`}>{l}</button>
+                        ))}
+                      </div>
+                    )}
+                    </div>
+
                   )
                 })}
               </div>
