@@ -10,13 +10,14 @@ import type { Workout } from '../../types'
 export type Phase = 'menstrual' | 'follicular' | 'ovulatory' | 'luteal'
 export type PhaseAdjust = 0 | -5 | -10
 
+/** Check-in du jour (comme dans l'app d'origine) : chaque réponse « oui » retire 5 % aux charges. */
 export interface CheckIn {
-  /** 1 (à plat) à 5 (au top) */
-  energy: number
-  /** 0 (aucune) à 3 (fortes) */
-  cramps: number
-  /** 1 (très mal dormi) à 5 (très bien dormi) */
-  sleep: number
+  /** Énergie basse */
+  e: boolean
+  /** Crampes */
+  c: boolean
+  /** Mal dormi */
+  s: boolean
 }
 
 export interface CycleData {
@@ -27,6 +28,8 @@ export interface CycleData {
   adjust: Record<Phase, PhaseAdjust>
   /** Check-in du jour, par date. */
   checkins: Record<string, CheckIn>
+  /** Durée des règles en jours (2 à 9). */
+  periodLength: number
 }
 
 export const DEFAULT_CYCLE: CycleData = {
@@ -34,37 +37,17 @@ export const DEFAULT_CYCLE: CycleData = {
   periods: [],
   adjust: { menstrual: -10, follicular: 0, ovulatory: 0, luteal: -5 },
   checkins: {},
+  periodLength: 5,
 }
 
 export const DEFAULT_CYCLE_LENGTH = 28
-const PERIOD_LENGTH = 5
 export const MAX_REDUCTION = -20
 
-export const PHASES: Record<Phase, { label: string; short: string; color: string; advice: string; session: string; hydration: string }> = {
-  menstrual: {
-    label: 'Phase menstruelle', short: 'Règles', color: '#781539',
-    advice: 'Écoute ton corps : charges un peu plus légères, mouvements maîtrisés, repos un peu plus long.',
-    session: 'Séance douce : mobilité, gainage léger et cardio doux (marche inclinée tranquille, vélo).',
-    hydration: 'Pense à boire régulièrement et à garder une bouillotte à portée de main après la séance.',
-  },
-  follicular: {
-    label: 'Phase folliculaire', short: 'Folliculaire', color: '#EA3E8E',
-    advice: 'L’énergie remonte : c’est le bon moment pour augmenter les charges et le volume.',
-    session: 'Séance force : exercices polyarticulaires lourds (hip thrust, RDL, presse), 6 à 10 répétitions.',
-    hydration: 'Bois environ 500 ml pendant la séance.',
-  },
-  ovulatory: {
-    label: 'Phase ovulatoire', short: 'Ovulation', color: '#C2185B',
-    advice: 'Pic de forme : idéal pour tenter un record, en soignant l’échauffement (articulations plus laxes).',
-    session: 'Séance record : échauffement progressif puis tentative de record sur ton exercice principal.',
-    hydration: 'Bois environ 500 ml pendant la séance, plus s’il fait chaud.',
-  },
-  luteal: {
-    label: 'Phase lutéale', short: 'Lutéale', color: '#9D4E7A',
-    advice: 'L’endurance baisse un peu : garde tes charges, réduis légèrement le volume et allonge le repos.',
-    session: 'Séance modérée : charges habituelles, une série de moins, repos de 90 s et cardio basse intensité.',
-    hydration: 'Hydrate-toi davantage : ton corps retient plus l’eau et ta température monte un peu.',
-  },
+export const PHASES: Record<Phase, { label: string; short: string; color: string; advice: string; session: string; tweak: string }> = {
+  menstrual: { label: 'Phase menstruelle', short: 'Menstruelle', color: '#781539', advice: 'Technique, mobilité et gainage doux. Écoute ton corps.', session: 'Mobilité & gainage doux', tweak: '1 série de moins par exercice' },
+  follicular: { label: 'Phase folliculaire', short: 'Folliculaire', color: '#EA3E8E', advice: 'Énergie en hausse : c’est le bon moment pour ta séance lourde et tes records.', session: 'Séance lourde · records', tweak: '' },
+  ovulatory: { label: 'Phase ovulatoire', short: 'Ovulatoire', color: '#C2185B', advice: 'Force au top : échauffe bien genoux et hanches avant de charger.', session: 'Séance lourde + échauffement guidé', tweak: '' },
+  luteal: { label: 'Phase lutéale', short: 'Lutéale', color: '#9D4E7A', advice: 'Charges modérées, un peu plus de répétitions et des repos plus longs.', session: 'Volume modéré · repos +15 s', tweak: '+2 répétitions et +15 s de repos' },
 }
 
 export const getCycle = (): CycleData => ({ ...DEFAULT_CYCLE, ...((getState().cycle as Partial<CycleData>) ?? {}) })
@@ -80,9 +63,9 @@ export function averageCycleLength(periods: string[]): number {
   return Math.round(lengths.reduce((s, n) => s + n, 0) / lengths.length)
 }
 
-export function phaseForDay(day: number, length: number): Phase {
+export function phaseForDay(day: number, length: number, periodLength = 5): Phase {
   const ovulation = length - 14
-  if (day <= PERIOD_LENGTH) return 'menstrual'
+  if (day <= periodLength) return 'menstrual'
   if (day < ovulation - 1) return 'follicular'
   if (day <= ovulation + 1) return 'ovulatory'
   return 'luteal'
@@ -94,20 +77,24 @@ export function cycleStatus(c: CycleData, date = localISO()) {
   const last = sorted[sorted.length - 1]
   if (!last) return null
   const length = averageCycleLength(c.periods)
-  const day = (daysBetween(last, date) % length) + 1
-  const phase = phaseForDay(day, length)
+  const diff = daysBetween(last, date)
+  if (diff >= length * 3) return null // trop ancien : il faut indiquer de nouvelles règles
+  const day = (diff % length) + 1
+  const phase = phaseForDay(day, length, Math.min(9, Math.max(2, c.periodLength || 5)))
   const nextPeriodIn = length - day + 1
   return { day, length, phase, lastPeriod: last, nextPeriodIn }
 }
 
-/** Ajustement dû au check-in : énergie basse, crampes, mauvais sommeil. */
-export function checkInAdjust(ci?: CheckIn): number {
+/** Ajustement dû au check-in : –5 % par réponse « oui » (énergie basse, crampes, mal dormi). */
+export function checkInAdjust(ci?: Partial<CheckIn>): number {
   if (!ci) return 0
-  let adj = 0
-  if (ci.energy <= 2) adj -= ci.energy === 1 ? 10 : 5
-  adj -= ci.cramps * 5
-  if (ci.sleep <= 2) adj -= ci.sleep === 1 ? 10 : 5
-  return adj
+  return (ci.e ? -5 : 0) + (ci.c ? -5 : 0) + (ci.s ? -5 : 0)
+}
+
+/** Pesée en fin de phase lutéale ou en début de règles : rétention d'eau fréquente. */
+export function isWaterPhase(c: CycleData, date: string) {
+  const st = cycleStatus(c, date)
+  return !!st && ((st.phase === 'luteal' && st.day >= st.length - 6) || (st.phase === 'menstrual' && st.day <= 2))
 }
 
 /** Ajustement total des charges du jour, en % (au maximum –20 %). 0 si le suivi est désactivé. */

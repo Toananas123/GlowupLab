@@ -1,5 +1,6 @@
 import { Play, Zap } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { Icon } from '../../components/Icon'
 import { getState, patchState } from '../../lib/cloud'
 import { localISO } from '../../lib/utils'
@@ -24,6 +25,14 @@ export function CardioPage() {
   const [running, setRunning] = useState<{ s: TimedSession; up: boolean } | null>(null)
   const [saved, setSaved] = useState<string | null>(null)
   const list = family === 'cardio' ? CARDIO_WORKOUTS : family === 'run30' ? RUN30_WEEKS : family === 'run' ? RUN_ADVANCED : HYBRID_SESSIONS
+  const [params, setParams] = useSearchParams()
+  // Lancement direct depuis l'accueil ou le planning (jour de programme Run / Hybrid).
+  useEffect(() => {
+    const id = params.get('seance')
+    const s = id && [...CARDIO_WORKOUTS, ...RUN30_WEEKS, ...RUN_ADVANCED, ...HYBRID_SESSIONS].find((x) => x.id === id)
+    if (s) { setRunning({ s, up: false }); setParams({}, { replace: true }) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const stepsOf = (s: TimedSession, up: boolean) => (up && s.intense ? s.intense : s.steps)
   const toggleIntense = (v: boolean) => { setIntense(v); patchState({ cardioUp: v }) }
 

@@ -46,6 +46,8 @@ export interface WorkoutSet {
   actualReps?: number
   actualWeight?: number
   completed: boolean
+  /** Ressenti de la série : 1 Facile, 2 Juste, 3 Dur. */
+  rpe?: 1 | 2 | 3
   notes?: string
   [key: string]: unknown
 }
@@ -125,6 +127,8 @@ export interface WeeklyPlanDay {
   activities?: string[]
   workoutName?: string
   routineId?: string
+  /** Séance minutée (Run, Hybrid, cardio) prévue ce jour-là. */
+  timedSessionId?: string
   targetZone?: string
   finisherType?: string
   finisher?: string
@@ -200,6 +204,8 @@ export interface ActiveProgram {
   isCompleted: boolean
   completedAt?: string
   updatedAt?: string
+  /** Numéro du cycle (« Refaire plus lourd »). */
+  cycle?: number
 }
 
 export interface ObjectiveMeta { label: string; shortLabel: string; badgeBg: string; badgeText: string; description: string }

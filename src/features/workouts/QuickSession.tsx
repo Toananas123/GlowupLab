@@ -1,52 +1,35 @@
-import { Play, Timer } from 'lucide-react'
-import { useState } from 'react'
+import { Play, RefreshCw, Timer } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Modal } from '../../components/ui'
-import { toWorkoutExercise } from '../../lib/workout'
 import { useWorkout } from '../../store/WorkoutStore'
-import type { Exercise } from '../../types'
+import { quickSession } from './generators'
 
-const ZONES: { id: string; label: string; pick: (e: Exercise) => boolean }[] = [
-  { id: 'glutes', label: 'Fessiers uniquement', pick: (e) => e.specificMuscle === 'fessiers' },
-  { id: 'lower-body', label: 'Bas du corps', pick: (e) => e.category === 'lower-body' },
-  { id: 'back', label: 'Dos', pick: (e) => e.category === 'back' },
-  { id: 'upper', label: 'Haut du corps', pick: (e) => ['pecs', 'arms'].includes(String(e.category)) },
-  { id: 'abs', label: 'Abdos', pick: (e) => e.category === 'abs' },
-]
-
-/** Séance rapide de 20 min : 4 exercices × 3 séries, 45 s de repos, avec tes dernières charges. */
+/** Séance rapide · 20 min (comme dans l'app d'origine) : 3 exercices sur les zones les moins travaillées récemment. */
 export function QuickSession({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { allExercises, favorites, getPreviousPerformance, startWorkout } = useWorkout()
+  const { workouts, favorites, allExercises, startWorkout } = useWorkout()
   const navigate = useNavigate()
-  const [zone, setZone] = useState('glutes')
-
-  const launch = () => {
-    const z = ZONES.find((x) => x.id === zone)!
-    const pool = allExercises.filter((e) => z.pick(e) && e.category !== 'cardio')
-    // Les favoris d'abord, puis le reste dans un ordre aléatoire ; 4 exercices d'équipements variés si possible.
-    const sorted = [...pool].sort((a, b) => Number(favorites.includes(b.id)) - Number(favorites.includes(a.id)) || Math.random() - 0.5)
-    const chosen: Exercise[] = []
-    for (const e of sorted) { if (chosen.length < 4 && !chosen.some((c) => c.equipment === e.equipment && chosen.length < 3)) chosen.push(e) }
-    for (const e of sorted) { if (chosen.length < 4 && !chosen.includes(e)) chosen.push(e) }
-    const exercises = chosen.map((e, i) => {
-      const w = toWorkoutExercise({ ...e, defaultSets: 3 }, getPreviousPerformance(e.id)?.weight ?? 0)
-      return { ...w, id: `${w.id}_${i}`, restSeconds: 45 }
-    })
-    startWorkout({ name: `Séance rapide 20 min · ${z.label}`, exercises })
-    onClose()
-    navigate('/seance')
-  }
+  const [session, setSession] = useState(() => quickSession(workouts, favorites, allExercises))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { if (open) setSession(quickSession(workouts, favorites, allExercises)) }, [open])
 
   return (
-    <Modal open={open} onClose={onClose} title={<span className="flex items-center gap-2"><Timer size={20} className="text-pink" /> Séance rapide · 20 min</span>} subtitle="4 exercices, 3 séries, 45 s de repos" maxWidth="max-w-md">
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-2">
-          {ZONES.map((z) => (
-            <button key={z.id} onClick={() => setZone(z.id)} aria-pressed={zone === z.id}
-              className={`rounded-2xl px-3 py-3 text-sm font-semibold ${zone === z.id ? 'bg-[#781539] text-white' : 'bg-soft'}`}>{z.label}</button>
+    <Modal open={open} onClose={onClose} title={<span className="flex items-center gap-2"><Timer size={20} className="text-pink" /> Séance rapide · 20 min</span>} subtitle={session.description} maxWidth="max-w-md">
+      <div className="space-y-3">
+        <ul className="space-y-2">
+          {session.exercises.map((e) => (
+            <li key={e.id} className="rounded-2xl bg-soft px-4 py-3">
+              <p className="text-xs font-semibold text-plum">{String(e.phase)}</p>
+              <p className="font-semibold">{e.exerciseName}</p>
+              <p className="font-mono text-xs text-muted">{e.sets.length} × {e.sets[0]?.targetReps} · repos {e.restSeconds} s</p>
+            </li>
           ))}
+        </ul>
+        <div className="flex gap-2">
+          <button onClick={() => setSession(quickSession(workouts, favorites, allExercises))} className="flex items-center gap-1.5 rounded-full bg-soft px-4 py-3 text-sm font-semibold text-plum"><RefreshCw size={15} /> Autre tirage</button>
+          <button onClick={() => { startWorkout({ name: session.name, exercises: session.exercises, notes: session.description }); onClose(); navigate('/seance') }}
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#781539] py-3 text-sm font-semibold text-white"><Play size={16} /> Démarrer</button>
         </div>
-        <button onClick={launch} className="flex w-full items-center justify-center gap-2 rounded-full bg-[#781539] py-3 text-sm font-semibold text-white"><Play size={16} /> Lancer la séance</button>
       </div>
     </Modal>
   )

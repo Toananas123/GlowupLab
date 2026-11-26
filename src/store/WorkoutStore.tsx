@@ -5,7 +5,7 @@ import { PROGRAMS } from '../data/programs'
 import { DEFAULT_ROUTINES } from '../data/routines'
 import { useAuth } from '../features/auth/AuthProvider'
 import { adjustWeight, todayAdjust } from '../features/cycle/cycle'
-import { applyProgramRules } from '../features/programs/programEngine'
+import { applyProgram, progWeek, recordCycleEnd } from '../features/programs/programEngine'
 import { getJournal, getState, onRemoteChange, openCloud, patchState, setJournal, type CloudData } from '../lib/cloud'
 import { clean, DAY_NAMES, decodeBase64, encodeBase64, localISO, readJSON, stripLeadingEmoji, todayISO, WEEK_ORDER, writeJSON } from '../lib/utils'
 import type {
@@ -65,6 +65,8 @@ export interface StartWorkoutInput {
   programDayId?: string
   notes?: string
   rating?: number
+  /** Séance déjà adaptée au cycle (pas d'ajustement supplémentaire par phase). */
+  skipCycleTweak?: boolean
 }
 
 interface WorkoutStore {
@@ -104,7 +106,8 @@ interface WorkoutStore {
   getPersonalRecords: () => PersonalRecords
   createCustomProgram: (p: Omit<Program, 'id'>) => Promise<Program>
   deleteCustomProgram: (id: string) => Promise<void>
-  startProgram: (programId: string, preferredDays: number[], startDate: string) => Promise<void>
+  startProgram: (programId: string, preferredDays: number[], startDate: string, cycle?: number) => Promise<void>
+  restartProgramHeavier: () => Promise<void>
   stopActiveProgram: () => Promise<void>
   exportProgramCode: (p: Program) => string
   importProgramFromCode: (code: string) => Promise<Program | null>
@@ -264,21 +267,22 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     const { weeklyPlans: plans, activeProgram: ap } = state.current
     const today = plans.find((d) => d.dayOfWeek === new Date().getDay())
     const cycleAdj = todayAdjust().total
+    // Cycle : ajustements de séance selon la phase (1 série de moins en phase menstruelle ; +2 reps et +15 s de repos en phase lutéale).
+    const phase = todayAdjust().phase
+    if (phase && !input.skipCycleTweak && (phase === 'menstrual' || phase === 'luteal')) {
+      input = { ...input, exercises: input.exercises.map((ex) => {
+        if (ex.category === 'cardio') return ex
+        if (phase === 'menstrual') return ex.sets.length > 2 ? { ...ex, sets: ex.sets.slice(0, -1) } : ex
+        return { ...ex, restSeconds: (ex.restSeconds ?? 60) + 15, sets: ex.sets.map((st) => ({ ...st, targetReps: st.targetReps + 2, actualReps: (st.actualReps ?? st.targetReps) + 2 })) }
+      }) }
+    }
     // Programme en cours : progression automatique (phase de la semaine, version au-dessus, rotation par blocs).
     const programId = input.programId || today?.programId || (ap && !ap.isCompleted ? ap.programId : undefined)
     let programLabel: string | undefined
+    let programNote: string | undefined
     if (ap && !ap.isCompleted && programId === ap.programId && input.exercises.length) {
-      const lastWeight = (id: string) => {
-        for (const w of state.current.workouts) {
-          const e = w.status === 'completed' ? w.exercises.find((x) => x.exerciseId === id) : undefined
-          const done = e?.sets.filter((x) => x.completed && (x.actualWeight ?? 0) > 0)
-          if (done?.length) return done[done.length - 1].actualWeight
-        }
-        return undefined
-      }
-      const res = applyProgramRules(input.exercises, ap, [...EXERCISES, ...state.current.customExercises], lastWeight)
-      input = { ...input, exercises: res.exercises }
-      programLabel = res.label
+      const res = applyProgram(input.exercises, ap, state.current.workouts, [...EXERCISES, ...state.current.customExercises])
+      if (res) { input = { ...input, exercises: res.exercises }; programLabel = res.label; programNote = res.ctx.note }
     }
     const w: Workout = clean({
       id: `workout_${Date.now()}`,
@@ -296,6 +300,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       finisherPresetId: input.finisherPresetId || today?.finisherPresetId,
       programId,
       programPhase: programLabel,
+      programNote,
       programWeekNumber: input.programWeekNumber || today?.programWeekNumber || ap?.currentWeek,
       programDayId: input.programDayId || today?.programDayId,
       notes: input.notes,
@@ -476,41 +481,65 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
 
   const programs = useMemo(() => [...PROGRAMS, ...customPrograms], [customPrograms])
 
-  const startProgram = useCallback(async (programId: string, preferredDays: number[], startDate: string) => {
-    const prog = programs.find((p) => p.id === programId)
-    if (!prog) return
-    const lastMeas = state.current.measurements[0]
-    const ap: ActiveProgram = clean({
-      programId: prog.id, programTitle: prog.title, objective: prog.objective, objectiveLabel: prog.objectiveLabel, startDate, preferredDays,
-      durationWeeks: prog.durationWeeks, sessionsPerWeek: prog.sessionsPerWeek, totalSessionsPlanned: prog.durationWeeks * prog.sessionsPerWeek,
-      completedSessionCount: 0, completedWorkoutIds: [], currentWeek: 1, progressPercent: 0, totalVolumeKg: 0,
-      initialMeasurements: lastMeas ? { weight: lastMeas.weight, waist: lastMeas.waist, hips: lastMeas.hips, thighs: lastMeas.thighs, arms: lastMeas.arms, chest: lastMeas.chest, date: lastMeas.date } : undefined,
-      isCompleted: false, updatedAt: new Date().toISOString(),
-    })
-    setActiveProgram(ap)
-    const trainingDays = prog.weeks[0]?.days.filter((d) => !d.isRest) ?? []
+  /** Planning de la semaine `w` d'un programme sur les jours choisis (les créneaux Run/Hybrid changent chaque semaine). */
+  const programWeekPlan = (prog: Program, preferredDays: number[], w: number, base: WeeklyPlanDay[]) => {
+    const trainingDays = prog.weeks[w]?.days.filter((d) => !d.isRest) ?? []
     const ordered = WEEK_ORDER.filter((d) => preferredDays.includes(d))
-    const week = mergeWeek(state.current.weeklyPlans).map((day) => {
+    return mergeWeek(base).map((day) => {
       const idx = ordered.indexOf(day.dayOfWeek)
       if (idx !== -1 && trainingDays.length) {
         const pd = trainingDays[idx % trainingDays.length]
-        const fin = pd.finisherPresetId ? FINISHERS.find((f) => f.id === pd.finisherPresetId) : undefined
         const activity = pd.activityType || 'Musculation'
         return clean({
-          ...day, activity, activities: [activity], routineId: pd.routineId, workoutName: pd.workoutTitle || pd.label, targetZone: pd.targetZone || 'lower-body',
-          finisherType: fin ? fin.category : 'none', finisher: fin ? `${fin.name} — ${fin.summary}` : undefined, finisherPresetId: pd.finisherPresetId,
-          programId: prog.id, programWeekNumber: 1, programDayId: pd.id, status: 'planned', notes: `Programme ${prog.title} (Semaine 1/${prog.durationWeeks})`,
+          ...day, activity, activities: [activity], routineId: pd.routineId, timedSessionId: pd.timedSessionId, workoutName: pd.workoutTitle || pd.label,
+          finisherType: pd.finisher ? 'pump' : 'none', finisher: pd.finisher, finisherPresetId: undefined,
+          programId: prog.id, programWeekNumber: w + 1, programDayId: pd.id, status: 'planned', notes: `${prog.title} · semaine ${w + 1}/${prog.durationWeeks}`,
         }) as WeeklyPlanDay
       }
       return clean({
-        ...day, activity: 'Repos', activities: ['Repos'], routineId: undefined, workoutName: 'Repos & Récupération (Programme)', finisherType: 'none',
-        finisher: undefined, finisherPresetId: undefined, programId: prog.id, programWeekNumber: 1, status: 'rest',
+        ...day, activity: 'Repos', activities: ['Repos'], routineId: undefined, timedSessionId: undefined, workoutName: 'Repos & récupération', finisherType: 'none',
+        finisher: undefined, finisherPresetId: undefined, programId: prog.id, programWeekNumber: w + 1, status: 'rest',
       }) as WeeklyPlanDay
     })
-    setWeeklyPlans(week)
-    
+  }
+
+  const startProgram = useCallback(async (programId: string, preferredDays: number[], startDate: string, cycle = 1) => {
+    const prog = programs.find((p) => p.id === programId)
+    if (!prog) return
+    const lastMeas = state.current.measurements[0]
+    const ap = clean({
+      programId: prog.id, programTitle: prog.title, objective: prog.objective, objectiveLabel: prog.objectiveLabel, startDate, preferredDays,
+      durationWeeks: prog.durationWeeks, sessionsPerWeek: prog.sessionsPerWeek, totalSessionsPlanned: prog.durationWeeks * prog.sessionsPerWeek,
+      completedSessionCount: 0, completedWorkoutIds: [], currentWeek: 1, progressPercent: 0, totalVolumeKg: 0, cycle,
+      initialMeasurements: lastMeas ? { weight: lastMeas.weight, waist: lastMeas.waist, hips: lastMeas.hips, thighs: lastMeas.thighs, arms: lastMeas.arms, chest: lastMeas.chest, date: lastMeas.date } : undefined,
+      isCompleted: false, updatedAt: new Date().toISOString(),
+    }) as ActiveProgram
+    setActiveProgram(ap)
+    setWeeklyPlans(programWeekPlan(prog, preferredDays, 0, state.current.weeklyPlans))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid, programs])
+
+  /** « Refaire plus lourd » : le cycle suivant repart des charges de fin de programme (+2 kg dès la semaine 1). */
+  const restartProgramHeavier = useCallback(async () => {
+    const ap = state.current.activeProgram
+    if (!ap) return
+    const next = recordCycleEnd(ap)
+    await startProgram(ap.programId, ap.preferredDays, todayISO(), next)
+  }, [startProgram])
+
+  // Chaque nouvelle semaine du programme met à jour le planning (séances de la semaine, créneaux Run/Hybrid).
+  useEffect(() => {
+    const ap = activeProgram
+    if (!ap || loading) return
+    const pw = progWeek(ap)
+    const prog = programs.find((p) => p.id === ap.programId)
+    if (!pw || !prog) return
+    if (pw.over && !ap.isCompleted) { setActiveProgram({ ...ap, isCompleted: true, completedAt: new Date().toISOString() }); return }
+    const planWeek = weeklyPlans.find((d) => d.programId === ap.programId)?.programWeekNumber
+    if (!pw.over && planWeek !== pw.w + 1) setWeeklyPlans(programWeekPlan(prog, ap.preferredDays, pw.w, weeklyPlans))
+    if (ap.currentWeek !== pw.w + 1) setActiveProgram({ ...ap, currentWeek: pw.w + 1 })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeProgram, loading, programs])
 
   const stopActiveProgram = useCallback(async () => {
     setActiveProgram(null)
@@ -631,7 +660,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     addCustomExercise, deleteCustomExercise, toggleFavorite, isFavorite, createRoutine, updateRoutine, deleteRoutine,
     startWorkout, updateActiveWorkout, finishActiveWorkout, cancelActiveWorkout, deleteWorkout, updateWorkout, addCompletedWorkout,
     duplicateWorkoutAsNew, getPreviousPerformance, getProgramOverloadSuggestion, getPersonalRecords, createCustomProgram, deleteCustomProgram,
-    startProgram, stopActiveProgram, exportProgramCode, importProgramFromCode, updateExerciseSettings, loadSharedWorkout, createShareCode,
+    startProgram, restartProgramHeavier, stopActiveProgram, exportProgramCode, importProgramFromCode, updateExerciseSettings, loadSharedWorkout, createShareCode,
     addMeasurement, deleteMeasurement, updateWeeklyPlanDay, replaceWeek, exportAllDataJSON, exportWorkoutsCSV, importAllDataJSON,
   }
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

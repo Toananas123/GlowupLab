@@ -1,12 +1,12 @@
-import { ArrowUpRight, FileText, RotateCcw, Zap } from 'lucide-react'
+import { ArrowUpRight, FileText, RotateCcw } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Modal } from '../../components/ui'
 import { watchState } from '../../lib/cloud'
-import { localISO } from '../../lib/utils'
 import { freshExercises } from '../../lib/workout'
 import { useWorkout } from '../../store/WorkoutStore'
+import { DEFAULT_ROUTINES } from '../../data/routines'
 import type { Program, ProgramDay } from '../../types'
-import { blockFor, isHarder, setHarder, weekPhase } from './programEngine'
+import { BLOCKS, blockOf, cycleNumber, getUp, programHistory, progRule, progWeek, proposal, setUp, verName, versions, upNote } from './programEngine'
 import { parseProgramText } from './programImport'
 
 /** En tête de la page Programmes : programme en cours (phase, version au-dessus), bilan de fin, import d'un programme écrit. */
@@ -31,77 +31,104 @@ export function ProgramsExtras() {
 }
 
 function ActivePanel() {
-  const { activeProgram: ap } = useWorkout()
-  if (!ap) return null
-  const phase = weekPhase(ap.currentWeek, ap.durationWeeks)
-  const block = blockFor(ap.currentWeek, ap.durationWeeks)
-  const harder = isHarder(ap.programId)
+  const { activeProgram: ap, programs, workouts, allExercises, routines, startWorkout } = useWorkout()
+  const program = ap ? programs.find((p) => p.id === ap.programId) : undefined
+  const pw = progWeek(ap)
+  const loads = useMemo(() => {
+    if (!program || !pw) return []
+    const rule = progRule(program, pw.w, ap)
+    const ids = [...new Set(program.weeks[pw.w].days.flatMap((d) => routines.find((r) => r.id === d.routineId)?.exercises.map((e) => e.exerciseId) ?? []))]
+    return ids.map((id) => ({ id, pr: proposal(allExercises.find((e) => e.id === id), rule, workouts) })).filter((x) => x.pr)
+  }, [program, pw, ap, routines, allExercises, workouts])
+  if (!ap || !program || !pw) return null
+  const week = program.weeks[pw.w]
+  const rule = progRule(program, pw.w, ap)
+  const block = blockOf(program, pw.w)
+  const up = getUp(program.id)
+  const cyc = cycleNumber(ap)
+  const hist = programHistory(program.id)
+  const name = (id: string) => allExercises.find((e) => e.id === id)?.name ?? id
   return (
-    <section className="rounded-3xl p-5 text-white" style={{ background: 'var(--gradPlum)' }}>
-      <p className="text-sm text-white/75">Programme en cours</p>
-      <h2 className="font-display text-2xl font-bold">{ap.programTitle}</h2>
-      <p className="mt-1 text-sm">Semaine <span className="font-mono font-bold">{ap.currentWeek}/{ap.durationWeeks}</span> · {phase.name}{block ? ` · bloc ${block}` : ''} · <span className="font-mono">{ap.progressPercent} %</span></p>
-      <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/20"><div className="h-full rounded-full bg-pink" style={{ width: `${ap.progressPercent}%` }} /></div>
-      <p className="mt-3 text-sm text-white/85">{phase.note}</p>
-      {block && <p className="mt-1 text-sm text-white/70">Rotation par blocs : les exercices secondaires changent à chaque bloc (Fondations, puis Volume, puis Intensité).</p>}
-      <button onClick={() => setHarder(ap.programId, !harder)} aria-pressed={harder}
-        className={`mt-4 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold ${harder ? 'bg-pink text-white' : 'bg-white text-[#781539]'}`}>
-        <Zap size={16} /> {harder ? 'Version au-dessus activée' : 'Passer à la version au-dessus'}
-      </button>
-      <p className="mt-2 text-xs text-white/70">Version au-dessus : +1 série, +2,5 kg et 15 s de repos en moins.</p>
+    <section className="space-y-3 rounded-3xl p-5 text-white" style={{ background: 'var(--gradPlum)' }}>
+      <div>
+        <p className="text-sm text-white/75">Programme en cours{cyc > 1 ? ` · cycle ${cyc}` : ''}</p>
+        <h2 className="font-display text-2xl font-bold">{program.title}</h2>
+        <p className="mt-1 text-sm">Semaine <span className="font-mono font-bold">{pw.w + 1}/{program.durationWeeks}</span> · {week.title}</p>
+        <p className="mt-1 text-sm text-white/80">{week.focusNote}</p>
+      </div>
+      <div className="h-2 overflow-hidden rounded-full bg-white/20"><div className="h-full rounded-full bg-pink" style={{ width: `${((pw.w + 1) / program.durationWeeks) * 100}%` }} /></div>
+      <p className="rounded-2xl bg-white/12 px-3.5 py-2.5 text-sm font-semibold">{rule.lab}</p>
+      {block > 0 && <p className="text-sm text-white/80">Bloc {block + 1}/3 · {BLOCKS[block]} : nouvelles variantes sur les exercices secondaires (les 2 premiers restent les mêmes pour suivre ta progression).</p>}
+
+      <div>
+        <p className="mb-1.5 text-sm font-semibold">Version</p>
+        <div className="flex flex-wrap gap-1.5">
+          {versions(program).map(([u, label]) => (
+            <button key={u} onClick={() => setUp(program.id, u)} aria-pressed={up === u} className={`rounded-full px-3 py-1.5 text-sm font-semibold ${up === u ? 'bg-white text-[#781539]' : 'bg-white/15'}`}>{label}</button>
+          ))}
+        </div>
+        {up > 0 && <p className="mt-2 text-sm text-white/85">Version {verName(program, up)} : +1 série sur les {up >= 2 ? 3 : 2} premiers exercices, variantes plus difficiles, repos -15 s. <strong>Technique d’intensité :</strong> {upNote(program, up)}</p>}
+      </div>
+
+      <details className="rounded-2xl bg-white/12 px-3.5 py-2.5 text-sm">
+        <summary className="cursor-pointer font-semibold">Charges proposées cette semaine</summary>
+        {loads.length ? (
+          <ul className="mt-2 space-y-1">{loads.map((x) => <li key={x.id} className="flex justify-between gap-3"><span className="truncate">{name(x.id)}</span><span className="shrink-0 font-mono">{x.pr!.last} → <strong>{x.pr!.kg} kg</strong> × {x.pr!.r}</span></li>)}</ul>
+        ) : <p className="mt-2 text-white/80">Fais une première séance du programme : les charges seront ensuite calculées automatiquement à partir de tes résultats.</p>}
+      </details>
+
+      {program.bonus && program.bonus.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5 text-sm"><span className="text-white/80">Un créneau en plus ?</span>
+          {program.bonus.map((b) => {
+            const r = routines.find((x) => x.id === b.routineId) ?? DEFAULT_ROUTINES.find((x) => x.id === b.routineId)
+            return r ? <button key={b.routineId} onClick={() => startWorkout({ name: r.name, exercises: freshExercises(r.exercises), finisher: r.finisher })} className="rounded-full bg-white px-3 py-1.5 font-semibold text-[#781539]">+ {b.label}</button> : null
+          })}
+        </div>
+      )}
+      {hist.length > 0 && <div className="flex flex-wrap gap-1.5 text-xs">{hist.map((h) => <span key={h.end + h.cycle} className="rounded-full bg-white/15 px-2.5 py-1">Cycle {h.cycle} · fini le {new Date(h.end).toLocaleDateString('fr-FR')}</span>)}</div>}
     </section>
   )
 }
 
-/** Bilan de fin de programme : charges au début et à la fin, records, mensurations ; puis « Refaire plus lourd ». */
+/** Bilan de fin de programme : séances, régularité, volume, records, charges début → fin, mensurations ; puis cycle suivant plus lourd. */
 function EndSummary({ program }: { program: Program }) {
-  const { activeProgram: ap, workouts, measurements, startProgram } = useWorkout()
-  const done = useMemo(() => workouts.filter((w) => w.status === 'completed' && w.programId === program.id).sort((a, b) => a.date.localeCompare(b.date)), [workouts, program.id])
-  const loads = useMemo(() => {
-    const first = new Map<string, { name: string; kg: number }>(), last = new Map<string, { name: string; kg: number }>()
-    for (const w of done) for (const e of w.exercises) {
-      const kg = Math.max(0, ...e.sets.filter((s) => s.completed).map((s) => s.actualWeight ?? 0))
-      if (!kg) continue
-      if (!first.has(e.exerciseId)) first.set(e.exerciseId, { name: e.exerciseName, kg })
-      last.set(e.exerciseId, { name: e.exerciseName, kg })
-    }
-    return [...first.entries()].map(([id, f]) => ({ name: f.name, start: f.kg, end: last.get(id)!.kg })).sort((a, b) => (b.end - b.start) - (a.end - a.start))
-  }, [done])
-  if (!ap) return null
-  const start = ap.initialMeasurements
-  const latest = measurements[0]
-  const records = loads.filter((l) => l.end > l.start).length
-
+  const { activeProgram: ap, workouts, measurements, restartProgramHeavier, allExercises } = useWorkout()
+  const st = useMemo(() => {
+    if (!ap) return null
+    const end = new Date(ap.startDate); end.setDate(end.getDate() + program.durationWeeks * 7 - 1)
+    const a = ap.startDate, b = end.toISOString().slice(0, 10)
+    const L = workouts.filter((w) => w.status === 'completed' && w.date >= a && w.date <= b).sort((x, y) => x.date.localeCompare(y.date))
+    const by: Record<string, { d: string; k: number }[]> = {}
+    L.forEach((w) => w.exercises.forEach((e) => { const k = Math.max(0, ...e.sets.filter((s) => s.completed).map((s) => s.actualWeight ?? 0)); if (k > 0) (by[e.exerciseId] ??= []).push({ d: w.date, k }) }))
+    const rows = Object.entries(by).map(([ex, v]) => ({ ex, n: v.length, first: v[0].k, last: v[v.length - 1].k })).sort((x, y) => (y.last - y.first) - (x.last - x.first) || y.n - x.n).slice(0, 10)
+    const planned = program.sessionsPerWeek * program.durationWeeks
+    const vol = L.reduce((s, w) => s + w.exercises.reduce((t, e) => t + e.sets.reduce((u, x) => (x.completed ? u + (x.actualWeight ?? 0) * (x.actualReps ?? 0) : u), 0), 0), 0)
+    const M = [...measurements].filter((m) => m.date >= a && m.date <= b).sort((x, y) => x.date.localeCompare(y.date))
+    const mes = ([['hips', 'Hanches', 'cm'], ['waist', 'Tour de taille', 'cm'], ['thighs', 'Cuisses', 'cm'], ['weight', 'Poids', 'kg']] as const).map(([k, l, u]) => {
+      const v = M.filter((m) => m[k] != null); return v.length >= 2 ? [l, Math.round(((v[v.length - 1][k] as number) - (v[0][k] as number)) * 10) / 10, u] as const : null
+    }).filter(Boolean) as (readonly [string, number, string])[]
+    return { n: L.length, reg: Math.min(100, Math.round((L.length / planned) * 100)), vol, prs: rows.filter((r) => r.last > r.first).length, rows, mes }
+  }, [ap, workouts, measurements, program])
+  if (!ap || !st) return null
+  const cyc = cycleNumber(ap)
+  const name = (id: string) => allExercises.find((e) => e.id === id)?.name ?? id
   return (
     <section className="space-y-4 rounded-3xl border border-line bg-surface p-5">
-      <div>
-        <p className="text-sm text-muted">Programme terminé 🎉</p>
-        <h2 className="font-display text-2xl font-bold">Bilan : {program.title}</h2>
-        <p className="text-sm text-muted"><span className="font-mono">{ap.completedSessionCount}</span> séances · <span className="font-mono">{Math.round(ap.totalVolumeKg / 100) / 10} t</span> soulevées · <span className="font-mono">{records}</span> exercice(s) en progrès</p>
+      <div><p className="text-sm text-muted">Programme terminé 🎉</p><h2 className="font-display text-2xl font-bold">Bilan : {program.title}</h2></div>
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {[[st.n, 'séances faites'], [`${st.reg} %`, 'de régularité'], [st.vol >= 1000 ? `${(st.vol / 1000).toFixed(1).replace('.', ',')} t` : `${Math.round(st.vol)} kg`, 'soulevés'], [st.prs, 'en progrès']].map(([v, l]) => (
+          <div key={String(l)} className="rounded-2xl bg-soft px-3 py-2"><span className="block font-mono text-lg font-bold">{v}</span><span className="text-xs text-muted">{l}</span></div>
+        ))}
       </div>
-      {loads.length > 0 && (
-        <ul className="divide-y divide-line text-sm">
-          {loads.slice(0, 8).map((l) => (
-            <li key={l.name} className="flex items-center justify-between gap-3 py-2">
-              <span className="truncate">{l.name}</span>
-              <span className="shrink-0 font-mono">{l.start} → <strong>{l.end} kg</strong>{l.end > l.start && <span className="text-emerald-700"> +{Math.round((l.end - l.start) * 10) / 10}</span>}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {start && latest && latest.date > (start.date ?? '') && (
-        <div className="rounded-2xl bg-soft p-3.5 text-sm">
-          <p className="mb-1 font-semibold">Mensurations (privé)</p>
-          <p className="font-mono text-xs text-muted">
-            {(['weight', 'waist', 'hips', 'thighs'] as const).filter((k) => start[k] && latest[k]).map((k) => `${{ weight: 'Poids', waist: 'Taille', hips: 'Hanches', thighs: 'Cuisses' }[k]} ${start[k]} → ${latest[k]}`).join(' · ')}
-          </p>
-        </div>
-      )}
-      <button onClick={async () => { setHarder(program.id, true); await startProgram(program.id, ap.preferredDays, localISO()) }}
-        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#781539] py-3 text-sm font-semibold text-white">
-        <RotateCcw size={16} /> Refaire plus lourd
-      </button>
-      <p className="text-center text-xs text-muted">Le cycle repart de tes dernières charges, en version au-dessus.</p>
+      <div>
+        <h3 className="mb-2 font-bold">Tes charges : début → fin</h3>
+        {st.rows.length ? <ul className="divide-y divide-line text-sm">{st.rows.map((r) => { const dl = Math.round((r.last - r.first) * 10) / 10; return (
+          <li key={r.ex} className="flex items-center justify-between gap-3 py-2"><span className="min-w-0 truncate">{name(r.ex)} <span className="text-xs text-muted">· {r.n} séance{r.n > 1 ? 's' : ''}</span></span><span className="shrink-0 font-mono">{r.first} → <strong className="text-plum">{r.last} kg</strong>{dl ? <span className={dl > 0 ? ' text-pink' : ' text-muted'}> {dl > 0 ? '+' : ''}{dl}</span> : null}</span></li>) })}</ul>
+          : <p className="text-sm text-muted">Termine des séances avec des charges pendant le programme pour voir ta progression.</p>}
+      </div>
+      {st.mes.length > 0 && <div className="rounded-2xl bg-soft p-3.5 text-sm"><p className="mb-1 font-semibold">Tes mensurations <span className="text-xs font-normal text-muted">(privé)</span></p>{st.mes.map(([l, v, u]) => <p key={l} className="flex justify-between"><span>{l}</span><span className="font-mono font-bold">{v > 0 ? '+' : ''}{v} {u}</span></p>)}</div>}
+      <div className="rounded-2xl bg-blush p-3.5 text-sm"><p className="font-semibold">Refaire ce programme, plus lourd</p><p className="text-muted">Le cycle {cyc + 1} repart de tes charges de fin de programme, avec +2 kg sur les polyarticulaires dès la semaine 1. Tes jours d’entraînement restent les mêmes.</p></div>
+      <button onClick={() => restartProgramHeavier()} className="flex w-full items-center justify-center gap-2 rounded-full bg-[#781539] py-3 text-sm font-semibold text-white"><RotateCcw size={16} /> Lancer le cycle {cyc + 1}</button>
     </section>
   )
 }

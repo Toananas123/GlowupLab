@@ -13,7 +13,7 @@ import { useWorkout } from '../store/WorkoutStore'
 import type { Routine, WeeklyPlanDay } from '../types'
 
 const SHORTCUTS: { to: string; label: string; hint: string; icon: IconName }[] = [
-  { to: '/seances?rapide=1', label: 'Séance rapide', hint: '20 min', icon: 'stopwatch' },
+  { to: '/seances?rapide=1', label: 'Séance rapide', hint: '20 min · 3 zones', icon: 'stopwatch' },
   { to: '/cardio', label: 'Cardio', hint: 'Séances guidées', icon: 'runner' },
   { to: '/programmes', label: 'Programmes', hint: 'Par niveau', icon: 'sparkle' },
   { to: '/exercices', label: 'Exercices', hint: 'Fiches & guides', icon: 'dumbbell' },
@@ -50,6 +50,8 @@ export function HomePage() {
     navigate('/seance')
   }
   const startSelected = () => {
+    // Jour de programme Run / Hybrid : séance minutée.
+    if (selected.timedSessionId) { navigate(`/cardio?seance=${selected.timedSessionId}`); return }
     const r = (selected.routineId && routines.find((x) => x.id === selected.routineId)) || routineForActivity(main, routines)
     if (r) launch(r)
     else navigate('/seances')

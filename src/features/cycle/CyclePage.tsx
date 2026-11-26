@@ -3,8 +3,10 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { localISO } from '../../lib/utils'
 import { useWorkout } from '../../store/WorkoutStore'
+import { useNavigate } from 'react-router-dom'
+import { phaseSession } from '../workouts/generators'
 import {
-  averageCycleLength, checkInAdjust, cycleStatus, DEFAULT_CYCLE, PHASES, statsByPhase, todayAdjust,
+  averageCycleLength, checkInAdjust, cycleStatus, DEFAULT_CYCLE, isWaterPhase, PHASES, statsByPhase, todayAdjust,
   type CheckIn, type Phase, type PhaseAdjust,
 } from './cycle'
 import { useCycle } from './useCycle'
@@ -14,7 +16,8 @@ const fmt = (d: string) => new Date(d).toLocaleDateString('fr-FR', { day: 'numer
 
 export function CyclePage() {
   const [cycle, save] = useCycle()
-  const { workouts } = useWorkout()
+  const { workouts, favorites, startWorkout } = useWorkout()
+  const navigate = useNavigate()
   const today = localISO()
   const status = cycleStatus(cycle, today)
   const adj = todayAdjust(cycle, today)
@@ -47,7 +50,7 @@ export function CyclePage() {
   }
   const checkin = cycle.checkins[today]
   const setCheck = (patch: Partial<CheckIn>) =>
-    save({ checkins: { ...cycle.checkins, [today]: { ...{ energy: 3, cramps: 0, sleep: 3 }, ...checkin, ...patch } } })
+    save({ checkins: { ...cycle.checkins, [today]: { ...{ e: false, c: false, s: false }, ...checkin, ...patch } } })
 
   return (
     <div className="space-y-6">
@@ -94,9 +97,12 @@ export function CyclePage() {
             <h2 className="text-lg font-bold">Check-in du jour</h2>
             <span className={`font-mono text-sm font-bold ${adj.total < 0 ? 'text-plum' : 'text-muted'}`}>{adj.total === 0 ? 'Charges normales' : `Charges ${adj.total} %`}</span>
           </div>
-          <Scale label="Énergie" value={checkin?.energy} min={1} max={5} labels={['À plat', 'Au top']} onChange={(v) => setCheck({ energy: v })} />
-          <Scale label="Crampes" value={checkin?.cramps} min={0} max={3} labels={['Aucune', 'Fortes']} onChange={(v) => setCheck({ cramps: v })} />
-          <Scale label="Sommeil" value={checkin?.sleep} min={1} max={5} labels={['Très mal', 'Très bien']} onChange={(v) => setCheck({ sleep: v })} />
+          <div className="grid grid-cols-3 gap-2">
+            {([['e', 'Énergie basse'], ['c', 'Crampes'], ['s', 'Mal dormi']] as const).map(([k, l]) => (
+              <button key={k} onClick={() => setCheck({ [k]: !checkin?.[k] })} aria-pressed={!!checkin?.[k]}
+                className={`rounded-2xl px-2 py-3 text-sm font-semibold ${checkin?.[k] ? 'bg-[#781539] text-white' : 'bg-soft'}`}>{l}<span className="block font-mono text-xs opacity-80">–5 %</span></button>
+            ))}
+          </div>
           <p className="text-xs text-muted">
             Phase : {adj.phaseAdj} % · Check-in : {checkInAdjust(checkin)} % · Total plafonné à –20 %. L’ajustement s’applique aux charges proposées quand tu lances une séance.
           </p>
@@ -105,13 +111,15 @@ export function CyclePage() {
 
       {status && (
         <section className="grid gap-3 sm:grid-cols-2">
-          <div className="rounded-3xl bg-soft p-5">
-            <h3 className="mb-1 font-bold">Séance adaptée à ta phase</h3>
-            <p className="text-sm text-muted">{PHASES[status.phase].session}</p>
+          <div className="space-y-2 rounded-3xl bg-soft p-5">
+            <h3 className="font-bold">Séance adaptée à ta phase</h3>
+            <p className="text-sm text-muted">{PHASES[status.phase].session}{PHASES[status.phase].tweak ? ` · sur toutes tes séances : ${PHASES[status.phase].tweak}` : ''}</p>
+            <button onClick={() => { const s = phaseSession(status.phase, favorites); startWorkout({ name: s.name, exercises: s.exercises, notes: s.description, skipCycleTweak: true }); navigate('/seance') }}
+              className="rounded-full bg-[#781539] px-4 py-2 text-sm font-semibold text-white">Lancer cette séance</button>
           </div>
           <div className="rounded-3xl bg-soft p-5">
             <h3 className="mb-1 flex items-center gap-1.5 font-bold"><Droplets size={16} className="text-pink" /> Hydratation</h3>
-            <p className="text-sm text-muted">{PHASES[status.phase].hydration}</p>
+            <p className="text-sm text-muted">{isWaterPhase(cycle, today) ? 'Fin de cycle : 0,5 à 2 kg d’eau en plus sont fréquents. Bois régulièrement et compare ta pesée à la même phase du cycle précédent.' : 'Bois régulièrement pendant la séance (environ 500 ml).'}</p>
           </div>
         </section>
       )}
@@ -120,6 +128,11 @@ export function CyclePage() {
       <section className="rounded-3xl border border-line bg-surface p-5">
         <h2 className="mb-1 text-lg font-bold">Ajustement des charges par phase</h2>
         <p className="mb-4 text-sm text-muted">Choisis de combien alléger tes charges selon la phase.</p>
+        <label className="mb-4 flex items-center justify-between gap-3 rounded-2xl bg-soft px-4 py-3 text-sm font-semibold">Durée de mes règles
+          <span className="flex items-center gap-2"><button onClick={() => save({ periodLength: Math.max(2, (cycle.periodLength || 5) - 1) })} aria-label="Moins" className="grid size-8 place-items-center rounded-full bg-surface">−</button>
+          <span className="w-10 text-center font-mono">{cycle.periodLength || 5} j</span>
+          <button onClick={() => save({ periodLength: Math.min(9, (cycle.periodLength || 5) + 1) })} aria-label="Plus" className="grid size-8 place-items-center rounded-full bg-surface">+</button></span>
+        </label>
         <div className="grid gap-3 sm:grid-cols-2">
           {PHASE_ORDER.map((ph) => (
             <div key={ph} className="flex items-center justify-between gap-3 rounded-2xl bg-soft px-4 py-3">
@@ -177,21 +190,6 @@ export function CyclePage() {
           className={`flex-1 rounded-full py-3 text-sm font-semibold ${confirmDelete === 'ALL' ? 'bg-rose-600 text-white' : 'text-rose-600 hover:bg-rose-50'}`}>
           {confirmDelete === 'ALL' ? 'Confirmer : tout effacer' : 'Effacer mes données de cycle'}
         </button>
-      </div>
-    </div>
-  )
-}
-
-function Scale({ label, value, min, max, labels, onChange }: { label: string; value?: number; min: number; max: number; labels: [string, string]; onChange: (v: number) => void }) {
-  const values = Array.from({ length: max - min + 1 }, (_, i) => min + i)
-  return (
-    <div>
-      <div className="mb-1.5 flex justify-between text-sm"><span className="font-semibold">{label}</span><span className="text-xs text-muted">{labels[0]} → {labels[1]}</span></div>
-      <div className="flex gap-1.5" role="radiogroup" aria-label={label}>
-        {values.map((v) => (
-          <button key={v} role="radio" aria-checked={value === v} onClick={() => onChange(v)}
-            className={`h-10 flex-1 rounded-xl font-mono text-sm font-bold transition ${value === v ? 'bg-[#781539] text-white' : 'bg-soft text-muted hover:bg-blush'}`}>{v}</button>
-        ))}
       </div>
     </div>
   )

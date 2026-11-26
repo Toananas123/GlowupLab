@@ -3,6 +3,7 @@ import { PlanningPage } from '../features/planning/PlanningPage'
 import { ProgramsExtras } from '../features/programs/ProgramsExtras'
 import { ProgramsPage } from '../features/programs/ProgramsPage'
 import { MeasurementsPage } from '../features/progress/MeasurementsPage'
+import { WeightNote } from '../features/progress/WeightNote'
 import { ProgressExtras } from '../features/progress/ProgressExtras'
 import { ProgressPage } from '../features/progress/ProgressPage'
 
@@ -22,5 +23,5 @@ export function ProgressRoute() {
 
 export function MeasurementsRoute() {
   const navigate = useNavigate()
-  return <MeasurementsPage onBackToProgress={() => navigate('/suivi')} />
+  return <><WeightNote /><MeasurementsPage onBackToProgress={() => navigate('/suivi')} /></>
 }
