@@ -20,4 +20,4 @@ export type UserPrefs = Pick<UserProfile, 'spotifyUrl' | 'unitSystem' | 'default
 
 export const REST_OPTIONS = [45, 60, 75, 90, 120] as const
 
-export const DEFAULT_PREFS: UserPrefs = { spotifyUrl: '', unitSystem: 'metric', defaultRestTime: 75 }
+export const DEFAULT_PREFS: UserPrefs = { spotifyUrl: '', unitSystem: 'metric', defaultRestTime: 90 }

@@ -148,10 +148,15 @@ export interface ProgramDay {
   targetZone?: string
   durationMinutes?: number
   finisherPresetId?: string
+  /** Séance minutée (cardio, run, hybrid) à la place d'une routine. */
+  timedSessionId?: string
+  /** Créneau qui change selon la semaine (Run, Hybrid). */
+  slot?: string
+  finisher?: string
   [key: string]: unknown
 }
 
-export interface ProgramWeek { weekNumber: number; title: string; focusNote: string; days: ProgramDay[] }
+export interface ProgramWeek { weekNumber: number; title: string; focusNote: string; rule?: string; days: ProgramDay[] }
 
 export interface Program {
   id: string
@@ -170,6 +175,9 @@ export interface Program {
   isCustom?: boolean
   createdBy?: string
   createdAt?: string
+  hue?: number
+  /** Séances bonus « Un créneau en plus ? ». */
+  bonus?: { label: string; routineId: string }[]
   [key: string]: unknown
 }
 
@@ -215,8 +223,8 @@ export interface FinisherPreset {
   selectableExercises?: string[]
 }
 
-export interface AbsCircuit { id: string; name: string; focus: string; durationMinutes: number; exercises: { name: string; position?: string; reps: string }[] }
-export interface CardioSession { id: string; name: string; machine: string; durationMinutes: number; intensity: string; description: string; intervals?: { time: string; instruction: string }[] }
+export interface AbsCircuit { id: string; name: string; focus: string; durationMinutes: number; rounds?: number; exercises: { name: string; position?: string; reps: string; exerciseId?: string }[] }
+export interface CardioSession { id: string; name: string; machine: string; durationMinutes: number; intensity: string; description: string; rounds?: number; intervals?: { time: string; instruction: string }[] }
 
 export interface ActivityTypeMeta { label: string; icon: string; colorClass: string; defaultSession?: string; defaultRoutineId?: string }
 

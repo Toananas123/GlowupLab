@@ -1,5 +1,5 @@
 // Porté depuis l'app d'origine.
-import { MUSCLE_GROUPS } from '../../data/exercises'
+import { EXERCISES, MUSCLE_GROUPS } from '../../data/exercises'
 import { GEAR } from '../../data/guides'
 import type { Exercise, GearItem } from '../../types'
 
@@ -44,6 +44,12 @@ export function equipmentMeta(e?: string): { label: string; badgeClass: string }
 }
 
 export function diagramTypeFor(e: Exercise): { archetype: string; machineName: string; stationZone: string; keyAdjustments: string[] } {
+  const base = diagramTypeForBase(e)
+  // Réglages de la machine propres à chaque famille de mouvement (données d'origine).
+  return Array.isArray(e.setup) && e.setup.length ? { ...base, keyAdjustments: e.setup as string[] } : base
+}
+
+function diagramTypeForBase(e: Exercise): { archetype: string; machineName: string; stationZone: string; keyAdjustments: string[] } {
   let t = `${e.id} ${e.name}`.toLowerCase()
   return t.includes(`presse`) || t.includes(`leg-press`) || e.machineSetup?.diagramType === `leg_press`
     ? {
@@ -192,6 +198,9 @@ export function diagramTypeFor(e: Exercise): { archetype: string; machineName: s
 }
 
 export function gearForExercise(e: Partial<Exercise>): GearItem[] {
+  // Matériel défini par exercice dans les données d'origine.
+  const fromData = (e as { gear?: string[] }).gear ?? (e.id ? (EXERCISES.find((x) => x.id === e.id)?.gear as string[] | undefined) : undefined)
+  if (Array.isArray(fromData)) return fromData.map((k) => GEAR[k]).filter(Boolean)
   let t: GearItem[] = [],
     n = (e.id || ``).toLowerCase(),
     r = (e.name || ``).toLowerCase(),

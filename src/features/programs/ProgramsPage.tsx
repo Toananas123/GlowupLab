@@ -62,7 +62,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
     [fe, pe] = useState([`Haltères`, `Machines`]),
     [me, he] = useState(``),
     [ge, _e] = useState(1),
-    [ve, ye] = useState(() => ke(6, 3, routines[0]?.id || `routine-glutes-focus`)),
+    [ve, ye] = useState(() => ke(6, 3, routines[0]?.id || `booty`)),
     [j, be] = useState(null),
     [xe, Se] = useState(false),
     [Ce, we] = useState(``),
@@ -156,7 +156,7 @@ export const ProgramsPage = ({ onStartWorkoutSession, onNavigateToPlanning }) =>
         onStartWorkoutSession && onStartWorkoutSession())
     },
     Fe = (e, t) => {
-      ;(A(e), le(t), ye(ke(e, t, routines[0]?.id || `routine-glutes-focus`)), _e(1))
+      ;(A(e), le(t), ye(ke(e, t, routines[0]?.id || `booty`)), _e(1))
     },
     Ie = (e, t, n) => {
       ye((r) =>

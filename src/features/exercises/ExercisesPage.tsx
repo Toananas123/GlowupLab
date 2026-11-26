@@ -63,7 +63,7 @@ export const ExercisesPage = ({ initialCategory = `lower-body`, onAddToActiveWor
       },
     ],
     launchBackRoutine = () => {
-      let e = routines.find((e) => e.id === `routine-back-sculpt-no-widen`) || routines.find((e) => e.targetZone === `back`)
+      let e = routines.find((e) => e.id === `dosdessine`) || routines.find((e) => e.targetZone === `back`)
       if (!e) return
       let n = e.exercises.map((e, t) => ({
         ...e,

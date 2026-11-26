@@ -15,7 +15,7 @@ import type {
 
 const ACTIVE_WORKOUT_KEY = 'glow_up_lab_active_workout'
 
-/** Semaine par défaut : Lundi fessiers, Mercredi dos, Vendredi chaîne postérieure. */
+/** Semaine par défaut : tous les jours libres (modèles de semaine disponibles dans le Planning). */
 export function defaultWeek(): WeeklyPlanDay[] {
   const now = new Date()
   const offset = now.getDay() === 0 ? -6 : 1 - now.getDay()
@@ -23,11 +23,8 @@ export function defaultWeek(): WeeklyPlanDay[] {
     const d = new Date(now)
     d.setDate(now.getDate() + offset + i)
     const base: WeeklyPlanDay = { dayOfWeek: dow, dayName: DAY_NAMES[dow], date: localISO(d), activity: 'Repos', finisherType: 'none', status: 'rest' }
-    const presets: Record<number, Partial<WeeklyPlanDay>> = {
-      1: { activity: 'Séance Fessiers', workoutName: 'Booty Sculpt & Hypertrophie', routineId: 'routine-glutes-focus', finisherType: 'cardio', finisher: '12-5-30 Express (5 à 8 min)', finisherPresetId: 'finisher-cardio-12-5-30-express', status: 'planned' },
-      3: { activity: 'Séance Dos', workoutName: 'Dos & Silhouette V-Shape (Posture)', routineId: 'routine-back-v-shape', finisherType: 'abs', finisher: '30/15 Tabata Core (4 min)', finisherPresetId: 'finisher-tabata-core-30-15', status: 'planned' },
-      5: { activity: 'Séance Bas du corps', workoutName: 'Chaîne Postérieure (Fessiers & Ischios)', routineId: 'routine-posterior-chain', finisherType: 'pump', finisher: 'Challenge 100 Reps', finisherPresetId: 'finisher-challenge-100-reps', status: 'planned' },
-    }
+    // Comme dans l'app d'origine : semaine vide au départ, chaque jour est libre.
+    const presets: Record<number, Partial<WeeklyPlanDay>> = {}
     const day = { ...base, ...presets[dow] }
     return clean({ ...day, activities: [day.activity] })
   })
