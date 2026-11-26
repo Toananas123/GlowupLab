@@ -8,19 +8,22 @@
 /* Jetons de couleur : valeurs de l'app d'origine. Le thème sombre s'active pendant une séance en cours. */
 :root {
   /* Dégradés du README */
-  --grad: linear-gradient(135deg, #ea3e8e 0%, #781539 100%);
-  --gradPlum: linear-gradient(160deg, #781539 0%, #1f0c17 100%);
+  /* Dégradés de l'app d'origine : rose poudré (texte prune) et prune profond (texte blanc). */
+  --grad: radial-gradient(130% 150% at 0% 100%, #f6a1ce 0%, #f8bede 32%, #faddee 62%, #fcf7fb 100%);
+  --gradPlum: radial-gradient(120% 120% at 85% 15%, #a12a5e 0%, #781539 48%, #4a0a24 100%);
+  --card2: #efdfe8;
+  --pink2: #f59ac6;
   --bg: #fcf9fc;
   --surface: #ffffff;
   --soft: #f4e9f0;
-  --soft-2: #fff0f5;
+  --soft-2: #f7e2ee;
   --ink: #1f0c17;
   --ink-2: #3b0726;
   --muted: #7a616f;
   --line: #f3e5ed;
   --plum: #781539;
   --pink: #ea3e8e;
-  --pink-2: #f472b6;
+  --pink-2: #f59ac6;
   --blush: #fce7f3;
   --blush-line: #fbcfe8;
   color-scheme: light;

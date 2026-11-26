@@ -103,7 +103,7 @@ function FeedTab() {
         </button>
         {[...storyAuthors].sort((a, b) => Number(isSeen(a)) - Number(isSeen(b))).map((list) => (
           <button key={list[0].author.id} onClick={() => { setOpenStory(list); markSeen(list) }} className="flex w-16 shrink-0 flex-col items-center gap-1.5">
-            <span className="rounded-full p-0.5" style={{ background: isSeen(list) ? 'var(--color-line, #e5d5de)' : 'var(--grad)' }}><span className="block rounded-full border-2 border-bg"><Avatar m={list[0].author} size={50} /></span></span>
+            <span className="rounded-full p-0.5" style={{ background: isSeen(list) ? 'var(--card2)' : 'linear-gradient(135deg,#EA3E8E,#781539)' }}><span className="block rounded-full border-2 border-bg"><Avatar m={list[0].author} size={50} /></span></span>
             <span className="w-full truncate text-center text-xs font-medium">{list[0].author.id === club.me?.id ? 'Moi' : list[0].author.pseudo}</span>
           </button>
         ))}

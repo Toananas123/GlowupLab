@@ -157,8 +157,8 @@ function CycleCard({ cycle }: { cycle: ReturnType<typeof useCycle>[0] }) {
 
 function MonthReportCard({ report }: { report: ReturnType<typeof monthReport> }) {
   return (
-    <Link to="/suivi#bilan-du-mois" className="block rounded-3xl p-5 text-white" style={{ background: 'var(--grad)' }}>
-      <p className="text-sm text-white/80">Bilan du mois</p>
+    <Link to="/suivi#bilan-du-mois" className="block rounded-3xl p-5 text-[#781539]" style={{ background: 'var(--grad)' }}>
+      <p className="text-sm text-[#781539]/80">Bilan du mois</p>
       <h2 className="font-display text-2xl font-bold first-letter:uppercase">{report.label}</h2>
       <div className="mt-3 grid grid-cols-3 gap-2">
         <Stat value={report.sessions} label={report.sessions > 1 ? 'séances' : 'séance'} />
@@ -171,7 +171,7 @@ function MonthReportCard({ report }: { report: ReturnType<typeof monthReport> })
 }
 
 const Stat = ({ value, label }: { value: string | number; label: string }) => (
-  <div className="rounded-2xl bg-white/15 px-3 py-2"><span className="block font-mono text-xl font-bold">{value}</span><span className="text-xs text-white/80">{label}</span></div>
+  <div className="rounded-2xl bg-white/70 px-3 py-2"><span className="block font-mono text-xl font-bold">{value}</span><span className="text-xs text-[#781539]/80">{label}</span></div>
 )
 
 function FirstNamePrompt({ onSave }: { onSave: (name: string) => Promise<void> }) {

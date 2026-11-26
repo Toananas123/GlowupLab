@@ -57,6 +57,7 @@ export function ProfileModal({ open, onClose }: { open: boolean; onClose: () => 
       </form>
 
       <BackupCard />
+      <ShareApp />
       <PasswordCard />
 
       <div className="space-y-3">
@@ -136,5 +137,22 @@ function Select({ value, onChange, options }: { value: string; onChange: (v: str
     <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full rounded-full border border-blush-line bg-surface px-4 py-3 text-sm outline-none focus:border-pink">
       {options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
     </select>
+  )
+}
+
+/** Partager l'app (feuille de partage du téléphone, sinon copie du lien). */
+function ShareApp() {
+  const [done, setDone] = useState(false)
+  const share = async () => {
+    const data = { title: 'Glow Up Lab', text: 'Mon appli de muscu au féminin : programmes, suivi et Club entre amies 🌸', url: location.origin }
+    try {
+      if (navigator.share) await navigator.share(data)
+      else { await navigator.clipboard.writeText(`${data.text}\n${data.url}`); setDone(true); setTimeout(() => setDone(false), 2000) }
+    } catch { /* partage annulé */ }
+  }
+  return (
+    <button onClick={share} className="flex w-full items-center justify-center gap-2 rounded-full bg-soft py-3 text-sm font-semibold text-plum hover:bg-blush">
+      {done ? 'Lien copié ✓' : 'Partager l’app à une amie'}
+    </button>
   )
 }

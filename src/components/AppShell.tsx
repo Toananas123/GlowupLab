@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../features/auth/AuthProvider'
 import { signOut } from '../features/auth/authService'
+import { MusicSheet } from '../features/music/MusicSheet'
 import { ProfileModal } from '../features/profile/ProfileModal'
 import { useWorkout } from '../store/WorkoutStore'
 import { Icon, type IconName } from './Icon'
@@ -27,10 +28,10 @@ export function AppShell() {
   const location = useLocation()
   const navigate = useNavigate()
   const [profileOpen, setProfileOpen] = useState(false)
+  const [musicOpen, setMusicOpen] = useState(false)
   const inSession = location.pathname === '/seance'
   const dark = !!activeWorkout
   const name = profile?.displayName || user?.displayName || 'Mon Espace'
-  const spotify = profile?.spotifyUrl || DEFAULT_SPOTIFY
 
   // Le thème sombre s'applique aussi aux fenêtres modales (rendues dans <body>).
   useEffect(() => {
@@ -82,7 +83,7 @@ export function AppShell() {
           <button onClick={() => setProfileOpen(true)} className="flex flex-1 items-center justify-center gap-2 rounded-full bg-soft py-2.5 text-sm font-semibold text-ink-2 hover:bg-blush">
             <Icon name="user" className="size-4 text-plum" /> Profil
           </button>
-          <a href={spotify} target="_blank" rel="noopener noreferrer" title="Playlist Spotify" className="grid size-10 place-items-center rounded-full bg-soft text-plum hover:bg-blush"><Music2 size={16} /></a>
+          <button onClick={() => setMusicOpen(true)} title="Musique" aria-label="Musique" className="grid size-10 place-items-center rounded-full bg-soft text-plum hover:bg-blush"><Music2 size={16} /></button>
           <button onClick={() => signOut()} title="Se déconnecter" className="grid size-10 place-items-center rounded-full bg-soft text-plum hover:bg-blush"><LogOut size={16} /></button>
         </div>
       </aside>
@@ -93,7 +94,7 @@ export function AppShell() {
           <button onClick={() => navigate('/')} aria-label="Accueil"><Logo size={36} /></button>
           <div className="flex items-center gap-2">
             <InstallButton />
-            <a href={spotify} target="_blank" rel="noopener noreferrer" aria-label="Playlist Spotify" className="grid size-9 place-items-center rounded-full border border-line bg-soft text-plum"><Music2 size={15} /></a>
+            <button onClick={() => setMusicOpen(true)} aria-label="Musique" className="grid size-9 place-items-center rounded-full border border-line bg-soft text-plum"><Music2 size={15} /></button>
             <button onClick={() => setProfileOpen(true)} aria-label="Mon profil et réglages" className="flex items-center gap-1.5 rounded-full border border-line bg-soft py-1 pr-3 pl-1 text-sm font-semibold">
               <span className="grid size-7 place-items-center rounded-full bg-[#781539] text-xs font-bold text-white">{name.charAt(0).toUpperCase()}</span>
               <span className="max-w-24 truncate">{profile?.displayName || 'Profil'}</span>
@@ -141,6 +142,7 @@ export function AppShell() {
       )}
 
       <ProfileModal open={profileOpen} onClose={() => setProfileOpen(false)} />
+      <MusicSheet open={musicOpen} onClose={() => setMusicOpen(false)} />
     </div>
   )
 }
