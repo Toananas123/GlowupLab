@@ -42,7 +42,7 @@ create table if not exists public.friends (
 -- ---------------------------------------------------------------------------
 create table if not exists public.social (
   user_id    uuid not null references auth.users(id) on delete cascade,
-  kind       text not null check (kind in ('feed', 'reacts', 'wizz')),
+  kind       text not null check (kind in ('feed', 'reacts', 'wizz', 'invites')),
   data       jsonb not null default '[]'::jsonb,
   updated_at timestamptz not null default now(),
   primary key (user_id, kind)
@@ -174,3 +174,8 @@ begin
     end if;
   end loop;
 end $$;
+
+
+-- Mise à jour (si le script a déjà été exécuté avant l'ajout des invitations) :
+alter table public.social drop constraint if exists social_kind_check;
+alter table public.social add constraint social_kind_check check (kind in ('feed', 'reacts', 'wizz', 'invites'));

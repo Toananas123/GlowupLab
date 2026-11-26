@@ -1,5 +1,5 @@
 import { Check, Copy, EyeOff, Lock, MessageCircle, Plus, Send, Trash2, UserPlus, Zap } from 'lucide-react'
-import { useMemo, useState, type FormEvent, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from 'react'
 import { Icon } from '../../components/Icon'
 import { Modal } from '../../components/ui'
 import { getState, patchState } from '../../lib/cloud'
@@ -8,6 +8,7 @@ import { localISO } from '../../lib/utils'
 import { freshExercises } from '../../lib/workout'
 import { REACTIONS, sessionsBetween, useClub, weekStart, type FeedItem, type Member, type Post } from '../../store/ClubStore'
 import { useWorkout } from '../../store/WorkoutStore'
+import { duoStreak, GymInvites, InviteLink, KindPodium, PlanCompare, TodayCards, useMyPublic } from './ClubExtras'
 
 type Tab = 'feed' | 'friends' | 'challenges' | 'profile'
 const TABS: { id: Tab; label: string }[] = [
@@ -18,6 +19,9 @@ const TABS: { id: Tab; label: string }[] = [
 ]
 const COLORS = ['#781539', '#EA3E8E', '#9D4E7A', '#C2185B', '#701A75', '#BE185D']
 const DAY = 86400000
+type StoryKind = 'session' | 'note' | 'rest' | 'pr' | 'motivation'
+const STKIND: Record<StoryKind, string> = { session: 'Séance du jour', pr: 'Nouveau record', motivation: 'Motivation', note: 'Petit mot', rest: 'Jour de repos' }
+const STBG: [string, string][] = [['var(--gradPlum)', '#fff'], ['var(--grad)', '#781539'], ['linear-gradient(160deg,#F9C6DB,#C9A7F0)', '#781539'], ['linear-gradient(160deg,#FFC9A8,#EA3E8E)', '#fff']]
 
 const timeAgo = (iso: string) => {
   const min = Math.round((Date.now() - new Date(iso).getTime()) / 60000)
@@ -31,7 +35,7 @@ const timeAgo = (iso: string) => {
 
 export function ClubPage() {
   const club = useClub()
-  const [tab, setTab] = useState<Tab>('feed')
+  const [tab, setTab] = useState<Tab>(() => (new URLSearchParams(location.search).get('code') ? 'friends' : 'feed'))
   return (
     <div className="space-y-5">
       <header className="flex flex-wrap items-end justify-between gap-3">
@@ -83,6 +87,11 @@ function FeedTab() {
     return [...by.values()]
   }, [club.stories])
   const [openStory, setOpenStory] = useState<FeedItem[] | null>(null)
+  const [filter, setFilter] = useState<'all' | 'workout' | 'pr' | 'month' | 'challenge'>('all')
+  const [seen, setSeen] = useState<string[]>(() => (getState().seenSt as string[]) ?? [])
+  const isSeen = (list: FeedItem[]) => list.every((x) => seen.includes(`${x.author.id}|${x.id}`))
+  const markSeen = (list: FeedItem[]) => { const next = [...new Set([...seen, ...list.map((x) => `${x.author.id}|${x.id}`)])].slice(-200); setSeen(next); patchState({ seenSt: next }) }
+  const shown = club.feed.filter((p) => filter === 'all' || p.type === filter || (filter === 'month' && p.type === 'year') || (filter === 'workout' && p.type === 'routine'))
 
   return (
     <div className="space-y-5">
@@ -92,9 +101,9 @@ function FeedTab() {
           <span className="grid size-14 place-items-center rounded-full border-2 border-dashed border-pink text-pink"><Plus size={20} /></span>
           <span className="text-xs font-medium">Ma story</span>
         </button>
-        {storyAuthors.map((list) => (
-          <button key={list[0].author.id} onClick={() => setOpenStory(list)} className="flex w-16 shrink-0 flex-col items-center gap-1.5">
-            <span className="rounded-full p-0.5" style={{ background: 'var(--grad)' }}><span className="block rounded-full border-2 border-bg"><Avatar m={list[0].author} size={50} /></span></span>
+        {[...storyAuthors].sort((a, b) => Number(isSeen(a)) - Number(isSeen(b))).map((list) => (
+          <button key={list[0].author.id} onClick={() => { setOpenStory(list); markSeen(list) }} className="flex w-16 shrink-0 flex-col items-center gap-1.5">
+            <span className="rounded-full p-0.5" style={{ background: isSeen(list) ? 'var(--color-line, #e5d5de)' : 'var(--grad)' }}><span className="block rounded-full border-2 border-bg"><Avatar m={list[0].author} size={50} /></span></span>
             <span className="w-full truncate text-center text-xs font-medium">{list[0].author.id === club.me?.id ? 'Moi' : list[0].author.pseudo}</span>
           </button>
         ))}
@@ -130,24 +139,45 @@ function FeedTab() {
         <Send size={18} className="text-plum" />
       </button>
 
+      <div className="flex gap-1.5 overflow-x-auto scrollbar-none" role="tablist" aria-label="Filtrer le fil">
+        {([['all', 'Tout'], ['workout', 'Séances'], ['pr', 'Records'], ['month', 'Bilans'], ['challenge', 'Défis']] as const).map(([k, l]) => (
+          <button key={k} role="tab" aria-selected={filter === k} onClick={() => setFilter(k)} className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold ${filter === k ? 'bg-[#781539] text-white' : 'bg-soft'}`}>{l}</button>
+        ))}
+      </div>
+
+      {shown.length === 0 && club.feed.length > 0 ? <p className="text-center text-sm text-muted">Rien dans cette catégorie pour le moment.</p> : null}
       {club.feed.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-blush-line p-8 text-center">
           <p className="font-semibold">Le fil est encore vide</p>
           <p className="mt-1 text-sm text-muted">Ajoute une amie avec son code GLOW, puis partage ta prochaine séance.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">{club.feed.map((item) => <PostCard key={item.author.id + item.id} item={item} />)}</div>
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((item) => <PostCard key={item.author.id + item.id} item={item} />)}</div>
       )}
 
       <ShareModal mode={composer} onClose={() => setComposer(null)} />
-      <Modal open={!!openStory} onClose={() => setOpenStory(null)} title={openStory ? `Story de ${openStory[0].author.pseudo}` : ''} maxWidth="max-w-sm">
+      <Modal open={!!openStory} onClose={() => setOpenStory(null)} title={openStory ? (openStory[0].author.id === club.me?.id ? 'Ma story' : `Story de ${club.nameOf(openStory[0].author)}`) : ''} maxWidth="max-w-sm">
         <div className="space-y-3">
-          {openStory?.map((s) => (
-            <div key={s.id} className="rounded-3xl p-5 text-white" style={{ background: 'var(--grad)' }}>
-              <p className="text-sm text-white/80">{s.story?.kind === 'session' ? 'Séance du jour' : s.story?.kind === 'rest' ? 'Jour de repos' : 'Petit mot'} · {timeAgo(s.createdAt)}</p>
-              <p className="mt-1 font-serif text-xl italic">{s.text}</p>
-            </div>
-          ))}
+          {openStory?.map((st) => {
+            const fresh = club.stories.find((x) => x.id === st.id && x.author.id === st.author.id) ?? st
+            const [bg, fg] = STBG[fresh.story?.bg ?? 1] ?? STBG[1]
+            const mineS = fresh.author.id === club.me?.id
+            return (
+              <div key={fresh.id} className="rounded-3xl p-5" style={{ background: bg, color: fg }}>
+                <p className="text-sm opacity-80">{STKIND[fresh.story?.kind ?? 'note']} · {timeAgo(fresh.createdAt)}</p>
+                <p className="mt-1 font-serif text-xl italic">{fresh.text}</p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {REACTIONS.map((r) => {
+                    const by = fresh.reactions[r.id]
+                    const on = club.me ? by.includes(club.me.id) : false
+                    return mineS
+                      ? (by.length ? <span key={r.id} className="rounded-full bg-white/25 px-2.5 py-1 text-sm">{r.emoji} <span className="font-mono text-xs font-bold">{by.length}</span></span> : null)
+                      : <button key={r.id} onClick={() => club.react(fresh, r.id)} aria-pressed={on} title={r.label} className={`rounded-full px-2.5 py-1 text-sm ${on ? 'bg-white text-[#781539]' : 'bg-white/25'}`}>{r.emoji}</button>
+                  })}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </Modal>
     </div>
@@ -167,7 +197,7 @@ function PostCard({ item }: { item: FeedItem }) {
     <article className="space-y-3 rounded-3xl border border-line bg-surface p-4">
       <header className="flex items-center gap-3">
         <Avatar m={item.author} />
-        <div className="min-w-0 flex-1"><p className="truncate font-semibold">{mine ? 'Moi' : item.author.pseudo}</p><p className="text-xs text-muted">{timeAgo(item.createdAt)}</p></div>
+        <div className="min-w-0 flex-1"><p className="truncate font-semibold">{mine ? 'Moi' : club.nameOf(item.author)}</p><p className="text-xs text-muted">{timeAgo(item.createdAt)}</p></div>
         {mine && <button onClick={() => (confirm ? club.deletePost(item.id) : setConfirm(true))} className={`rounded-full px-2.5 py-1 text-xs font-semibold ${confirm ? 'bg-rose-600 text-white' : 'text-muted hover:bg-soft'}`}>{confirm ? 'Supprimer ?' : <Trash2 size={14} />}</button>}
       </header>
 
@@ -243,7 +273,8 @@ function ShareModal({ mode, onClose }: { mode: null | 'story' | 'share'; onClose
   const club = useClub()
   const { workouts, measurements, routines, getPersonalRecords, allExercises } = useWorkout()
   const [text, setText] = useState('')
-  const [kind, setKind] = useState<'session' | 'note' | 'rest'>('note')
+  const [kind, setKind] = useState<StoryKind>('note')
+  const [bg, setBg] = useState(1)
   const [busy, setBusy] = useState(false)
   const last = workouts.find((w) => w.status === 'completed')
   const prs = Object.entries(getPersonalRecords()).slice(0, 8)
@@ -256,14 +287,21 @@ function ShareModal({ mode, onClose }: { mode: null | 'story' | 'share'; onClose
     <Modal open={!!mode} onClose={onClose} title={mode === 'story' ? 'Ma story (24 h)' : 'Partager au Club'} maxWidth="max-w-lg">
       {mode === 'story' ? (
         <div className="space-y-3">
-          <div className="grid grid-cols-3 gap-2">
-            {([['session', 'Séance du jour'], ['note', 'Petit mot'], ['rest', 'Jour de repos']] as const).map(([k, l]) => (
-              <button key={k} onClick={() => setKind(k)} aria-pressed={kind === k} className={`rounded-2xl py-2.5 text-sm font-semibold ${kind === k ? 'bg-[#781539] text-white' : 'bg-soft'}`}>{l}</button>
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+            {(Object.entries(STKIND) as [StoryKind, string][]).map(([k, l]) => (
+              <button key={k} onClick={() => setKind(k)} aria-pressed={kind === k} className={`rounded-2xl px-1 py-2.5 text-xs font-semibold ${kind === k ? 'bg-[#781539] text-white' : 'bg-soft'}`}>{l}</button>
             ))}
+          </div>
+          <div className="flex gap-2" role="group" aria-label="Fond de la story">
+            {STBG.map(([b], i) => <button key={i} onClick={() => setBg(i)} aria-pressed={bg === i} aria-label={`Fond ${i + 1}`} className={`size-9 rounded-full ${bg === i ? 'ring-2 ring-ink ring-offset-2' : ''}`} style={{ background: b }} />)}
+          </div>
+          <div className="rounded-3xl p-5" style={{ background: STBG[bg][0], color: STBG[bg][1] }}>
+            <p className="text-sm opacity-80">{STKIND[kind]}</p>
+            <p className="mt-1 min-h-7 font-serif text-xl italic">{text || 'Aperçu de ta story'}</p>
           </div>
           <textarea value={text} onChange={(e) => setText(e.target.value)} rows={3} maxLength={160} placeholder={kind === 'rest' ? 'Repos mérité, on reprend demain !' : kind === 'session' ? 'Leg day bouclé 🔥' : 'Un mot pour tes amies'}
             className="w-full rounded-2xl border border-blush-line bg-surface p-3 text-sm outline-none focus:border-pink" />
-          <button disabled={busy || !text.trim()} onClick={() => run(() => club.publish({ type: 'story', text: text.trim(), story: { kind, expiresAt: new Date(Date.now() + DAY).toISOString() } }))}
+          <button disabled={busy || !text.trim()} onClick={() => run(() => club.publish({ type: 'story', text: text.trim(), story: { kind, bg, expiresAt: new Date(Date.now() + DAY).toISOString() } }))}
             className="w-full rounded-full bg-[#781539] py-3 text-sm font-semibold text-white disabled:opacity-50">Publier pour 24 h</button>
         </div>
       ) : (
@@ -320,8 +358,18 @@ function FriendsTab() {
   const [motText, setMotText] = useState('')
   const [confirm, setConfirm] = useState<string | null>(null)
   const [sent, setSent] = useState<string | null>(null)
+  const [renaming, setRenaming] = useState<Member | null>(null)
+  const [nick, setNick] = useState('')
+  const mine = useMyPublic()
   const dow = new Date().getDay()
   const ws = weekStart()
+  // Lien d'invitation : /social?code=GLOW-XXX pré-remplit le code.
+  useEffect(() => {
+    const c = new URLSearchParams(location.search).get('code')
+    if (c && c !== club.me?.code) setCode(c.toUpperCase())
+    if (c) history.replaceState(null, '', location.pathname)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="space-y-5">
@@ -333,6 +381,8 @@ function FriendsTab() {
         <button disabled={!code.trim()} className="rounded-full bg-[#781539] px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50">Ajouter</button>
       </form>
       {msg && <p role="status" className={`rounded-2xl px-4 py-2.5 text-sm ${msg.ok ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}`}>{msg.message}</p>}
+      <InviteLink />
+      <TodayCards />
 
       {club.friends.length === 0 ? (
         <p className="rounded-3xl border border-dashed border-blush-line p-8 text-center text-sm text-muted">Partage ton code <strong className="font-mono text-plum">{club.me?.code}</strong> ou entre celui d’une amie pour commencer.</p>
@@ -341,15 +391,22 @@ function FriendsTab() {
           {club.friends.map((f) => {
             const today = f.publicData.week?.[dow] ?? '—'
             const thisWeek = sessionsBetween(f, ws, localISO())
+            const total = (f.publicData.sessionDates ?? []).length
+            const duo = duoStreak(mine.dates, f.publicData.sessionDates ?? [])
             return (
               <div key={f.id} className="space-y-3 rounded-3xl border border-line bg-surface p-4">
                 <div className="flex items-center gap-3">
                   <Avatar m={f} size={46} />
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold">{f.pseudo}</p>
+                    <p className="flex items-center gap-1.5 font-semibold">{club.nameOf(f)}{club.nameOf(f) !== f.pseudo && <span className="text-xs font-normal text-muted">({f.pseudo})</span>}
+                      <button onClick={() => { setRenaming(f); setNick(club.nameOf(f)) }} className="text-xs font-normal text-plum underline-offset-2 hover:underline">Renommer</button></p>
                     <p className="truncate text-sm text-muted">{f.bio || `Aujourd’hui : ${today}`}</p>
                   </div>
                   <span className="text-right"><span className="block font-mono text-lg font-bold">{thisWeek}</span><span className="text-xs text-muted">cette sem.</span></span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-center">
+                  <span className="rounded-2xl bg-soft py-1.5"><span className="block font-mono font-bold">{total}</span><span className="text-[11px] text-muted">séances (90 j)</span></span>
+                  <span className="rounded-2xl bg-soft py-1.5"><span className="block font-mono font-bold">{duo} 🔥</span><span className="text-[11px] text-muted">sem. ensemble d’affilée</span></span>
                 </div>
                 <div className="flex gap-2">
                   <button onClick={async () => { await club.sendWizz(f, 'wizz', 'Zéro excuse, on garde notre régularité ! 💪'); setSent(f.id); setTimeout(() => setSent(null), 2500) }}
@@ -363,6 +420,15 @@ function FriendsTab() {
           })}
         </div>
       )}
+
+      {club.friends.length > 0 && <div className="grid grid-cols-1 gap-5 lg:grid-cols-2"><PlanCompare /><GymInvites /></div>}
+
+      <Modal open={!!renaming} onClose={() => setRenaming(null)} title={`Renommer ${renaming?.pseudo}`} subtitle="Surnom visible seulement par toi" maxWidth="max-w-sm">
+        <form onSubmit={(e) => { e.preventDefault(); club.rename(renaming!.id, nick); setRenaming(null) }} className="space-y-3">
+          <input value={nick} onChange={(e) => setNick(e.target.value)} maxLength={30} placeholder={renaming?.pseudo} aria-label="Surnom" className="w-full rounded-2xl border border-blush-line bg-surface px-3 py-2.5 text-sm" />
+          <button className="w-full rounded-full bg-[#781539] py-3 text-sm font-semibold text-white">Enregistrer</button>
+        </form>
+      </Modal>
 
       <Modal open={!!mot} onClose={() => setMot(null)} title={`Mot doux pour ${mot?.pseudo}`} maxWidth="max-w-sm">
         <form onSubmit={async (e) => { e.preventDefault(); await club.sendWizz(mot!, 'mot', motText); setMotText(''); setMot(null) }} className="space-y-3">
@@ -396,18 +462,6 @@ function ChallengesTab() {
   const count = (m: Member, from: string, to: string) => (m.id === me.id ? mineSessions(from, to) : sessionsBetween(m, from, to))
   const groupTotal = circle.reduce((s, m) => s + count(m, ws, today), 0)
 
-  // « Chacune sa victoire » : chacune comparée à sa propre moyenne des 4 semaines précédentes.
-  const victories = circle.map((m) => {
-    const start = new Date(ws)
-    const prev = [1, 2, 3, 4].map((k) => {
-      const a = new Date(start.getTime() - k * 7 * DAY), b = new Date(start.getTime() - (k - 1) * 7 * DAY - DAY)
-      return count(m, localISO(a), localISO(b))
-    })
-    const avg = prev.reduce((s, n) => s + n, 0) / 4
-    const now = count(m, ws, today)
-    return { m, now, avg: Math.round(avg * 10) / 10, delta: Math.round((now - avg) * 10) / 10, cheers: club.encouragementsSince(m.id, `${ws}T00:00:00`) }
-  })
-
   const badges = [
     { title: 'Première séance', ok: workouts.some((w) => w.status === 'completed') },
     { title: 'Régulière', hint: '3 séances dans la semaine', ok: mineSessions(ws, today) >= 3 },
@@ -430,25 +484,7 @@ function ChallengesTab() {
         <p className="mt-2 text-sm text-white/80">{groupTotal >= club.groupTarget ? 'Objectif atteint ensemble, bravo ! 🎉' : `Encore ${club.groupTarget - groupTotal} séance(s) à vous toutes.`}</p>
       </section>
 
-      {/* Chacune sa victoire */}
-      <section className="rounded-3xl border border-line bg-surface p-5">
-        <h2 className="font-bold">Chacune sa victoire</h2>
-        <p className="mb-4 text-sm text-muted">Pas de classement : chacune est comparée à elle-même, et encourager les copines compte aussi.</p>
-        <ul className="space-y-3">
-          {victories.map((v) => (
-            <li key={v.m.id} className="flex items-center gap-3">
-              <Avatar m={v.m} size={36} />
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold">{v.m.id === me.id ? 'Moi' : v.m.pseudo}</p>
-                <p className="text-xs text-muted">{v.now} séance(s) cette semaine · moyenne {v.avg} · {v.cheers} encouragement(s)</p>
-              </div>
-              <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${v.delta > 0 ? 'bg-emerald-50 text-emerald-700' : v.cheers > 0 ? 'bg-blush text-plum' : 'bg-soft text-muted'}`}>
-                {v.delta > 0 ? `+${v.delta} vs sa moyenne` : v.cheers > 0 ? 'Supportrice' : 'En route'}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <KindPodium />
 
       {/* Défis en duo */}
       <section className="space-y-3">
@@ -461,14 +497,27 @@ function ChallengesTab() {
           const ch = c.challenge!
           const other = c.author.id === me.id ? club.friends.find((f) => f.id === ch.partnerId) : c.author
           if (!other) return null
+          const invited = c.author.id !== me.id
+          const ans = club.answerOf(c.id, invited ? me.id : other.id)
+          if (ans === 'no' && !invited) return <p key={c.id} className="text-sm text-muted">{club.nameOf(other)} n’a pas pu relever « {ch.title} » cette fois-ci.</p>
+          if (ans === 'no') return null
+          if (invited && !ans) return (
+            <div key={c.id} className="rounded-3xl bg-blush p-4">
+              <div className="flex items-center gap-3"><Avatar m={other} size={40} /><div><p className="text-xs font-semibold uppercase tracking-wide text-plum">Nouveau défi en duo</p><p className="text-sm font-semibold">{club.nameOf(other)} te propose : {ch.title} ({ch.target} séances à deux)</p></div></div>
+              <div className="mt-3 flex gap-2">
+                <button onClick={() => club.answer(other.id, c.id, 'no')} className="flex-1 rounded-full bg-white py-2 text-sm font-semibold">Plus tard</button>
+                <button onClick={() => club.answer(other.id, c.id, 'yes')} className="flex flex-[2] items-center justify-center gap-1.5 rounded-full bg-[#781539] py-2 text-sm font-semibold text-white"><Check size={15} /> Je relève le défi</button>
+              </div>
+            </div>
+          )
           const end = ch.end < today ? ch.end : today
           const a = count(me, ch.start, end), b = count(other, ch.start, end)
           const pct = Math.min(100, ((a + b) / ch.target) * 100)
           const over = ch.end < today
           return (
             <div key={c.id} className="space-y-2 rounded-3xl border border-line bg-surface p-4">
-              <div className="flex items-baseline justify-between gap-2"><p className="font-semibold">{ch.title}</p><span className="text-xs text-muted">{over ? 'Terminé' : `jusqu’au ${new Date(ch.end).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}`}</span></div>
-              <p className="text-sm text-muted">Moi <span className="font-mono font-bold text-ink">{a}</span> + {other.pseudo} <span className="font-mono font-bold text-ink">{b}</span> = <span className="font-mono font-bold text-plum">{a + b} / {ch.target}</span></p>
+              <div className="flex items-baseline justify-between gap-2"><p className="font-semibold">{ch.title}{!invited && !ans && <span className="ml-2 rounded-full bg-soft px-2 py-0.5 text-[11px] font-semibold text-muted">en attente de {club.nameOf(other)}</span>}</p><span className="text-xs text-muted">{over ? 'Terminé' : `jusqu’au ${new Date(ch.end).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}`}</span></div>
+              <p className="text-sm text-muted">Moi <span className="font-mono font-bold text-ink">{a}</span> + {club.nameOf(other)} <span className="font-mono font-bold text-ink">{b}</span> = <span className="font-mono font-bold text-plum">{a + b} / {ch.target}</span></p>
               <div className="flex h-3 overflow-hidden rounded-full bg-soft">
                 <div className="h-full bg-[#781539]" style={{ width: `${Math.min(pct, (a / ch.target) * 100)}%` }} />
                 <div className="h-full bg-pink" style={{ width: `${Math.max(0, pct - (a / ch.target) * 100)}%` }} />

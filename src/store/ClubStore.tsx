@@ -44,12 +44,26 @@ export interface Post {
   /** routine partagée (importable) */
   routine?: { name: string; exercises: { exerciseId: string; exerciseName: string; sets: number; reps: number }[] }
   /** story 24 h */
-  story?: { kind: 'session' | 'note' | 'rest'; expiresAt: string }
+  story?: { kind: 'session' | 'note' | 'rest' | 'pr' | 'motivation'; expiresAt: string; bg?: number }
   /** défi en duo */
   challenge?: { partnerId: string; title: string; target: number; start: string; end: string }
 }
 
 export interface ReactEntry { owner: string; postId: string; reaction?: Reaction; comment?: string; at: string }
+/** Invitation « On s'entraîne ensemble ? » ou réponse (à une invitation ou à un défi en duo). */
+export interface InviteEntry {
+  id: string
+  to: string
+  kind: 'gym' | 'answer'
+  /** gym : jour (0 = lundi) et heure proposés. */
+  day?: number
+  time?: string
+  note?: string
+  /** answer : identifiant de l'invitation ou du défi concerné. */
+  ref?: string
+  answer?: 'yes' | 'no'
+  at: string
+}
 export interface WizzEntry { to: string; kind: 'wizz' | 'mot'; text: string; at: string }
 
 export interface LiveInfo { name: string; pct: number; current?: string; at: string }
@@ -86,6 +100,17 @@ interface ClubState {
   feed: FeedItem[]
   stories: FeedItem[]
   wizzReceived: (WizzEntry & { from: Member })[]
+  /** Invitations et réponses que j'ai envoyées. */
+  myInvites: InviteEntry[]
+  /** Invitations et réponses reçues de mes amies. */
+  invitesReceived: (InviteEntry & { from: Member })[]
+  sendInvite: (to: Member, day: number, time: string, note?: string) => Promise<void>
+  answer: (to: string, ref: string, answer: 'yes' | 'no') => Promise<void>
+  /** Réponse donnée à une invitation ou à un défi (par moi ou par une amie). */
+  answerOf: (ref: string, by: string) => 'yes' | 'no' | undefined
+  /** Surnom local d'une amie (jamais partagé). */
+  nameOf: (m: Pick<Member, 'id' | 'pseudo'>) => string
+  rename: (id: string, nick: string) => void
   refresh: () => Promise<void>
   updateMe: (patch: Partial<Pick<Member, 'pseudo' | 'avatarColor' | 'bio' | 'hideLoads'>>) => Promise<void>
   addFriendByCode: (code: string) => Promise<{ ok: boolean; message: string }>
@@ -104,6 +129,8 @@ interface ClubState {
   encouragementsSince: (memberId: string, since: string) => number
 }
 
+type Rows = { feed: Post[]; reacts: ReactEntry[]; wizz: WizzEntry[]; invites: InviteEntry[] }
+const EMPTY: Rows = { feed: [], reacts: [], wizz: [], invites: [] }
 const Ctx = createContext<ClubState | null>(null)
 const MAX_POSTS = 120
 const DAY = 86400000
@@ -120,12 +147,20 @@ export function ClubProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
   const [members, setMembers] = useState<Record<string, Member>>({})
   const [friendIds, setFriendIds] = useState<string[]>([])
-  const [rows, setRows] = useState<Record<string, { feed: Post[]; reacts: ReactEntry[]; wizz: WizzEntry[] }>>({})
+  const [rows, setRows] = useState<Record<string, Rows>>({})
   const [groupTarget, setTarget] = useState<number>(() => Number(getState().clubGroupTarget) || 12)
   const channel = useRef<RealtimeChannel | null>(null)
 
   const load = useCallback(async () => {
-    if (!uid || demoMode) { setLoading(false); return }
+    if (!uid) { setLoading(false); return }
+    if (demoMode) {
+      // Mode démo (build VITE_DEMO uniquement) : cercle factice facultatif pour tester le Club hors ligne.
+      try {
+        const d = JSON.parse(localStorage.getItem('glowuplab_demo_club') ?? 'null') as { members: Record<string, Member>; friendIds: string[]; rows: Record<string, Rows> } | null
+        if (d) { setMembers((m) => ({ ...m, ...d.members })); setFriendIds(d.friendIds); setRows((r) => ({ ...d.rows, ...(r[uid] ? { [uid]: r[uid] } : {}) })) }
+      } catch { /* ignoré */ }
+      setLoading(false); return
+    }
     const { data: links } = await supabase.from('friends').select('user_id, friend_id')
     const ids = [...new Set((links ?? []).map((l) => (l.user_id === uid ? l.friend_id : l.user_id)))]
     const all = [uid, ...ids]
@@ -136,7 +171,7 @@ export function ClubProvider({ children }: { children: ReactNode }) {
     setFriendIds(ids)
     setMembers(Object.fromEntries((profs ?? []).map((p) => [p.id, toMember(p)])))
     const next: typeof rows = {}
-    for (const id of all) next[id] = { feed: [], reacts: [], wizz: [] }
+    for (const id of all) next[id] = { ...EMPTY }
     for (const s of social ?? []) (next[s.user_id] as Record<string, unknown>)[s.kind] = s.data ?? []
     setRows(next)
     setLoading(false)
@@ -174,15 +209,15 @@ export function ClubProvider({ children }: { children: ReactNode }) {
     return () => clearTimeout(t)
   }, [uid, loading, workouts, weeklyPlans, members, activeWorkout])
 
-  const writeRow = useCallback(async (kind: 'feed' | 'reacts' | 'wizz', data: unknown[]) => {
+  const writeRow = useCallback(async (kind: keyof Rows, data: unknown[]) => {
     if (!uid) return
-    setRows((r) => ({ ...r, [uid]: { ...(r[uid] ?? { feed: [], reacts: [], wizz: [] }), [kind]: data } }))
+    setRows((r) => ({ ...r, [uid]: { ...(r[uid] ?? EMPTY), [kind]: data } }))
     if (demoMode) return
     const { error } = await supabase.from('social').upsert({ user_id: uid, kind, data })
     if (error) throw error
   }, [uid])
 
-  const mine = uid ? rows[uid] ?? { feed: [], reacts: [], wizz: [] } : { feed: [], reacts: [], wizz: [] }
+  const mine = (uid && rows[uid]) || EMPTY
   const me = uid ? members[uid] ?? (profile ? { id: uid, pseudo: profile.displayName, code: profile.friendCode ?? '', avatarColor: '#781539', bio: '', hideLoads: false, publicData: {} } : null) : null
   const friends = friendIds.map((id) => members[id]).filter(Boolean)
 
@@ -206,6 +241,28 @@ export function ClubProvider({ children }: { children: ReactNode }) {
 
   const wizzReceived = useMemo(() => friendIds.flatMap((id) => (rows[id]?.wizz ?? []).filter((w) => w.to === uid).map((w) => ({ ...w, from: members[id] })))
     .filter((w) => w.from).sort((a, b) => b.at.localeCompare(a.at)), [rows, friendIds, members, uid])
+
+  const invitesReceived = useMemo(() => friendIds.flatMap((id) => (rows[id]?.invites ?? []).filter((w) => w.to === uid).map((w) => ({ ...w, from: members[id] })))
+    .filter((w) => w.from).sort((a, b) => b.at.localeCompare(a.at)), [rows, friendIds, members, uid])
+
+  const sendInvite = useCallback(async (to: Member, day: number, time: string, note?: string) => {
+    const e: InviteEntry = { id: `i_${Date.now().toString(36)}`, to: to.id, kind: 'gym', day, time: time.slice(0, 10), note: note?.trim().slice(0, 120) || undefined, at: new Date().toISOString() }
+    await writeRow('invites', [e, ...mine.invites].slice(0, 60))
+  }, [mine.invites, writeRow])
+
+  const answer = useCallback(async (to: string, ref: string, ans: 'yes' | 'no') => {
+    const e: InviteEntry = { id: `a_${Date.now().toString(36)}`, to, kind: 'answer', ref, answer: ans, at: new Date().toISOString() }
+    await writeRow('invites', [e, ...mine.invites.filter((x) => !(x.kind === 'answer' && x.ref === ref))].slice(0, 60))
+  }, [mine.invites, writeRow])
+
+  const answerOf = useCallback((ref: string, by: string) => (rows[by]?.invites ?? []).find((x) => x.kind === 'answer' && x.ref === ref)?.answer, [rows])
+
+  const [nicks, setNicks] = useState<Record<string, string>>(() => (getState().nicknames as Record<string, string>) ?? {})
+  const nameOf = useCallback((m: Pick<Member, 'id' | 'pseudo'>) => nicks[m.id] || m.pseudo, [nicks])
+  const rename = useCallback((id: string, nick: string) => {
+    const next = { ...nicks }; if (nick.trim()) next[id] = nick.trim().slice(0, 30); else delete next[id]
+    setNicks(next); patchState({ nicknames: next })
+  }, [nicks])
 
   const updateMe = useCallback(async (patch: Partial<Pick<Member, 'pseudo' | 'avatarColor' | 'bio' | 'hideLoads'>>) => {
     if (!uid) return
@@ -291,7 +348,7 @@ export function ClubProvider({ children }: { children: ReactNode }) {
   liveFriends.forEach((f) => { f.live = f.publicData.live! })
 
   const value: ClubState = {
-    loading, me, friends, feed, stories, wizzReceived, refresh: load, updateMe, addFriendByCode, removeFriend,
+    loading, me, friends, feed, stories, wizzReceived, myInvites: mine.invites, invitesReceived, sendInvite, answer, answerOf, nameOf, rename, refresh: load, updateMe, addFriendByCode, removeFriend,
     publish, deletePost, react, comment, sendWizz, shareWorkout, groupTarget, setGroupTarget, encouragementsSince, liveFriends,
   }
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

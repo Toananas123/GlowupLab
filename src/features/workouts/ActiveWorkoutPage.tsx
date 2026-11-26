@@ -918,7 +918,7 @@ export const ActiveWorkoutPage = ({ onFinishWorkout, onExit }) => {
                       </div>
                     </div>
                     {/* Ressenti de la série (app d'origine) : sans surcharge la semaine suivante si « Dur ». */}
-                    {n.completed && (
+                    {n.completed && i > 0 && (
                       <div className="mt-1.5 ml-11 flex gap-1.5" role="group" aria-label={`Ressenti série ${r + 1}`}>
                         {[[1, `Facile`, `bg-[#7FD1AE] text-[#0E3B2A]`], [2, `Juste`, `bg-[#F9B8D6] text-[#781539]`], [3, `Dur`, `bg-[#EA3E8E] text-white`]].map(([v, l, on]) => (
                           <button key={v} type="button" aria-pressed={n.rpe === v} onClick={() => setRpe(t, r, v)}
