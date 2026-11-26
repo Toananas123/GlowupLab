@@ -106,7 +106,7 @@ export const BLOCKS = ['Fondations', 'Volume', 'Intensité'] as const
 export function blockOf(p: Program, w: number) { if (p.durationWeeks < 8) return 0; const size = Math.ceil(p.durationWeeks / 3); return Math.min(2, Math.floor(w / size)) }
 const PATGRP: Record<string, string> = { abduct: 'iso', kick: 'iso', bulgar: 'uni', lunge: 'uni', step: 'uni' }
 const pg = (p?: unknown) => PATGRP[String(p)] ?? String(p)
-function rotAlt(exId: string, b: number, used: Set<string>, catalog: Exercise[]) {
+export function rotAlt(exId: string, b: number, used: Set<string>, catalog: Exercise[]) {
   const e = catalog.find((x) => x.id === exId)
   if (!e || e.category === 'cardio') return null
   const C = catalog.filter((x) => x.category === e.category && pg(x.pattern) === pg(e.pattern) && x.id !== e.id && !x.isCustom && !used.has(x.id) && !/Max|minutes|sec/.test(String(x.scheme ?? '')))

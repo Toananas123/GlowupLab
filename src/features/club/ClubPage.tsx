@@ -232,6 +232,7 @@ function PostBody({ item }: { item: FeedItem }) {
     case 'pr': return box('Nouveau record', <p className="text-sm"><strong>{item.pr?.exercise}</strong>{item.pr?.weight ? <span className="font-mono"> · {item.pr.weight} kg × {item.pr.reps}</span> : null}</p>, 'trophy')
     case 'objective': return box('Objectif atteint', <p className="text-sm">{item.objective}</p>, 'sparkle')
     case 'month': return box(`Bilan de ${item.month?.label}`, <p className="font-mono text-sm">{item.month?.sessions} séances · {Math.round((item.month?.volumeKg ?? 0) / 100) / 10} t · {item.month?.records} record(s)</p>, 'calendar')
+    case 'year': return box(`Mon année ${item.year?.y}`, <p className="text-sm"><span className="font-mono">{item.year?.sessions} séances · {item.year?.records} record(s) · {item.year?.streak} sem. d’affilée</span>{item.year?.top ? <span className="block text-muted">Exercice préféré : {item.year.top}</span> : null}</p>, 'sparkle')
     case 'routine': return box(`Routine : ${item.routine?.name}`, <ul className="text-sm text-muted">{item.routine?.exercises.map((e, i) => <li key={i}>{e.exerciseName} — {e.sets}×{e.reps}</li>)}</ul>, 'dumbbell')
     case 'challenge': return box(item.challenge?.title ?? 'Défi en duo', <p className="text-sm text-muted">Objectif commun : {item.challenge?.target} séances d’ici le {item.challenge && new Date(item.challenge.end).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</p>, 'heart-pulse')
     default: return null

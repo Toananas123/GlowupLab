@@ -4,6 +4,7 @@ import { ProgramsExtras } from '../features/programs/ProgramsExtras'
 import { ProgramsPage } from '../features/programs/ProgramsPage'
 import { MeasurementsPage } from '../features/progress/MeasurementsPage'
 import { WeightNote } from '../features/progress/WeightNote'
+import { Insights } from '../features/progress/Insights'
 import { ProgressExtras } from '../features/progress/ProgressExtras'
 import { ProgressPage } from '../features/progress/ProgressPage'
 
@@ -18,7 +19,7 @@ export function ProgramsRoute() {
 }
 
 export function ProgressRoute() {
-  return <><ProgressExtras /><ProgressPage /></>
+  return <><Insights /><ProgressExtras /><ProgressPage /></>
 }
 
 export function MeasurementsRoute() {

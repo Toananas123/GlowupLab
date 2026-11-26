@@ -5,6 +5,7 @@ import { Icon, categoryIcon } from '../../components/Icon'
 import { OBJECTIVES_STORAGE_KEY } from '../../lib/constants'
 import { Sheet } from '../../components/Sheet'
 import { useWorkout } from '../../store/WorkoutStore'
+import { useClub } from '../../store/ClubStore'
 import { Check, ChevronDown, ChevronRight, Minus, PenLine, Plus, RotateCcw, Search, Target, Trash2 } from 'lucide-react'
 export const ProgressPage = () => {
   let {
@@ -85,6 +86,8 @@ export const ProgressPage = () => {
     [xe, Se] = useState(``),
     [Ce, we] = useState(null),
     [Te, Ee] = useState(null),
+    club = useClub(),
+    [clubShared, setClubShared] = useState(null),
     [De, Oe] = useState(null),
     ke = useMemo(
       () =>
@@ -1198,6 +1201,16 @@ export const ProgressPage = () => {
                               <Icon name="share" className="w-3.5 h-3.5" />
                               <span>{Te === e.id ? `Copié !` : `Partager`}</span>
                             </button>
+                            {club.me && (
+                              <button
+                                disabled={clubShared === e.id}
+                                onClick={async () => { await club.shareWorkout(e); setClubShared(e.id) }}
+                                className="px-3 py-1.5 rounded-full bg-white text-[#781539] text-xs font-semibold flex items-center gap-1 disabled:opacity-60"
+                              >
+                                <Icon name="heart-pulse" className="w-3.5 h-3.5" />
+                                <span>{clubShared === e.id ? `Partagé ✓` : `Au Club`}</span>
+                              </button>
+                            )}
                             <button
                               onClick={() => Oe(JSON.parse(JSON.stringify(e)))}
                               className="px-3 py-1.5 rounded-full bg-white text-[#1F0C17] text-xs font-semibold flex items-center gap-1"

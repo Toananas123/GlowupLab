@@ -24,7 +24,7 @@ export const REACTIONS: { id: Reaction; emoji: string; label: string }[] = [
   { id: 'clap', emoji: '👏', label: 'Bravo' },
 ]
 
-export type PostType = 'workout' | 'pr' | 'objective' | 'month' | 'routine' | 'story' | 'challenge'
+export type PostType = 'workout' | 'pr' | 'objective' | 'month' | 'routine' | 'story' | 'challenge' | 'year'
 
 export interface Post {
   id: string
@@ -39,6 +39,8 @@ export interface Post {
   objective?: string
   /** month (bilan sans mensurations) */
   month?: { label: string; sessions: number; volumeKg: number; records: number }
+  /** récap de l'année */
+  year?: { y: number; sessions: number; days: number; records: number; streak: number; top: string }
   /** routine partagée (importable) */
   routine?: { name: string; exercises: { exerciseId: string; exerciseName: string; sets: number; reps: number }[] }
   /** story 24 h */
